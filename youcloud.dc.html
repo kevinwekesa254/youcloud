@@ -34,7 +34,35 @@
   }
   .yc-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
   @media (max-width: 900px) { .yc-feat-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .yc-feat-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 620px) { .yc-feat-grid { grid-template-columns: 1fr; gap: 18px; } }
+  .yc-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+  @media (max-width: 820px) { .yc-grid-2 { grid-template-columns: 1fr; gap: 18px; } }
+
+  /* ---- mobile responsiveness ---- */
+  @media (max-width: 760px) {
+    section { padding-left: 18px !important; padding-right: 18px !important; }
+    footer { padding-left: 18px !important; padding-right: 18px !important; }
+    /* every multi-column grid collapses to one column on phones */
+    main div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    /* keep small icon/step rows from collapsing awkwardly */
+    main div[style*="repeat(3, minmax(0, 1fr))"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    main div[style*="18px minmax"] , main div[style*="16px minmax"], main div[style*="14px minmax"], main div[style*="22px minmax"], main div[style*="44px minmax"] { grid-template-columns: auto minmax(0, 1fr) !important; }
+    /* long horizontal rows wrap instead of overflowing */
+    main div[style*="display: flex"] { flex-wrap: wrap; }
+    /* device / hero art shouldn't dominate the screen */
+    img[src*="pos-box"] { width: 70% !important; margin: 0 auto; }
+    /* stat dividers read better stacked */
+    div[style*="border-left: 1px solid #F1DFE1"] { border-left: none !important; padding-left: 0 !important; padding-right: 0 !important; }
+  }
+  @media (max-width: 760px) {
+    h1 { font-size: clamp(28px, 8vw, 40px) !important; }
+    h2 { font-size: clamp(24px, 6.4vw, 32px) !important; }
+    .yc-hide-mobile { display: none !important; }
+  }
+  @media (max-width: 480px) {
+    section { padding-left: 14px !important; padding-right: 14px !important; }
+    button { font-size: 15px !important; }
+  }
 </style>
 </helmet>
 
@@ -73,8 +101,8 @@
     </sc-if>
     <div style="display: flex; align-items: center; justify-content: flex-end; gap: 12px; flex: 1 1 0">
       <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
-        <button onClick="{{ goContact }}" style="padding: 12px 22px; border-radius: 999px; border: 1px solid #E1E6F2; background: transparent; color: #0B1D3A; font-size: 16px; white-space: nowrap; font-weight: 700; cursor: pointer; transition: background .2s ease, border-color .2s ease" style-hover="background: #F7F8FB; border-color: #C9D2E8">Sign in</button>
-        <button onClick="{{ openDemo }}" style="padding: 12px 30px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; white-space: nowrap; font-weight: 700; cursor: pointer; transition: transform .2s ease, background .2s ease" style-hover="background: #e84f56; transform: translateY(-1px)">Start free</button>
+        <button onClick="{{ goContact }}" style="padding: 12px 22px; border-radius: 999px; border: 1px solid #E1E6F2; background: transparent; color: #0B1D3A; font-size: 16px; white-space: nowrap; font-weight: 700; cursor: pointer; transition: background .2s ease, border-color .2s ease" style-hover="background: #F7F8FB; border-color: #C9D2E8">Contact us</button>
+        <button onClick="{{ openDemo }}" style="padding: 12px 30px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; white-space: nowrap; font-weight: 700; cursor: pointer; transition: transform .2s ease, background .2s ease" style-hover="background: #e84f56; transform: translateY(-1px)">Book a demo</button>
       </sc-if>
       <sc-if value="{{ showBurger }}" hint-placeholder-val="{{ false }}">
         <button onClick="{{ toggleBurger }}" aria-label="Menu" style="width: 46px; height: 46px; border-radius: 12px; border: 1px solid #EFE9EA; background: #fff; color: #0B1D3A; font-size: 20px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center">{{ burgerIcon }}</button>
@@ -94,8 +122,8 @@
         </div>
       </sc-for>
       <div style="margin-top: 20px; display: flex; gap: 10px">
-        <button onClick="{{ goContact }}" style="flex: 1; padding: 15px; border-radius: 999px; border: 1px solid #E1E6F2; background: transparent; color: #0B1D3A; font-size: 17px; font-weight: 700; cursor: pointer">Sign in</button>
-        <button onClick="{{ openDemo }}" style="flex: 1; padding: 15px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer">Start free</button>
+        <button onClick="{{ goContact }}" style="flex: 1; padding: 15px; border-radius: 999px; border: 1px solid #E1E6F2; background: transparent; color: #0B1D3A; font-size: 17px; font-weight: 700; cursor: pointer">Contact us</button>
+        <button onClick="{{ openDemo }}" style="flex: 1; padding: 15px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer">Book a demo</button>
       </div>
     </div>
   </sc-if>
@@ -109,7 +137,7 @@
       <p style="margin: 24px auto 0; font-size: 17px; line-height: 1.65; max-width: 700px">Billing, stock, payments, and QR ordering — for retail shops, restaurants, and QR-first merchants. One kit. One app. Live in your business in under an hour.</p>
       <div style="margin-top: 32px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
         <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
-        <button style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: transparent; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Explore Products</button>
+        <button onClick="{{ goProducts }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: transparent; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Explore Products</button>
       </div>
       <div style="margin-top: 28px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap">
         <span style="font-size: 16px; color: #4A5878">Trusted layer for</span>
@@ -405,16 +433,16 @@
         <h2 style="margin-top: 30px; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.2">Live in your business<br /><span style="color: #F96167">in under an hour.</span></h2>
         <p style="margin-top: 20px; font-size: 17px; line-height: 1.65; max-width: 540px">Buy the kit that fits. Open the app. Start selling today. $0 to start. Grow into paid tiers when you're ready.</p>
         <div style="margin-top: 28px; display: flex; gap: 16px; flex-wrap: wrap">
-          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
           <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Talk to sales</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center">
+      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 62%; height: auto" />
-        <div style="position: absolute; left: 5%; right: 34%; top: 22%; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <div style="position: absolute; left: 4%; right: 46%; top: 18%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What's in the box</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -439,7 +467,7 @@
         <h1 style="font-size: clamp(38px, 5vw, 62px); line-height: 1.13">Five add-ons.<br />One data layer.<br /><span style="display: inline-block; padding: 2px 10px; border: 1px solid #DFE4EE; background: rgba(255,255,255,0.5)">Zero re-integration.</span></h1>
         <p style="margin-top: 26px; font-size: 17px; line-height: 1.65; max-width: 620px">Every add-on plugs into the same merchant data your POS, KDS, QR checkout and SoundBox are already producing. Turn one on this month, another next quarter. No new integrations, no re-plumbing, no additional PSP contracts.</p>
         <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
-          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
           <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Book a demo</button>
         </div>
       </div>
@@ -477,7 +505,7 @@
           </div>
         </div>
         <div style="order: {{ a.imgOrder }}">
-          <sc-if value="{{ a.img }}" hint-placeholder-val="{{ false }}"><img src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; height: auto; border-radius: 18px; display: block" /></sc-if>
+          <sc-if value="{{ a.img }}" hint-placeholder-val="{{ false }}"><img src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center; border-radius: 18px; display: block" /></sc-if>
         </div>
       </div>
     </section>
@@ -528,16 +556,16 @@
         <h2 style="margin-top: 34px; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.2">Every add-on is optional.<br /><span style="color: #F96167">Every add-on shares data.</span></h2>
         <p style="margin-top: 22px; font-size: 17px; line-height: 1.65; max-width: 560px">Start with what your business needs today — capital, marketing, insight, cameras, or automation. Add the others when you're ready. No re-integration, no data pipes, no additional contracts.</p>
         <div style="margin-top: 30px; display: flex; gap: 16px; flex-wrap: wrap">
-          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
           <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Talk to sales</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 28px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center">
+      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 28px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 26px; left: 30px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 64%; height: auto; align-self: center" />
-        <div style="position: absolute; left: -6%; top: 28%; width: 66%; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 22px 30px">
+        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; align-self: center; margin-right: -6%; position: relative; z-index: 1" />
+        <div style="position: absolute; left: 3%; top: 24%; width: 50%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 22px 30px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 17px; font-weight: 700; color: #0B1D3A">What's included at launch</span>
             <span style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; color: #8A93A8">≡</span>
@@ -640,7 +668,7 @@
                 <li style="display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 6px; font-size: 15px; color: {{ h.body }}"><span style="color: {{ h.dot }}">•</span><span>{{ s }}</span></li>
               </sc-for>
             </ul>
-            <button style="padding: 14px; border-radius: 999px; border: none; background: {{ h.btnBg }}; color: {{ h.btnColor }}; font-size: 16px; font-weight: 700; cursor: pointer">Order kit</button>
+            <button onClick="{{ openDemo }}" style="padding: 14px; border-radius: 999px; border: none; background: {{ h.btnBg }}; color: {{ h.btnColor }}; font-size: 16px; font-weight: 700; cursor: pointer">Order kit</button>
           </div>
         </sc-for>
       </div>
@@ -724,16 +752,16 @@
         <h2 style="margin-top: 30px; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.2">{{ p.ctaTitleA }}<br /><span style="color: #F96167">{{ p.ctaTitleB }}</span></h2>
         <p style="margin-top: 20px; font-size: 17px; line-height: 1.65; max-width: 540px">{{ p.ctaBody }}</p>
         <div style="margin-top: 28px; display: flex; gap: 16px; flex-wrap: wrap">
-          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
           <button onClick="{{ p.ctaBtn2Click }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">{{ p.ctaBtn2 }}</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center">
+      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 62%; height: auto" />
-        <div style="position: absolute; left: 5%; right: 34%; top: 26%; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <div style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">{{ p.ctaCardTitle }}</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -757,7 +785,7 @@
       <h1 style="font-size: clamp(34px, 5.2vw, 62px); line-height: 1.15">One QR code.<br /><span style="display: inline-block; padding: 4px 22px; border: 1px solid #F2DDE0">A whole self-service store.</span></h1>
       <p style="margin: 26px auto 0; font-size: 17px; line-height: 1.6; max-width: 780px">Kiosk, table QR, online, social, and aggregators — every order flows to one kitchen and one payment layer. Staff run food, not tickets. Guests order themselves, pay themselves, and walk away with points in under 60 seconds.</p>
       <div style="margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
-        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
         <button onClick="{{ goPricing }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">See pricing</button>
       </div>
     </div>
@@ -790,7 +818,7 @@
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Sell from day one.<br /><span style="color: #F96167">No app. No new device.</span></h2>
         <p style="font-size: 17px; line-height: 1.7">Stick a QR on every table, counter, or shelf. Your customer scans, browses your live menu, and pays — without downloading anything or creating an account.</p>
       </div>
-      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px">
+      <div class="yc-feat-grid" style="margin-top: 40px">
         <sc-for list="{{ qrFeatures }}" as="f" hint-placeholder-count="6">
           <div style="border: 1px solid #E7E3E4; border-radius: 18px; padding: 28px 30px; display: flex; flex-direction: column; gap: 18px">
             <div style="font-size: 26px; font-weight: 700; color: #F96167">{{ f.num }}</div>
@@ -818,7 +846,7 @@
           </div>
         </sc-for>
       </div>
-      <div style="margin-top: 34px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px">
+      <div class="yc-feat-grid" style="margin-top: 34px">
         <sc-for list="{{ qrSteps }}" as="s" hint-placeholder-count="5">
           <div style="border: 1px solid #E7E3E4; border-radius: 18px; padding: 26px 30px">
             <div style="font-size: 24px; font-weight: 700; color: #F96167">{{ s.num }}</div>
@@ -842,7 +870,7 @@
           <p style="font-size: 17px; line-height: 1.7">The youQR model: guests order themselves — from a kiosk, from the table, from your website, from Instagram, or via an aggregator — and every ticket lands on the same KDS. Your team is multidimensional, guests skip the wait, and you keep every dollar.</p>
         </div>
       </div>
-      <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px">
+      <div class="yc-feat-grid" style="margin-top: 36px">
         <sc-for list="{{ qrChannels }}" as="c" hint-placeholder-count="6">
           <div style="border: 1px solid #E7E3E4; border-radius: 16px; padding: 20px 18px">
             <sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ c.icon }}" alt="" style="width: 36px; height: 36px; border-radius: 10px; display: block" /></sc-if>
@@ -912,8 +940,8 @@
         <h2 style="font-size: clamp(28px, 3.6vw, 44px)">Software tiers.</h2>
         <p style="font-size: 17px; line-height: 1.7">Freemium, Starter and Standard are all $0/month — you only pay the transaction fees above. Power adds unlimited capacity and white-label branding for a flat monthly fee.</p>
       </div>
-      <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 18px; align-items: start">
-        <sc-for list="{{ qrTiers }}" as="t" hint-placeholder-count="5">
+      <div class="yc-feat-grid" style="margin-top: 36px; align-items: start">
+        <sc-for list="{{ qrPaidTiers }}" as="t" hint-placeholder-count="4">
           <div style="border: 1px solid {{ t.border }}; background: {{ t.bg }}; border-radius: 18px; padding: 24px 20px; display: flex; flex-direction: column; gap: 13px; box-shadow: {{ t.shadow }}">
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
               <span style="font-size: 16px; font-weight: 700; color: {{ t.ink }}">{{ t.name }}</span>
@@ -929,9 +957,22 @@
                 <li style="display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 8px; font-size: 15px; color: {{ t.body }}"><span style="color: {{ t.check }}">✓</span><span>{{ r }}</span></li>
               </sc-for>
             </ul>
-            <button style="margin-top: 6px; padding: 13px; border-radius: 999px; border: 1px solid {{ t.btnBorder }}; background: {{ t.btnBg }}; color: {{ t.btnColor }}; font-size: 16px; font-weight: 700; cursor: pointer">{{ t.cta }}</button>
+            <button onClick="{{ openDemo }}" style="margin-top: 6px; padding: 13px; border-radius: 999px; border: 1px solid {{ t.btnBorder }}; background: {{ t.btnBg }}; color: {{ t.btnColor }}; font-size: 16px; font-weight: 700; cursor: pointer">{{ t.cta }}</button>
           </div>
         </sc-for>
+      </div>
+      <div style="margin-top: 20px; border: 1px solid #F8D9DC; background: linear-gradient(120deg, #FEF6F7 0%, #ffffff 60%); border-radius: 20px; padding: 26px 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; align-items: center">
+        <div>
+          <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">{{ qrEntTier.name }}</div>
+          <div style="margin-top: 8px; font-size: 24px; font-weight: 700; color: #0B1D3A">{{ qrEntTier.price }}</div>
+          <p style="margin-top: 8px; font-size: 15px; color: #4A5878">{{ qrEntTier.limits }}</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <sc-for list="{{ qrEntTier.rows }}" as="r" hint-placeholder-count="6">
+            <div style="display: flex; gap: 10px; font-size: 15px"><span style="color: #F96167">✓</span><span>{{ r }}</span></div>
+          </sc-for>
+        </div>
+        <button onClick="{{ qrEntTier.onClick }}" style="justify-self: start; padding: 14px 26px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap" style-hover="background: #e84f56">{{ qrEntTier.cta }}</button>
       </div>
     </div>
   </section>
@@ -966,12 +1007,12 @@
           <button onClick="{{ goPricing }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">See pricing</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center">
+      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 62%; height: auto" />
-        <div style="position: absolute; left: 5%; right: 34%; top: 26%; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <div style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">youQR Freemium</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -995,7 +1036,7 @@
       <h1 style="font-size: clamp(34px, 5.2vw, 62px); line-height: 1.15">Accept payments<br /><span style="display: inline-block; padding: 4px 22px; border: 1px solid #F2DDE0">across every channel.</span></h1>
       <p style="margin: 26px auto 0; font-size: 17px; line-height: 1.6; max-width: 720px">In-store, online, on your website, via WhatsApp, through a QR sticker, or at a self-service kiosk. Every scheme, every wallet, every rail — one gateway, one dashboard, one settlement. PCI Level 1 from day one.</p>
       <div style="margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
-        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
         <button onClick="{{ goPayEnt }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Enterprise</button>
       </div>
     </div>
@@ -1028,9 +1069,9 @@
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Accept every payment,<br /><span style="color: #F96167">everywhere our customer is.</span></h2>
         <p style="font-size: 17px; line-height: 1.7; text-align: justify">Card-present at the counter, card-not-present on your website, a Pay-by-Link on WhatsApp, or a QR sticker on the table. One gateway. One dashboard. One settlement.</p>
       </div>
-      <div style="margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 26px 46px">
+      <div class="yc-grid-2" style="margin-top: 44px">
         <sc-for list="{{ payChannels }}" as="c" hint-placeholder-count="4">
-          <div style="display: flex; flex-direction: column; gap: 20px">
+          <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
             <div style="position: relative">
               <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}"><img src="{{ c.img }}" alt="{{ c.title }}" style="width: 100%; height: auto; border-radius: 16px; display: block" /></sc-if>
             </div>
@@ -1137,7 +1178,7 @@
                 <li style="display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; font-size: 15px; line-height: 1.5; color: #4A5878"><span style="color: #F96167">✓</span><span>{{ r }}</span></li>
               </sc-for>
             </ul>
-            <button style="margin-top: 6px; padding: 14px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">{{ t.cta }}</button>
+            <button onClick="{{ openDemo }}" style="margin-top: 6px; padding: 14px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">{{ t.cta }}</button>
           </div>
         </sc-for>
       </div>
@@ -1178,16 +1219,16 @@
         <h2 style="margin-top: 30px; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.2">Start accepting payments<br /><span style="color: #F96167">across every channel.</span></h2>
         <p style="margin-top: 20px; font-size: 17px; line-height: 1.65; max-width: 540px">No long contracts. No integration headaches. PCI L1 from day one. MDR debited per transaction at settlement.</p>
         <div style="margin-top: 28px; display: flex; gap: 16px; flex-wrap: wrap">
-          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+          <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
           <button onClick="{{ goPayEnt }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">For enterprise</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center">
+      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 62%; height: auto" />
-        <div style="position: absolute; left: 5%; right: 34%; top: 26%; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <div style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What you get</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -1222,7 +1263,7 @@
       <div>
         <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #E7E3E4; border-radius: 999px; font-size: 13px; letter-spacing: 0.09em; color: #0B1D3A"><span style="width: 6px; height: 6px; border-radius: 50%; background: #0B1D3A"></span>7 SOLUTIONS. ONE CONNECTED PLATFORM.</div>
         <h2 style="margin-top: 28px; font-size: clamp(30px, 4vw, 48px); line-height: 1.15">Pick your business.<br /><span style="color: #F96167">See your stack.</span></h2>
-        <div style="margin-top: 36px; display: flex; flex-direction: column; border-bottom: 1px solid #EDE9EA">
+        <div id="yc-solutions-list" style="margin-top: 36px; display: flex; flex-direction: column; border-bottom: 1px solid #EDE9EA">
           <sc-for list="{{ solutionList }}" as="s" hint-placeholder-count="7">
             <div style="border-top: 1px solid #EDE9EA">
               <div onClick="{{ s.onClick }}" style="padding: 20px 2px; display: flex; align-items: center; justify-content: space-between; gap: 20px; cursor: pointer; transition: color .2s ease; color: {{ s.ink }}" style-hover="color: #F96167">
@@ -1273,12 +1314,12 @@
           <button onClick="{{ goPricing }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease" style-hover="background: #FEF3F4; transform: translateY(-2px)">See pricing</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center">
+      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS" style="width: 62%; height: auto; animation: ycFloat 6s ease-in-out infinite" />
-        <div style="position: absolute; left: 5%; right: 34%; top: 24%; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <img src="img/pos-box.jpg" alt="youcloud POS" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1; animation: ycFloat 6s ease-in-out infinite" />
+        <div style="position: absolute; left: 4%; right: 46%; top: 20%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What's included at launch</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -1303,7 +1344,7 @@
       <h1 style="margin-top: 28px; font-size: clamp(36px, 5.2vw, 64px); line-height: 1.12">Start at zero.<br /><span style="display: inline-block; padding: 2px 18px; border: 1px solid #F2DDE0">Pay as you grow.</span></h1>
       <p style="margin: 26px auto 0; font-size: 17px; line-height: 1.65; max-width: 660px">Software priced per POS, per month. Payments priced per transaction. Hardware bought once, owned outright. No setup fees, no lock-in, no per-seat charges.</p>
       <div style="margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
-        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease" style-hover="background: #e84f56; transform: translateY(-2px)">Start free</button>
+        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease" style-hover="background: #e84f56; transform: translateY(-2px)">Book a demo</button>
         <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease" style-hover="background: #FEF3F4; transform: translateY(-2px)">Talk to sales</button>
       </div>
     </div>
@@ -1449,7 +1490,7 @@
     <div style="max-width: 1280px; margin: 0 auto">
       <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #E7E3E4; border-radius: 999px; font-size: 13px; letter-spacing: 0.09em; color: #0B1D3A"><span style="width: 6px; height: 6px; border-radius: 50%; background: #0B1D3A"></span>QUESTIONS MERCHANTS ASK FIRST</div>
       <h2 style="margin-top: 28px; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">The fine print,<br /><span style="color: #F96167">in plain language.</span></h2>
-      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px">
+      <div class="yc-feat-grid" style="margin-top: 40px">
         <sc-for list="{{ priceFaq }}" as="q" hint-placeholder-count="4">
           <div style="border: 1px solid #EDE9EA; border-radius: 18px; padding: 26px">
             <div style="font-size: 18px; font-weight: 700; color: #0B1D3A">{{ q.q }}</div>
@@ -1514,7 +1555,7 @@
           <p style="margin-top: 18px; font-size: 17px; line-height: 1.7">A shop owner shouldn't need a cash register, a stock notebook, a card terminal, a QR display, a WhatsApp broadcast tool, a settlement spreadsheet and a bookkeeper. That's the problem. We're the answer.</p>
           <p style="margin-top: 18px; font-size: 17px; line-height: 1.7">We stay invisible. Our products are white-labelled — merchants see their bank's brand, their acquirer's brand, their partner's brand. We're the infrastructure. They get the customers.</p>
         </div>
-        <img src="img/hero-cards.png" alt="youcloud platform" style="width: 100%; height: auto; border-radius: 18px; display: block; background: #F96167" />
+        <img src="img/about-icp.jpg" alt="youcloud platform — POS, payments, QR and add-ons" style="width: 100%; height: auto; border-radius: 20px; display: block" />
       </div>
     </div>
   </section>
@@ -1756,9 +1797,15 @@
         <button onClick="{{ submitContact }}" style="margin-top: 20px; width: 100%; padding: 16px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Send message</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 20px">
-        <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px">
-          <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">HEADQUARTERS</div>
-          <p style="margin-top: 10px; font-size: 17px; line-height: 1.6; color: #0B1D3A">Youcloud Paytech DIFC<br />Gate Avenue, Zone D, Level 1<br />DIFC, Dubai, UAE</p>
+        <div style="border: 1px solid #EDE9EA; border-radius: 20px; overflow: hidden">
+          <div style="padding: 26px 26px 18px">
+            <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">HEADQUARTERS</div>
+            <p style="margin-top: 10px; font-size: 17px; line-height: 1.6; color: #0B1D3A">Youcloud Paytech DIFC<br />Gate Avenue, Zone D, Level 1<br />DIFC, Dubai, UAE</p>
+          </div>
+          <iframe title="youcloud Paytech — Gate Avenue, DIFC, Dubai" src="https://www.google.com/maps?q=Gate%20Avenue%20Zone%20D%2C%20DIFC%2C%20Dubai%2C%20UAE&output=embed" style="width: 100%; height: 260px; border: 0; display: block" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div style="padding: 14px 26px 18px">
+            <a href="https://www.google.com/maps/search/?api=1&query=Gate+Avenue+Zone+D+DIFC+Dubai+UAE" target="_blank" rel="noopener noreferrer" style="font-size: 15px; font-weight: 700">Open in Google Maps →</a>
+          </div>
         </div>
         <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px">
           <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">SALES &amp; PARTNERSHIPS</div>
@@ -2521,12 +2568,11 @@
             <img src="{{ f.icon }}" alt="{{ f.name }}" style="width: {{ f.iconSize }}px; height: {{ f.iconSize }}px; display: block" />
           </div>
         </sc-for>
-        </div>
       </div>
-      <img src="img/logo.png" alt="youcloud" style="height: 44px; width: auto; display: block" />
-      <p style="max-width: 520px; font-size: 16px; line-height: 1.6">The operating layer for SMB and enterprise merchants. One licence, four products, unlimited merchants — live in 9+ markets.</p>
+      <img src="img/logo.png" alt="youcloud" style="height: 44px; width: auto; display: block; margin: 0 auto" />
+      <p style="max-width: 520px; font-size: 16px; line-height: 1.6; text-align: center; margin: 0 auto">The operating layer for SMB and enterprise merchants. One licence, four products, unlimited merchants — live in 9+ markets.</p>
       <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center">
-        <button onClick="{{ openDemo }}" style="padding: 13px 30px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Start free</button>
+        <button onClick="{{ openDemo }}" style="padding: 13px 30px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
         <button onClick="{{ goProducts }}" style="padding: 13px 30px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">See product</button>
       </div>
     </div>
@@ -2622,6 +2668,24 @@
     </div>
   </div>
 </sc-if>
+
+<div style="position: fixed; left: 24px; bottom: 24px; z-index: 90; display: flex; flex-direction: column; align-items: flex-start; gap: 12px">
+  <sc-if value="{{ fabOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="background: #fff; border: 1px solid #EDE9EA; border-radius: 18px; box-shadow: 0 22px 50px rgba(11,29,58,0.18); padding: 8px; min-width: 210px; animation: ycFadeUp .22s ease both">
+      <sc-for list="{{ fabLinks }}" as="l" hint-placeholder-count="8">
+        <div onClick="{{ l.onClick }}" style="padding: 11px 14px; border-radius: 11px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: {{ l.color }}" style-hover="background: #FEF3F4; color: #F96167">
+          <sc-if value="{{ l.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ l.icon }}" alt="" style="width: 18px; height: 18px; display: block" /></sc-if>
+          {{ l.label }}
+        </div>
+      </sc-for>
+      <div onClick="{{ scrollTop }}" style="margin-top: 4px; padding: 11px 14px; border-top: 1px solid #F4F1F2; border-radius: 11px; cursor: pointer; font-size: 15px; color: #4A5878" style-hover="background: #F7F8FB">↑ Back to top</div>
+    </div>
+  </sc-if>
+  <div onClick="{{ toggleFab }}" title="Quick menu" style="width: 54px; height: 54px; border-radius: 50%; background: #0B1D3A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; box-shadow: 0 14px 34px rgba(11,29,58,0.32); transition: transform .25s cubic-bezier(.2,.7,.3,1.4)" style-hover="transform: scale(1.08)">
+    <sc-if value="{{ fabOpen }}" hint-placeholder-val="{{ false }}"><span>✕</span></sc-if>
+    <sc-if value="{{ fabClosed }}" hint-placeholder-val="{{ true }}"><span>☰</span></sc-if>
+  </div>
+</div>
 
 <div style="position: fixed; right: 24px; bottom: 24px; z-index: 90; display: flex; flex-direction: column; align-items: flex-end; gap: 14px">
   <sc-if value="{{ supportOpen }}" hint-placeholder-val="{{ false }}">
@@ -2894,6 +2958,14 @@ const SUPPORT_KB = [
   { q: "Do you support restaurants or QR ordering?", a: "Yes — youResto covers table-side POS, KDS and aggregator sync for restaurants, and youQR gives you scan-to-order, pay and loyalty from a single QR code with no app needed." }
 ];
 
+const QR_TIERS = [
+        ["Freemium", "$0", "forever", "1 outlet · 1 user · 25 items · 250 bills/mo", "", ["QR + Pay-by-Link ordering", "1  order mode (Table / Counter / Pickup)", "youcloud-branded page", "Programme-wide loyalty", "Live order feed", "Daily summary analytics"], "Start free", false],
+        ["Starter", "$5", "/ POS · month", "1–2 outlets · 2 users · 50 items · 1,000 bills/mo", "Everything in Freemium, plus:", ["Card payments", "Auto-reconciliation", "1 aggregator connector", "Basic guest capture (50 records)", "Starter Mobile kit", "Standard support (24hr)"], "Get starter", false],
+        ["Standard", "$10", "/POS · mo", "3–8 outlets · 10 users · 250 items · 2,500 bills/mo", "Everything in Starter, plus:", ["Live floor plan & waitlist", "Reservations + guest profiles (500)", "2 aggregator connectors menu sync", "Basic stock tracking", "Shift scheduling", "Priority support (4hr)"], "Get standard", true],
+        ["Power", "$25", "/ POS · month", "Unlimited outlets · unlimited users · unlimited items & bills", "Everything in Standard, plus:", ["VIP flags & course sequencing", "2 KDS stations included", "Branded guest app (youcloud)", "3 aggregator connectors", "Full youAccounts & youHR", "Named support (1hr)"], "Talk to sales", false],
+        ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Full menu engineering", "White-label guest app (your brand)", "SSO (corporate IdP) + API keys", "Franchise / chain governance", "API & webhook access"], "See enterprise", false]
+      ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular }));
+
 const T_LIGHT = { border: "#E7E3E4", bg: "#fff", shadow: "none", ink: "#0B1D3A", muted: "#8A93A8", body: "#4A5878", check: "#F96167", btnBorder: "#F96167", btnBg: "#fff", btnColor: "#F96167" };
 const T_HOT = { border: "#F96167", bg: "#F96167", shadow: "0 18px 40px rgba(249,97,103,0.28)", ink: "#fff", muted: "rgba(255,255,255,0.85)", body: "#fff", check: "#fff", btnBorder: "#fff", btnBg: "#fff", btnColor: "#F96167" };
 const HW_LIGHT = { border: "#E7E3E4", bg: "#fff", ink: "#0B1D3A", body: "#4A5878", muted: "#8A93A8", dot: "#F96167", priceColor: "#F96167", btnBg: "#F96167", btnColor: "#fff" };
@@ -2944,7 +3016,7 @@ const PRODUCT_PAGES = {
   youresto: {
     h1a: "Run your restaurant.", h1b: "Without the chaos.",
     sub: "Front-of-house, kitchen, aggregators, and payments — all in one place. One kit. One app. Live in your restaurant in under an hour.",
-    cta1: "Start  free", cta2: "For enterprise",
+    cta1: "Book a demo", cta2: "For enterprise",
     strip: [1,2,3,4,5,6].map(n => "img/resto-strip-" + n + ".png"),
     stats: [{ value: "$0", label: "To start" }, { value: "<1hr", label: "First order" }, { value: "9+", label: "Markets" }],
     featKicker: "WHAT youResto DOES FOR YOU", featTitleA: "Run the rush.", featTitleB: "Keep the guest.",
@@ -3031,7 +3103,7 @@ const ENT_FOR = { youshop: "youshop-ent", youresto: "youresto-ent", youpay: "you
 
 class Component extends DCLogic {
   state = { page: "home", ptModel: 1, ptProduct: "youResto", pricingProduct: "youShop", menu: false, demoOpen: false, consent: true, form: {}, demoError: "", demoSent: false,
-    narrow: typeof window !== "undefined" && window.innerWidth < 960, burger: false, sol: 0, pin: -1, supportOpen: false, supportInput: "", supportMessages: [], scrolled: false,
+    narrow: typeof window !== "undefined" && window.innerWidth < 960, burger: false, sol: 0, pin: -1, supportOpen: false, supportInput: "", supportMessages: [], scrolled: false, fabOpen: false,
     contactForm: {}, contactError: "", contactSent: false };
 
   go = (page) => () => {
@@ -3047,6 +3119,17 @@ class Component extends DCLogic {
   onScroll = () => {
     const s = window.scrollY > 8;
     if (s !== this.state.scrolled) this.setState({ scrolled: s });
+  };
+
+  goSolution = (index) => () => {
+    this.setState({ page: "solutions", sol: index, menu: false, burger: false });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      setTimeout(() => {
+        const el = document.getElementById("yc-solutions-list");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 120);
+    }
   };
 
   stopWords = new Set(["a", "an", "the", "is", "are", "do", "does", "i", "my", "you", "your", "to", "for", "of", "what", "how", "can", "in", "on", "and", "or", "it", "with", "have", "has", "get", "me", "us", "we"]);
@@ -3319,13 +3402,9 @@ class Component extends DCLogic {
         { value: "1–3%", unit: "", label: "PAYMENT PROCESSING", body: "Blended MDR on card & wallet. Indicative — varies by card type & market.", optional: false },
         { value: "$5", unit: "/mo", label: "MERCHANT LOYALTY", body: "Add your own branded loyalty programme. Programme-wide loyalty is always free.", optional: true }
       ],
-      qrTiers: [
-        ["Freemium", "$0", "forever", "1 outlet · 1 user · 25 items · 250 bills/mo", "", ["QR + Pay-by-Link ordering", "1  order mode (Table / Counter / Pickup)", "youcloud-branded page", "Programme-wide loyalty", "Live order feed", "Daily summary analytics"], "Start free", false],
-        ["Freemium", "$5", "/ POS · month", "1–2 outlets · 2 users · 50 items · 1,000 bills/mo", "Everything in Freemium, plus:", ["Card payments", "Auto-reconciliation", "1 aggregator connector", "Basic guest capture (50 records)", "Starter Mobile kit", "Standard support (24hr)"], "Get starter", false],
-        ["Standard", "$10", "/POS · mo", "3–8 outlets · 10 users · 250 items · 2,500 bills/mo", "Everything in Starter, plus:", ["Live floor plan & waitlist", "Reservations + guest profiles (500)", "2 aggregator connectors menu sync", "Basic stock tracking", "Shift scheduling", "Priority support (4hr)"], "Get standard", true],
-        ["Power", "$25", "/ POS · month", "Unlimited outlets · unlimited users · unlimited items & bills", "Everything in Standard, plus:", ["VIP flags & course sequencing", "2 KDS stations included", "Branded guest app (youcloud)", "3 aggregator connectors", "Full youAccounts & youHR", "Named support (1hr)"], "Talk to sales", false],
-        ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Full menu engineering", "White-label guest app (your brand)", "SSO (corporate IdP) + API keys", "Franchise / chain governance", "API & webhook access"], "See enterprise", false]
-      ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular })),
+      qrTiers: QR_TIERS,
+      qrPaidTiers: QR_TIERS.filter(t => t.name !== "Enterprise"),
+      qrEntTier: Object.assign({}, QR_TIERS.find(t => t.name === "Enterprise"), { onClick: () => this.setState({ demoOpen: true }) }),
       qrChips: ["Extra KDS station · $2/mo", "Merchant-specific loyalty · $5/mo", "youMarketing (WABA)", "youInsight AI reports", "youLend merchant finance", "youWorkflows", "youLens AI camera", "Self-ordering kiosk mode", "Order-volume packs", "Customer-base packs"],
       qrCtaRows: ["1 branded merchant page", "Unlimited menu items", "All payment methods", "Loyalty + streaks included", "$0 to start · $0.10 / order"],
       isPartners: page === "partners",
@@ -3624,7 +3703,11 @@ class Component extends DCLogic {
       ],
       footerCols: FOOTER.map(([title, links]) => ({
         title,
-        links: links.map(label => ({ label, onClick: PAGE_FOR_LINK[label] ? this.go(PAGE_FOR_LINK[label]) : undefined }))
+        links: links.map(label => {
+          const solIndex = SOLUTIONS.findIndex(s => s.name === label);
+          if (solIndex >= 0) return { label, onClick: this.goSolution(solIndex) };
+          return { label, onClick: PAGE_FOR_LINK[label] ? this.go(PAGE_FOR_LINK[label]) : undefined };
+        })
       })),
       demoOpen: this.state.demoOpen,
       openDemo: () => this.setState({ demoOpen: true, demoSent: false, demoError: "" }),
@@ -3645,6 +3728,24 @@ class Component extends DCLogic {
         options: ["1 shop / outlet", "2 – 5 outlets", "6 – 20 outlets", "20+ outlets"],
         onChange: (e) => this.setState({ form: Object.assign({}, this.state.form, { outlets: e.target.value }) })
       }]),
+      fabOpen: this.state.fabOpen,
+      fabClosed: !this.state.fabOpen,
+      toggleFab: () => this.setState({ fabOpen: !this.state.fabOpen }),
+      scrollTop: () => { this.setState({ fabOpen: false }); if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" }); },
+      fabLinks: [
+        { label: "Home", page: "home", icon: "img/logomark.png" },
+        { label: "youShop", page: "youshop", icon: "img/ic-shop.png" },
+        { label: "youResto", page: "youresto", icon: "img/ic-resto.png" },
+        { label: "youQR", page: "youqr", icon: "img/ic-qr.png" },
+        { label: "youPay", page: "youpay", icon: "img/ic-pay.png" },
+        { label: "Pricing", page: "pricing", icon: "" },
+        { label: "Solutions", page: "solutions", icon: "" },
+        { label: "Contact us", page: "contact", icon: "" }
+      ].map(l => ({
+        label: l.label, icon: l.icon,
+        color: page === l.page ? "#F96167" : "#0B1D3A",
+        onClick: () => { this.setState({ fabOpen: false }); this.go(l.page)(); }
+      })),
       supportOpen: this.state.supportOpen,
       supportClosed: !this.state.supportOpen,
       toggleSupport: this.toggleSupport,
