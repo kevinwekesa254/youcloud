@@ -1525,22 +1525,27 @@
 
 <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
 <main>
-  <section style="padding: 70px 30px 0">
-    <div style="max-width: 1280px; margin: 0 auto">
-      <h1 style="max-width: 900px; font-size: clamp(32px, 4.4vw, 52px); line-height: 1.2">The operating layer for<br />SMB merchants in <span style="color: #F96167">emerging markets.</span></h1>
-      <p style="margin-top: 22px; max-width: 640px; font-size: 17px; line-height: 1.65">We build the platform that replaces the fragmented vendor stack most merchants stitch together — one licence, four products, five intelligent add-ons, unlimited merchants.</p>
+  <section style="padding: 78px 30px 0">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center; position: relative">
+      <span style="position: absolute; left: 6%; top: 34%; color: #F96167; font-size: 20px; opacity: .75">✦</span>
+      <span style="position: absolute; right: 7%; top: 22%; color: #F96167; font-size: 16px; opacity: .6">✦</span>
+      <span style="position: absolute; right: 12%; bottom: 16%; color: #F96167; font-size: 20px; opacity: .75">✦</span>
+      <span style="position: absolute; left: 13%; bottom: 12%; color: #F96167; font-size: 15px; opacity: .55">✦</span>
+      <h1 style="font-size: clamp(34px, 5vw, 58px); line-height: 1.16">The operating layer for<br />SMB merchants in<br /><span style="color: #0B1D3A">emerging markets.</span></h1>
+      <p style="margin: 24px auto 0; max-width: 660px; font-size: 17px; line-height: 1.65">We build the platform that replaces the fragmented vendor stack most merchants stitch together — one licence, four products, five intelligent add-ons, unlimited merchants.</p>
     </div>
   </section>
 
-  <section style="margin-top: 56px; padding: 40px 30px; background: #FFF8F8">
-    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px">
+  <section style="margin-top: 56px; padding: 44px 30px; background: #FFF3F4; position: relative">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 30px">
       <sc-for list="{{ aboutFacts }}" as="f" hint-placeholder-count="4">
-        <div style="border-left: 1px solid #F2DEDF; padding-left: 24px">
+        <div style="border-left: 1px solid #F4D9DC; padding-left: 26px">
           <div style="font-size: 32px; font-weight: 700; color: #F96167">{{ f.value }}</div>
           <div style="margin-top: 10px; font-size: 16px; color: #4A5878">{{ f.label }}</div>
         </div>
       </sc-for>
     </div>
+    <span style="position: absolute; right: 30px; top: 28px; width: 42px; height: 42px; border-radius: 50%; background: #F96167; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 17px">◈</span>
   </section>
 
   <section style="padding: 84px 30px 0">
@@ -1569,7 +1574,7 @@
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Four products.<br /><span style="color: #F96167">Four layers.</span></h2>
         <p style="font-size: 17px; line-height: 1.7; text-align: justify">Every product stacks the same four layers — Payments · Commerce · Embedded Finance · AI — all wired together under one partner licence. PCI-DSS L1 · 99.999% uptime · unlimited merchants. One licence · Freemium → Starter → Standard → Power → Enterprise — everything under the partner's own brand.</p>
       </div>
-      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px">
+      <div class="yc-grid-2" style="margin-top: 40px; gap: 24px">
         <sc-for list="{{ aboutProducts }}" as="p" hint-placeholder-count="4">
           <div style="border: 1px solid #EDE9EA; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
             <span style="font-size: 19px; font-weight: 700; color: #F96167">{{ p.n }}</span>
@@ -1620,11 +1625,11 @@
           </div>
         </sc-for>
       </div>
-      <div style="margin-top: 40px; padding: 36px; border-radius: 20px; background: #FFF8F8; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; text-align: center">
+      <div style="margin-top: 40px; padding: 30px 20px; border: 1px solid #EDE9EA; border-radius: 20px; background: #fff; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); text-align: center">
         <sc-for list="{{ aboutAwardStats }}" as="s" hint-placeholder-count="4">
-          <div>
+          <div style="padding: 6px 18px; border-left: 1px solid #F1EDEE">
             <div style="font-size: 30px; font-weight: 700; color: #0B1D3A">{{ s.value }}</div>
-            <div style="margin-top: 8px; font-size: 15px; color: #4A5878">{{ s.label }}</div>
+            <div style="margin-top: 8px; font-size: 15px; color: #8A93A8">{{ s.label }}</div>
           </div>
         </sc-for>
       </div>
@@ -1663,8 +1668,8 @@
             <button onClick="{{ goPayEnt }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Enterprise</button>
           </div>
         </div>
-        <div style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 20px; align-items: center">
-          <div style="border: 1px solid #EDE9EA; border-radius: 18px; padding: 26px; background: #fff">
+        <div style="position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); align-items: center">
+          <div style="border: 1px solid #EDE9EA; border-radius: 18px; padding: 26px; background: #fff; box-shadow: 0 20px 50px rgba(11,29,58,0.10); position: relative; z-index: 2; margin-right: -12%">
             <div style="font-size: 15px; font-weight: 700; color: #0B1D3A">We work with</div>
             <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 14px">
               <sc-for list="{{ aboutWorkWith }}" as="w" hint-placeholder-count="5">
