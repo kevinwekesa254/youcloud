@@ -2963,6 +2963,11 @@ const SUPPORT_KB = [
   { q: "Do you support restaurants or QR ordering?", a: "Yes — youResto covers table-side POS, KDS and aggregator sync for restaurants, and youQR gives you scan-to-order, pay and loyalty from a single QR code with no app needed." }
 ];
 
+const T_LIGHT = { border: "#E7E3E4", bg: "#fff", shadow: "none", ink: "#0B1D3A", muted: "#8A93A8", body: "#4A5878", check: "#F96167", btnBorder: "#F96167", btnBg: "#fff", btnColor: "#F96167" };
+const T_HOT = { border: "#F96167", bg: "#F96167", shadow: "0 18px 40px rgba(249,97,103,0.28)", ink: "#fff", muted: "rgba(255,255,255,0.85)", body: "#fff", check: "#fff", btnBorder: "#fff", btnBg: "#fff", btnColor: "#F96167" };
+const HW_LIGHT = { border: "#E7E3E4", bg: "#fff", ink: "#0B1D3A", body: "#4A5878", muted: "#8A93A8", dot: "#F96167", priceColor: "#F96167", btnBg: "#F96167", btnColor: "#fff" };
+const HW_HOT = { border: "#F96167", bg: "#F96167", ink: "#fff", body: "#fff", muted: "rgba(255,255,255,0.9)", dot: "#fff", priceColor: "#fff", btnBg: "#fff", btnColor: "#F96167" };
+
 const QR_TIERS = [
         ["Freemium", "$0", "forever", "1 outlet · 1 user · 25 items · 250 bills/mo", "", ["QR + Pay-by-Link ordering", "1  order mode (Table / Counter / Pickup)", "youcloud-branded page", "Programme-wide loyalty", "Live order feed", "Daily summary analytics"], "Start free", false],
         ["Starter", "$5", "/ POS · month", "1–2 outlets · 2 users · 50 items · 1,000 bills/mo", "Everything in Freemium, plus:", ["Card payments", "Auto-reconciliation", "1 aggregator connector", "Basic guest capture (50 records)", "Starter Mobile kit", "Standard support (24hr)"], "Get starter", false],
@@ -2970,11 +2975,6 @@ const QR_TIERS = [
         ["Power", "$25", "/ POS · month", "Unlimited outlets · unlimited users · unlimited items & bills", "Everything in Standard, plus:", ["VIP flags & course sequencing", "2 KDS stations included", "Branded guest app (youcloud)", "3 aggregator connectors", "Full youAccounts & youHR", "Named support (1hr)"], "Talk to sales", false],
         ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Full menu engineering", "White-label guest app (your brand)", "SSO (corporate IdP) + API keys", "Franchise / chain governance", "API & webhook access"], "See enterprise", false]
       ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular }));
-
-const T_LIGHT = { border: "#E7E3E4", bg: "#fff", shadow: "none", ink: "#0B1D3A", muted: "#8A93A8", body: "#4A5878", check: "#F96167", btnBorder: "#F96167", btnBg: "#fff", btnColor: "#F96167" };
-const T_HOT = { border: "#F96167", bg: "#F96167", shadow: "0 18px 40px rgba(249,97,103,0.28)", ink: "#fff", muted: "rgba(255,255,255,0.85)", body: "#fff", check: "#fff", btnBorder: "#fff", btnBg: "#fff", btnColor: "#F96167" };
-const HW_LIGHT = { border: "#E7E3E4", bg: "#fff", ink: "#0B1D3A", body: "#4A5878", muted: "#8A93A8", dot: "#F96167", priceColor: "#F96167", btnBg: "#F96167", btnColor: "#fff" };
-const HW_HOT = { border: "#F96167", bg: "#F96167", ink: "#fff", body: "#fff", muted: "rgba(255,255,255,0.9)", dot: "#fff", priceColor: "#fff", btnBg: "#fff", btnColor: "#F96167" };
 
 const PRODUCT_PAGES = {
   youshop: {
