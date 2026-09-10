@@ -1,8 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ── Primary SEO ─────────────────────────────────────────────── -->
+<title>youcloud — POS, Payments & QR Commerce for SMB Merchants | Dubai DIFC</title>
+<meta name="description" content="youcloud is the operating layer for SMB merchants across emerging markets: retail & restaurant POS, QR ordering, card and wallet payments, plus AI add-ons for lending, marketing and analytics. Free to start, live in 9+ markets." />
+<meta name="keywords" content="POS system, restaurant POS, retail POS, QR ordering, payment gateway, merchant payments, SoundBox, Pay-by-Link, EMVCo QR, merchant lending, Dubai, DIFC, emerging markets" />
+<meta name="author" content="Youcloud Paytech DIFC" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://youcloudpay.com/" />
+
+<!-- ── Open Graph / social ─────────────────────────────────────── -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="youcloud" />
+<meta property="og:title" content="youcloud — Run your business. All from One Place." />
+<meta property="og:description" content="Billing, stock, payments and QR ordering for retail shops, restaurants and QR-first merchants. One kit. One app. Live in under an hour." />
+<meta property="og:url" content="https://youcloudpay.com/" />
+<meta property="og:image" content="https://youcloudpay.com/img/home-dash.jpg" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="youcloud — Run your business. All from One Place." />
+<meta name="twitter:description" content="POS, payments, QR ordering and AI add-ons for SMB merchants across emerging markets. $0 to start." />
+<meta name="twitter:image" content="https://youcloudpay.com/img/home-dash.jpg" />
+<meta name="theme-color" content="#F96167" />
+<link rel="icon" type="image/png" href="img/logomark.png" />
+<link rel="apple-touch-icon" href="img/logomark.png" />
+
+<!-- ── Google Search Console verification ──────────────────────────
+     Replace REPLACE_WITH_SEARCH_CONSOLE_TOKEN with the token from
+     Search Console › Add property › HTML tag. -->
+<meta name="google-site-verification" content="REPLACE_WITH_SEARCH_CONSOLE_TOKEN" />
+
+<!-- ── Structured data (Organization + WebSite + SoftwareApplication) ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://youcloudpay.com/#organization",
+      "name": "Youcloud Paytech DIFC",
+      "alternateName": "youcloud",
+      "url": "https://youcloudpay.com/",
+      "logo": "https://youcloudpay.com/img/logo.png",
+      "email": "connect@youcloudtech.com",
+      "foundingDate": "2022",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Gate Avenue, Zone D, Level 1, DIFC",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "contactPoint": [
+        { "@type": "ContactPoint", "contactType": "sales", "email": "connect@youcloudtech.com", "areaServed": ["AE","IN","LK","SN","BJ","ZM","ZW","IQ","AU"] },
+        { "@type": "ContactPoint", "contactType": "customer support", "email": "support@youcloudtech.com" }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/youcloudpaytech",
+        "https://www.instagram.com/youcloudpay/",
+        "https://www.facebook.com/YouCloudPay/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://youcloudpay.com/#website",
+      "url": "https://youcloudpay.com/",
+      "name": "youcloud",
+      "publisher": { "@id": "https://youcloudpay.com/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "youcloud",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Android, iOS, Web",
+      "description": "Retail and restaurant POS, QR ordering and payment orchestration for SMB merchants, with AI add-ons for lending, marketing, analytics, computer vision and automation.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Freemium plan — $0 forever, no setup fee, no lock-in."
+      },
+      "publisher": { "@id": "https://youcloudpay.com/#organization" }
+    }
+  ]
+}
+</script>
+
+<!-- ── Google Analytics 4 ──────────────────────────────────────────
+     Replace G-XXXXXXXXXX with your GA4 Measurement ID
+     (Analytics › Admin › Data streams › Web). Until then this is inert. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', { send_page_view: true });
+  // SPA route changes are reported by the app via window.ycTrackPage()
+  window.ycTrackPage = function (page) {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'page_view', {
+      page_title: 'youcloud — ' + page,
+      page_path: '/' + (page === 'home' ? '' : page)
+    });
+  };
+</script>
+
 <script src="./support.js"></script>
 </head>
 <body>
@@ -39,34 +144,39 @@
   @media (max-width: 820px) { .yc-grid-2 { grid-template-columns: 1fr; gap: 18px; } }
 
   /* ---- mobile responsiveness ---- */
+  .yc-marquee { flex-wrap: nowrap !important; }
+  @media (max-width: 900px) {
+    .yc-devicepanel { display: block !important; min-height: 0 !important; padding: 22px !important; }
+    .yc-devicepanel > img { width: 68% !important; margin: 8px auto 0 !important; display: block !important; }
+    .yc-devicecard { position: static !important; width: 100% !important; margin: 18px 0 0 !important; }
+  }
   @media (max-width: 760px) {
     section { padding-left: 18px !important; padding-right: 18px !important; }
     footer { padding-left: 18px !important; padding-right: 18px !important; }
-    /* every multi-column grid collapses to one column on phones */
-    main div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
-    /* keep small icon/step rows from collapsing awkwardly */
-    main div[style*="repeat(3, minmax(0, 1fr))"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-    main div[style*="18px minmax"] , main div[style*="16px minmax"], main div[style*="14px minmax"], main div[style*="22px minmax"], main div[style*="44px minmax"] { grid-template-columns: auto minmax(0, 1fr) !important; }
-    /* long horizontal rows wrap instead of overflowing */
-    main div[style*="display: flex"] { flex-wrap: wrap; }
-    /* device / hero art shouldn't dominate the screen */
-    img[src*="pos-box"] { width: 70% !important; margin: 0 auto; }
-    /* stat dividers read better stacked */
-    div[style*="border-left: 1px solid #F1DFE1"] { border-left: none !important; padding-left: 0 !important; padding-right: 0 !important; }
-  }
-  @media (max-width: 760px) {
     h1 { font-size: clamp(28px, 8vw, 40px) !important; }
     h2 { font-size: clamp(24px, 6.4vw, 32px) !important; }
-    .yc-hide-mobile { display: none !important; }
+    /* multi-column grids collapse, but never the small inline icon/bullet grids */
+    main > section div[style*="repeat(auto-fit"] { grid-template-columns: 1fr !important; }
+    /* stat dividers read better stacked */
+    div[style*="border-left: 1px solid #F1DFE1"],
+    div[style*="border-left: 1px solid #F4D9DC"],
+    div[style*="border-left: 1px solid #F2DEDF"] { border-left: none !important; padding-left: 0 !important; }
+    /* one testimonial per screen */
+    .yc-quote-card { flex: 0 0 86vw !important; padding: 22px !important; grid-template-columns: 56px minmax(0, 1fr) !important; gap: 14px !important; }
+    .yc-quote-card span:first-child { width: 52px !important; height: 52px !important; font-size: 20px !important; }
+    .yc-marquee { gap: 14px !important; }
+    /* strips of in-market photos scale down */
+    .yc-marquee img { height: 180px !important; }
   }
   @media (max-width: 480px) {
     section { padding-left: 14px !important; padding-right: 14px !important; }
     button { font-size: 15px !important; }
+    .yc-quote-card { flex: 0 0 88vw !important; }
   }
 </style>
 </helmet>
 
-<div style="max-width: 100%; overflow-x: hidden">
+<div style="max-width: 100%; overflow-x: clip">
 
 <header style="position: sticky; top: 0; z-index: 50; background: {{ headerBg }}; backdrop-filter: blur({{ headerBlur }}); border-bottom: 1px solid #F4F1F2; box-shadow: {{ headerShadow }}; transition: background .25s ease, box-shadow .25s ease">
   <div style="max-width: 1280px; margin: 0 auto; padding: 14px 30px; display: flex; align-items: center; gap: 18px">
@@ -402,9 +512,9 @@
       </div>
       <h2 style="margin-top: 30px; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Merchants who stopped<br /><span style="color: #F96167">stitching things together.</span></h2>
       <div style="margin-top: 40px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
-      <div style="display: flex; gap: 26px; width: max-content; animation: ycMarquee 52s linear infinite" style-hover="animation-play-state: paused">
+      <div class="yc-marquee" style="display: flex; gap: 26px; width: max-content; animation: ycMarquee 52s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ quotesLoop }}" as="q" hint-placeholder-count="6">
-          <div style="flex: 0 0 clamp(300px, 78vw, 600px); border: 1px solid #EDE9EA; border-radius: 20px; padding: 30px; display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 24px">
+          <div class="yc-quote-card" style="flex: 0 0 clamp(300px, 78vw, 600px); border: 1px solid #EDE9EA; border-radius: 20px; padding: 30px; display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 24px">
             <span style="width: 76px; height: 76px; border-radius: 50%; background: #FBD8DA; color: #F96167; display: inline-flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700">{{ q.initial }}</span>
             <div>
               <div style="font-size: 34px; line-height: 1; color: #D7DEEC">”</div>
@@ -437,12 +547,12 @@
           <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Talk to sales</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
+      <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
         <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
-        <div style="position: absolute; left: 4%; right: 46%; top: 18%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 18%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What's in the box</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -560,12 +670,12 @@
           <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Talk to sales</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 28px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
+      <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 28px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 26px; left: 30px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
         <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; align-self: center; margin-right: -6%; position: relative; z-index: 1" />
-        <div style="position: absolute; left: 3%; top: 24%; width: 50%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 22px 30px">
+        <div class="yc-devicecard" style="position: absolute; left: 3%; top: 24%; width: 50%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 22px 30px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 17px; font-weight: 700; color: #0B1D3A">What's included at launch</span>
             <span style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; color: #8A93A8">≡</span>
@@ -594,7 +704,7 @@
       </div>
     </div>
     <div style="margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
-      <div style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
+      <div class="yc-marquee" style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ p.stripLoop }}" as="s" hint-placeholder-count="12">
           <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img src="{{ s }}" alt="youcloud in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
         </sc-for>
@@ -756,12 +866,12 @@
           <button onClick="{{ p.ctaBtn2Click }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">{{ p.ctaBtn2 }}</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
+      <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
         <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
-        <div style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">{{ p.ctaCardTitle }}</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -790,7 +900,7 @@
       </div>
     </div>
     <div style="margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
-      <div style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
+      <div class="yc-marquee" style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ qrStripLoop }}" as="s" hint-placeholder-count="12">
           <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img src="{{ s }}" alt="youQR in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
         </sc-for>
@@ -1007,12 +1117,12 @@
           <button onClick="{{ goPricing }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">See pricing</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
+      <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
         <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
-        <div style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">youQR Freemium</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -1041,7 +1151,7 @@
       </div>
     </div>
     <div style="margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
-      <div style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
+      <div class="yc-marquee" style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ payStripLoop }}" as="s" hint-placeholder-count="8">
           <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img src="{{ s }}" alt="youPay in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
         </sc-for>
@@ -1223,12 +1333,12 @@
           <button onClick="{{ goPayEnt }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">For enterprise</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
+      <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
         <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
-        <div style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What you get</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -1314,12 +1424,12 @@
           <button onClick="{{ goPricing }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease" style-hover="background: #FEF3F4; transform: translateY(-2px)">See pricing</button>
         </div>
       </div>
-      <div style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
+      <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
         <img src="img/pos-box.jpg" alt="youcloud POS" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1; animation: ycFloat 6s ease-in-out infinite" />
-        <div style="position: absolute; left: 4%; right: 46%; top: 20%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
+        <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 20%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What's included at launch</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
@@ -1779,6 +1889,7 @@
   </section>
   <section style="padding: 60px 30px 90px">
     <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 48px; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 20px">
       <div style="border: 1px solid #EDE9EA; border-radius: 22px; padding: 32px">
         <h3 style="font-size: 22px; color: #0B1D3A">Send us a message</h3>
         <div style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px 16px">
@@ -1801,6 +1912,14 @@
         </sc-if>
         <button onClick="{{ submitContact }}" style="margin-top: 20px; width: 100%; padding: 16px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Send message</button>
       </div>
+        <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px">
+          <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">SALES &amp; PARTNERSHIPS</div>
+          <p style="margin-top: 10px; font-size: 17px"><a href="mailto:connect@youcloudtech.com" style="color: #0B1D3A">connect@youcloudtech.com</a></p>
+          <div style="margin-top: 16px; font-size: 13px; letter-spacing: 0.09em; color: #F96167">SUPPORT</div>
+          <p style="margin-top: 10px; font-size: 17px"><a href="mailto:support@youcloudtech.com" style="color: #0B1D3A">support@youcloudtech.com</a></p>
+          <p style="margin-top: 10px; font-size: 15px; color: #8A93A8">Existing merchants: reach your success manager directly on WhatsApp.</p>
+        </div>
+      </div>
       <div style="display: flex; flex-direction: column; gap: 20px">
         <div style="border: 1px solid #EDE9EA; border-radius: 20px; overflow: hidden">
           <div style="padding: 26px 26px 18px">
@@ -1811,13 +1930,6 @@
           <div style="padding: 14px 26px 18px">
             <a href="https://www.google.com/maps/search/?api=1&query=Gate+Avenue+Zone+D+DIFC+Dubai+UAE" target="_blank" rel="noopener noreferrer" style="font-size: 15px; font-weight: 700">Open in Google Maps →</a>
           </div>
-        </div>
-        <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px">
-          <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">SALES &amp; PARTNERSHIPS</div>
-          <p style="margin-top: 10px; font-size: 17px"><a href="mailto:connect@youcloudtech.com" style="color: #0B1D3A">connect@youcloudtech.com</a></p>
-          <div style="margin-top: 16px; font-size: 13px; letter-spacing: 0.09em; color: #F96167">SUPPORT</div>
-          <p style="margin-top: 10px; font-size: 17px"><a href="mailto:support@youcloudtech.com" style="color: #0B1D3A">support@youcloudtech.com</a></p>
-          <p style="margin-top: 10px; font-size: 15px; color: #8A93A8">Existing merchants: reach your success manager directly on WhatsApp.</p>
         </div>
         <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px">
           <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">RESPONSE TIMES</div>
@@ -2730,6 +2842,26 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F96167&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#F96167&quot;,&quot;#0B1D3A&quot;,&quot;#1F9D63&quot;,&quot;#5B6CF9&quot;]},&quot;showDemoModal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+const PAGE_SEO = {
+  home:            { title: "youcloud — POS, Payments & QR Commerce for SMB Merchants", description: "Billing, stock, payments and QR ordering for retail shops, restaurants and QR-first merchants. One kit, one app, live in under an hour. $0 to start." },
+  youshop:         { title: "youShop — All-in-One Retail POS & Inventory | youcloud", description: "Retail POS with billing, real-time stock, AI OCR stock entry, CRM and loyalty on a single handheld. Offline-first. Scales from one shop to a chain." },
+  youresto:        { title: "youResto — Restaurant POS, KDS & Aggregator Sync | youcloud", description: "Table-side POS, kitchen display, aggregator sync and commission-free direct delivery in one restaurant OS. Built for the rush." },
+  youqr:           { title: "youQR — Scan-to-Order, Pay & Loyalty in 60 Seconds | youcloud", description: "One QR code for scan-to-order, payment and loyalty. No app download, no new hardware. $0 to start, pay only per completed order." },
+  youpay:          { title: "youPay — Card, Wallet & QR Payment Gateway | youcloud", description: "Accept cards, wallets, EMVCo QR, Pay-by-Link and SoundBox payments on one PCI Level 1 gateway. Sub-200ms auth, same-day settlement." },
+  "youshop-ent":   { title: "youShop Enterprise — Multi-Outlet Retail Platform | youcloud", description: "Unlimited outlets, one inventory, central price push, hardware fleet management, SSO and a 1-hour support SLA for retail estates." },
+  "youresto-ent":  { title: "youResto Enterprise — Multi-Outlet F&B Platform | youcloud", description: "Central kitchen, menu engineering, aggregator connectors and group-wide prime cost reporting across every outlet." },
+  "youpay-ent":    { title: "youPay Enterprise — Payment Orchestration | youcloud", description: "Multi-acquirer routing, 99.999% uptime, ML fraud engine and full payment orchestration for high-volume merchants." },
+  addons:          { title: "AI Add-ons — Lending, Marketing, Insight, Vision | youcloud", description: "Five AI add-ons on one merchant data layer: youLend working capital, youMarketing, youInsight forecasting, youLens computer vision, youWorkflows automation." },
+  solutions:       { title: "Solutions by Business Type | youcloud", description: "Purpose-built stacks for cafés, FMCG distribution, taxi fleets, production, micro-merchants, multi-brand chains and cloud kitchens." },
+  pricing:         { title: "Pricing — Start at Zero, Pay as You Grow | youcloud", description: "Freemium forever, paid tiers from $2 per POS per month, hardware owned outright, payments charged only per successful transaction. No lock-in." },
+  partners:        { title: "ICP Partner Programme — Banks, PSPs & Telcos | youcloud", description: "White-label the platform under your own brand. Fixed platform fees, never a share of merchant revenue. Launch in 90 days." },
+  about:           { title: "About youcloud — The Operating Layer for SMB Merchants", description: "DIFC-domiciled platform company founded in 2022, live in 9+ markets across MENA, South Asia, Africa and APAC. Deloitte Technology Fast 50 winner." },
+  contact:         { title: "Contact youcloud — Sales, Support & DIFC Office", description: "Talk to our team in DIFC Dubai. Merchant onboarding in under 15 minutes, KYC within 24 hours, enterprise response within one business day." },
+  terms:           { title: "Terms of Use | youcloud", description: "Terms governing access to the youcloud platform, applications, hardware and payment services." },
+  privacy:         { title: "Privacy Policy | youcloud", description: "How Youcloud Paytech collects, uses, shares and protects merchant and customer data. PCI DSS Level 1, AES-256, no sale of personal data." },
+  cookies:         { title: "Cookie Policy | youcloud", description: "How youcloud uses essential, preference and analytics cookies, and how to control them." }
+};
+
 const NAV = [
   ["home", "Home"], ["products", "Products"], ["addons", "Add-ons"],
   ["solutions", "Solutions"], ["pricing", "Pricing"], ["partners", "Partners"], ["about", "About"]
@@ -3113,7 +3245,28 @@ class Component extends DCLogic {
 
   go = (page) => () => {
     this.setState({ page, menu: false, burger: false, sol: 0 });
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      this.syncSeo(page);
+    }
+  };
+
+  // keeps document title / canonical / analytics in step with the SPA route
+  syncSeo = (page) => {
+    const meta = PAGE_SEO[page] || PAGE_SEO.home;
+    if (typeof document !== "undefined") {
+      document.title = meta.title;
+      const setMeta = (sel, attr, val) => {
+        const el = document.querySelector(sel);
+        if (el) el.setAttribute(attr, val);
+      };
+      setMeta('meta[name="description"]', "content", meta.description);
+      setMeta('link[rel="canonical"]', "href", "https://youcloudpay.com/" + (page === "home" ? "" : page));
+      setMeta('meta[property="og:title"]', "content", meta.title);
+      setMeta('meta[property="og:description"]', "content", meta.description);
+      setMeta('meta[property="og:url"]', "content", "https://youcloudpay.com/" + (page === "home" ? "" : page));
+    }
+    if (typeof window !== "undefined" && typeof window.ycTrackPage === "function") window.ycTrackPage(page);
   };
 
   onResize = () => {
@@ -3130,6 +3283,7 @@ class Component extends DCLogic {
     this.setState({ page: "solutions", sol: index, menu: false, burger: false });
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "auto" });
+      this.syncSeo("solutions");
       setTimeout(() => {
         const el = document.getElementById("yc-solutions-list");
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3201,6 +3355,7 @@ class Component extends DCLogic {
   componentDidMount() {
     window.addEventListener("resize", this.onResize);
     window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.syncSeo(this.state.page);
     requestAnimationFrame(this.reveal);
     this._mo = new MutationObserver(() => this.reveal());
     this._mo.observe(document.body, { childList: true, subtree: true });
