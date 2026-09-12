@@ -196,7 +196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .yc-modal > div:last-child { padding: 24px 20px !important; }
 
     .yc-quote-card { flex: 0 0 86vw !important; padding: 22px !important; grid-template-columns: 56px minmax(0, 1fr) !important; gap: 14px !important; }
-    .yc-quote-card span:first-child { width: 52px !important; height: 52px !important; font-size: 20px !important; }
+    .yc-quote-card > span:first-child { width: 52px !important; height: 52px !important; font-size: 20px !important; }
     .yc-marquee { gap: 14px !important; }
     .yc-marquee img { height: 180px !important; }
   }
@@ -204,6 +204,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     section, footer { padding-left: 14px !important; padding-right: 14px !important; }
     button { font-size: 15px !important; }
     .yc-quote-card { flex: 0 0 88vw !important; }
+  }
+
+  /* --- partner hub (animated, replaces the flat diagram) --- */
+  .yc-hub { position: relative; width: 100%; max-width: 545px; margin: 0 auto; aspect-ratio: 545 / 399; }
+  .yc-hub-line { stroke: #F6C4C9; stroke-width: 1.6; stroke-dasharray: 5 7; animation: ycHubFlow 1.6s linear infinite; }
+  @keyframes ycHubFlow { to { stroke-dashoffset: -24; } }
+  .yc-hub-ring { position: absolute; left: 50%; top: 50%; width: 34%; aspect-ratio: 1; margin: -17% 0 0 -17%;
+    border: 1px solid #F8CDD1; border-radius: 50%; opacity: 0; animation: ycHubPulse 3.6s ease-out infinite; }
+  @keyframes ycHubPulse { 0% { transform: scale(.5); opacity: .85; } 70% { opacity: 0; } 100% { transform: scale(1.75); opacity: 0; } }
+  .yc-hub-core { position: absolute; left: 50%; top: 50%; width: 23%; aspect-ratio: 1; margin: -11.5% 0 0 -11.5%;
+    border-radius: 50%; background: radial-gradient(circle, #FDEFF1 0%, #F9D3D7 72%); display: flex; align-items: center;
+    justify-content: center; box-shadow: 0 0 44px rgba(249,97,103,0.35); animation: ycFloat 7s ease-in-out infinite; }
+  .yc-hub-tile { position: absolute; width: 19%; aspect-ratio: 1; border-radius: 24%; display: flex; align-items: center;
+    justify-content: center; background: linear-gradient(160deg, #FDEFF1 0%, #FBDCE0 100%);
+    box-shadow: 0 12px 26px rgba(11,29,58,0.07); animation: ycFloat 6s ease-in-out infinite; }
+  .yc-hub-tile img { width: 52%; height: auto; display: block; }
+
+  /* --- youQR software tiers: four across --- */
+  .yc-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: start; }
+  @media (max-width: 1080px) { .yc-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .yc-grid-4 { grid-template-columns: minmax(0, 1fr); } }
+
+  /* --- contact: rows line up across both columns --- */
+  .yc-contact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; gap: 24px 48px; }
+  .yc-contact-col { grid-row: span 2; display: grid; grid-template-rows: subgrid; gap: 24px; }
+  @media (max-width: 900px) {
+    .yc-contact-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 20px; }
+    .yc-contact-col { grid-row: auto; display: flex; flex-direction: column; gap: 20px; }
+  }
+  @media (max-width: 760px) {
+    .yc-quote-card { grid-template-columns: 44px minmax(0, 1fr) !important; }
+    .yc-quote-card > span:first-child { width: 40px !important; height: 40px !important; font-size: 16px !important; }
   }
 </style>
 </helmet>
@@ -1082,7 +1114,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 style="font-size: clamp(28px, 3.6vw, 44px)">Software tiers.</h2>
         <p style="font-size: 17px; line-height: 1.7">Freemium, Starter and Standard are all $0/month — you only pay the transaction fees above. Power adds unlimited capacity and white-label branding for a flat monthly fee.</p>
       </div>
-      <div class="yc-feat-grid" style="margin-top: 36px; align-items: start">
+      <div class="yc-grid-4" style="margin-top: 36px; align-items: start">
         <sc-for list="{{ qrPaidTiers }}" as="t" hint-placeholder-count="4">
           <div style="border: 1px solid {{ t.border }}; background: {{ t.bg }}; border-radius: 18px; padding: 24px 20px; display: flex; flex-direction: column; gap: 13px; box-shadow: {{ t.shadow }}">
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
@@ -1396,7 +1428,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="margin-top: 26px; font-size: 17px; line-height: 1.7; max-width: 620px"><strong style="color: #0B1D3A">youShop, youResto, youQR and youPay</strong> aren't just four products — they're building blocks. Combine them with the intelligent add-ons and every merchant business gets a purpose-built solution. Same platform underneath. Radically different outcomes on top.</p>
         <p style="margin-top: 20px; font-size: 16px; line-height: 1.7; font-style: italic; color: #6C7689; max-width: 620px">A capability map for partners, prospective buyers and investors. Each solution below is a compositional outcome — showing how the platform assembles for a real-world business type.</p>
       </div>
-      <img src="img/hero-cards.png" alt="youcloud product suite overview" style="width: 100%; height: auto; border-radius: 20px; display: block" />
+      <img src="img/solutions-hero.png" alt="youcloud product suite — all products dashboard" style="width: 100%; height: auto; border-radius: 20px; display: block" />
     </div>
   </section>
 
@@ -1632,7 +1664,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="max-width: 1280px; margin: 0 auto">
       <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #E7E3E4; border-radius: 999px; font-size: 13px; letter-spacing: 0.09em; color: #0B1D3A"><span style="width: 6px; height: 6px; border-radius: 50%; background: #0B1D3A"></span>QUESTIONS MERCHANTS ASK FIRST</div>
       <h2 style="margin-top: 28px; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">The fine print,<br /><span style="color: #F96167">in plain language.</span></h2>
-      <div class="yc-feat-grid" style="margin-top: 40px">
+      <div class="yc-grid-2" style="margin-top: 40px">
         <sc-for list="{{ priceFaq }}" as="q" hint-placeholder-count="4">
           <div style="border: 1px solid #EDE9EA; border-radius: 18px; padding: 26px">
             <div style="font-size: 18px; font-weight: 700; color: #0B1D3A">{{ q.q }}</div>
@@ -1739,7 +1771,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Built where merchants<br /><span style="color: #F96167">actually live.</span></h2>
           <p style="margin-top: 20px; font-size: 17px; line-height: 1.7">Nine live markets across MENA, South Asia, Africa and APAC — with local wallet integration, local settlement banks, and local compliance done. No 12-month engineering project. No lawyer. No greenfield launch.</p>
         </div>
-        <img src="img/home-world.jpg" alt="youcloud live markets" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+        <div style="position: relative; border-radius: 18px; overflow: hidden">
+          <img src="img/home-world.jpg" alt="youcloud live markets" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+          <sc-for list="{{ mapPins }}" as="pin" hint-placeholder-count="9">
+          <div onMouseEnter="{{ pin.onEnter }}" onMouseLeave="{{ pin.onLeave }}" style="position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; cursor: pointer; left: {{ pin.left }}; top: {{ pin.top }}">
+            <span style="position: absolute; inset: 0; border-radius: 50%; background: rgba(249,97,103,0.45); animation: ycPing 2.8s ease-out infinite; animation-delay: {{ pin.delay }}"></span>
+            <span style="position: absolute; inset: 0; border-radius: 50%; border: 2px solid #F96167; transition: transform .3s ease, opacity .3s ease; opacity: {{ pin.ring }}; transform: scale({{ pin.scale }})"></span>
+            <div style="position: absolute; left: 50%; bottom: 32px; pointer-events: none; background: #fff; border-radius: 10px; padding: 8px 13px; box-shadow: 0 12px 28px rgba(0,0,0,0.28); white-space: nowrap; transition: opacity .25s ease, transform .25s ease; opacity: {{ pin.op }}; transform: {{ pin.tf }}">
+              <div style="font-size: 13px; font-weight: 700; color: #0B1D3A">{{ pin.name }}</div>
+              <div style="font-size: 12px; color: #F96167">{{ pin.note }}</div>
+            </div>
+          </div>
+        </sc-for>
+        </div>
       </div>
     </div>
   </section>
@@ -1920,8 +1964,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
   <section style="padding: 60px 30px 90px">
-    <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 48px; align-items: start">
-      <div style="display: flex; flex-direction: column; gap: 20px">
+    <div class="yc-contact-grid" style="max-width: 1100px; margin: 0 auto">
+      <div class="yc-contact-col">
       <div style="border: 1px solid #EDE9EA; border-radius: 22px; padding: 32px">
         <h3 style="font-size: 22px; color: #0B1D3A">Send us a message</h3>
         <div class="yc-formgrid" style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px 16px">
@@ -1952,7 +1996,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p style="margin-top: 10px; font-size: 15px; color: #8A93A8">Existing merchants: reach your success manager directly on WhatsApp.</p>
         </div>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 20px">
+      <div class="yc-contact-col">
         <div style="border: 1px solid #EDE9EA; border-radius: 20px; overflow: hidden">
           <div style="padding: 26px 26px 18px">
             <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">HEADQUARTERS</div>
@@ -2289,7 +2333,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ openDemo }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Request whitepaper</button>
         </div>
       </div>
-      <img src="img/payent-cta.png" alt="What a demo covers" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+      <img src="img/payent-cta.jpg" alt="What a demo covers" style="width: 100%; height: auto; border-radius: 18px; display: block" />
     </div>
   </section>
 </main>
@@ -2314,7 +2358,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </sc-for>
         </div>
       </div>
-      <img src="img/partners-hero.png" alt="youcloud platform" style="width: 100%; height: auto; border-radius: 22px; display: block" />
+      <div class="yc-hub">
+        <svg viewBox="0 0 545 399" style="position: absolute; inset: 0; width: 100%; height: 100%">
+          <line class="yc-hub-line" x1="95" y1="100" x2="272" y2="200" />
+          <line class="yc-hub-line" x1="450" y1="84" x2="272" y2="200" />
+          <line class="yc-hub-line" x1="79" y1="283" x2="272" y2="200" />
+          <line class="yc-hub-line" x1="433" y1="331" x2="272" y2="200" />
+        </svg>
+        <span class="yc-hub-ring" style="animation-delay: 0s"></span>
+        <span class="yc-hub-ring" style="animation-delay: 1.2s"></span>
+        <span class="yc-hub-ring" style="animation-delay: 2.4s"></span>
+        <div class="yc-hub-core"><img src="img/logomark.png" alt="youcloud" style="width: 46%; height: auto; display: block" /></div>
+        <div class="yc-hub-tile" style="left: 8%; top: 12%; animation-delay: 0s"><img src="img/ic-shop.png" alt="youShop" /></div>
+        <div class="yc-hub-tile" style="left: 73%; top: 8%; animation-delay: .8s"><img src="img/ic-pay.png" alt="youPay" /></div>
+        <div class="yc-hub-tile" style="left: 5%; top: 58%; animation-delay: 1.6s"><img src="img/ic-qr.png" alt="youQR" /></div>
+        <div class="yc-hub-tile" style="left: 70%; top: 70%; animation-delay: 2.4s"><img src="img/ic-resto.png" alt="youResto" /></div>
+      </div>
     </div>
   </section>
 
@@ -2342,7 +2401,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 44px; align-items: start">
-        <img src="img/partners-problem.png" alt="Merchant using six disconnected tools" style="width: 100%; height: auto; border-radius: 16px; display: block" />
+        <img src="img/partners-problem.jpg" alt="Merchant using six disconnected tools" style="width: 100%; height: auto; border-radius: 16px; display: block" />
         <div style="display: flex; flex-direction: column; gap: 20px">
           <sc-for list="{{ ptProblems }}" as="p" hint-placeholder-count="3">
             <div style="border: 1px solid #F7D3D6; border-radius: 16px; padding: 24px 26px">
@@ -2699,7 +2758,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ openDemo }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Book a partner call</button>
         </div>
       </div>
-      <img src="img/partners-cta.png" alt="What you get in the brief" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+      <img src="img/partners-cta.jpg" alt="What you get in the brief" style="width: 100%; height: auto; border-radius: 18px; display: block" />
     </div>
   </section>
 </main>
@@ -2864,9 +2923,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
   </sc-if>
-  <div onClick="{{ toggleSupport }}" style="width: 60px; height: 60px; border-radius: 50%; background: #F96167; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 14px 34px rgba(249,97,103,0.4); transition: transform .25s cubic-bezier(.2,.7,.3,1.4)" style-hover="transform: scale(1.08)">
+  <div onClick="{{ toggleSupport }}" style="width: 64px; height: 64px; border-radius: 50%; background: {{ supportFabBg }}; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: {{ supportFabShadow }}; transition: transform .25s cubic-bezier(.2,.7,.3,1.4)" style-hover="transform: scale(1.08)">
     <sc-if value="{{ supportOpen }}" hint-placeholder-val="{{ false }}"><span>✕</span></sc-if>
-    <sc-if value="{{ supportClosed }}" hint-placeholder-val="{{ true }}"><span>🤖</span></sc-if>
+    <sc-if value="{{ supportClosed }}" hint-placeholder-val="{{ true }}"><img src="img/bot-icon.png" alt="Support assistant" style="width: 124%; height: 124%; margin: -12%; display: block" /></sc-if>
   </div>
 </div>
 
@@ -2894,6 +2953,8 @@ const PAGE_SEO = {
   cookies:         { title: "Cookie Policy | youcloud", description: "How youcloud uses essential, preference and analytics cookies, and how to control them." }
 };
 
+const SALES_EMAIL = "connect@youcloudtech.com";
+
 const NAV = [
   ["home", "Home"], ["products", "Products"], ["addons", "Add-ons"],
   ["solutions", "Solutions"], ["pricing", "Pricing"], ["partners", "Partners"], ["about", "About"]
@@ -2901,7 +2962,7 @@ const NAV = [
 
 const ENT_PAGES = {
   "youshop-ent": {
-    name: "youShop Enterprise", hero: "img/shopent-hero.png", cta: "img/shopent-cta.png",
+    name: "youShop Enterprise", hero: "img/shopent-hero.jpg", cta: "img/shopent-cta.jpg",
     kicker: "ENTERPRISE DOES FOR YOUR GROUP",
     intro: "Every outlet, every counter, every tender and your full back office — unified on one enterprise retail platform built for multi-outlet operations at scale. Unlimited outlets. One inventory. Rolled out across your estate.",
     modulesIntro: "The whole platform, switched on. No tiers, no feature gates. Every module tuned for multi-outlet retail — from a 5-store group to a 500-store estate.",
@@ -2922,9 +2983,9 @@ const ENT_PAGES = {
       { n: "12", title: "Accounting & dashboard", body: "Sales, inventory, supplier & customer feeds; P&L, balance sheet, cash flow and a live management dashboard.", chip: "P&L · BS · CF · live" }
     ],
     hardware: [
-      { name: "Handheld POS", code: "y1000", img: "img/shopent-hw-y1000.png", body: "6.5\" HD+ handheld POS with built-in 2D scanner. Roaming counter staff, floor billing, and mobile stock-takes.", bullets: ["6.5\" HD+ touchscreen", "Built-in 2D scanner", "4G + WiFi + Bluetooth", "10hr battery · hot-swap"] },
-      { name: "Counter POS", code: "y5000", img: "img/shopent-hw-y5000.png", body: "15\" primary + customer-facing display. Dedicated counter till for high-traffic checkout with cash drawer & 80mm printer.", bullets: ["15\" touchscreen + display", "Cash drawer + 80mm printer", "External scanner support", "Ethernet + WiFi + 4G backup"] },
-      { name: "Fleet Manager", code: "FMS", img: "img/shopent-hw-fms.png", body: "Central device console. OTA updates, health monitoring, remote configuration, and RMA workflow across every outlet.", bullets: ["OTA config & firmware", "Live health telemetry", "Remote lock & wipe", "RMA workflow"] }
+      { name: "Handheld POS", code: "y1000", img: "img/shopent-hw-y1000.jpg", body: "6.5\" HD+ handheld POS with built-in 2D scanner. Roaming counter staff, floor billing, and mobile stock-takes.", bullets: ["6.5\" HD+ touchscreen", "Built-in 2D scanner", "4G + WiFi + Bluetooth", "10hr battery · hot-swap"] },
+      { name: "Counter POS", code: "y5000", img: "img/shopent-hw-y5000.jpg", body: "15\" primary + customer-facing display. Dedicated counter till for high-traffic checkout with cash drawer & 80mm printer.", bullets: ["15\" touchscreen + display", "Cash drawer + 80mm printer", "External scanner support", "Ethernet + WiFi + 4G backup"] },
+      { name: "Fleet Manager", code: "FMS", img: "img/shopent-hw-fms.jpg", body: "Central device console. OTA updates, health monitoring, remote configuration, and RMA workflow across every outlet.", bullets: ["OTA config & firmware", "Live health telemetry", "Remote lock & wipe", "RMA workflow"] }
     ],
     ai: [
       { name: "youMarketing", code: "MKT", body: "WhatsApp Business API for order updates, receipts, restock alerts and targeted promotions built from real transaction data.", bullets: ["WhatsApp Business API", "Segmentation from POS data", "Campaign attribution", "Two-way conversation console"] },
@@ -2934,7 +2995,7 @@ const ENT_PAGES = {
     ]
   },
   "youresto-ent": {
-    name: "youResto Enterprise", hero: "img/restoent-hero.png", cta: "img/restoent-cta.png",
+    name: "youResto Enterprise", hero: "img/restoent-hero.jpg", cta: "img/restoent-cta.jpg",
     kicker: "WHAT YOURESTOENTERPRISE DOES FOR YOUR GROUP",
     intro: "Every outlet, every table, every tender and your full back office — unified on one enterprise restaurant platform built for multi-outlet F&B operations at scale. Unlimited outlets. One kitchen network. Rolled out across your estate.",
     modulesIntro: "The whole platform, switched on. No tiers, no feature gates. Every module tuned for multi-outlet F&B — from a 5-outlet brand to a 500-outlet group.",
@@ -2955,9 +3016,9 @@ const ENT_PAGES = {
       { n: "12", title: "Accounting & live dashboard", body: "P&L, balance sheet, cash flow and live group KPIs. Sales, food cost, labour, and prime cost — every day.", chip: "P&L · BS · CF · prime cost" }
     ],
     hardware: [
-      { name: "y1000 Handheld", code: "HH-01", img: "img/shop-hw-y1000.png", body: "6.5\" HD+ handheld POS. Table-side order taking, splash-proof, hot-swap battery — built for full-service dining.", bullets: ["6.5\" HD+ touchscreen", "Splash-proof (IP54)", "4G + WiFi + Bluetooth", "10hr battery · hot-swap"] },
-      { name: "y4000 Tablet POS", code: "TB-04", img: "img/resto-hw-y4000.png", body: "11\" FHD tablet POS. Restaurant-grade counter till, host stand, or KDS anchor. Cash drawer + kitchen printer support.", bullets: ["11\" FHD touchscreen", "Cash drawer + kitchen printer", "KDS anchor mode", "Splash-proof (IP54)"] },
-      { name: "y5000 Counter POS", code: "CP 05", img: "img/resto-hw-y5000.png", body: "Dual 15.6\" screens (staff + customer-facing). Full counter till, host stand, or expo station. Cash drawer + 80mm printer.", bullets: ["Dual 15.6\" touchscreens", "Cash drawer + 80mm printer", "Expo & host stand modes", "Ethernet + WiFi + 4G backup"] }
+      { name: "y1000 Handheld", code: "HH-01", img: "img/shop-hw-y1000.jpg", body: "6.5\" HD+ handheld POS. Table-side order taking, splash-proof, hot-swap battery — built for full-service dining.", bullets: ["6.5\" HD+ touchscreen", "Splash-proof (IP54)", "4G + WiFi + Bluetooth", "10hr battery · hot-swap"] },
+      { name: "y4000 Tablet POS", code: "TB-04", img: "img/resto-hw-y4000.jpg", body: "11\" FHD tablet POS. Restaurant-grade counter till, host stand, or KDS anchor. Cash drawer + kitchen printer support.", bullets: ["11\" FHD touchscreen", "Cash drawer + kitchen printer", "KDS anchor mode", "Splash-proof (IP54)"] },
+      { name: "y5000 Counter POS", code: "CP 05", img: "img/resto-hw-y5000.jpg", body: "Dual 15.6\" screens (staff + customer-facing). Full counter till, host stand, or expo station. Cash drawer + 80mm printer.", bullets: ["Dual 15.6\" touchscreens", "Cash drawer + 80mm printer", "Expo & host stand modes", "Ethernet + WiFi + 4G backup"] }
     ],
     ai: [
       { name: "youMarketing", code: "MKT", body: "WhatsApp campaigns for regulars. Birthday drops, dead-day offers, win-back guests — segments built from real POS & delivery data.", bullets: ["WhatsApp Business API", "Segmentation from POS data", "Campaign attribution", "Two-way conversation console"] },
@@ -3145,7 +3206,7 @@ const PRODUCT_PAGES = {
     h1a: "Run your shop.", h1b: "Without the headache.",
     sub: "Billing, stock, customers, and payments — all in one place. One kit. One app. Live in your shop in under an hour.",
     cta1: "Start for free", cta2: "For enterprise",
-    strip: [1,2,3,4,5,6].map(n => "img/shop-strip-" + n + ".png"),
+    strip: [1,2,3,4,5,6].map(n => "img/shop-strip-" + n + ".jpg"),
     stats: [{ value: "$0", label: "To start" }, { value: "<1hr", label: "First order" }, { value: "9+", label: "Markets" }],
     featKicker: "WHAT youShop DOES FOR YOU", featTitleA: "Six things,", featTitleB: "one app.",
     featIntro: "Less paperwork. More selling. Lower cost. Every job that used to sit on a different device or notebook is now in one place.",
@@ -3161,8 +3222,8 @@ const PRODUCT_PAGES = {
     hwIntro: "One y-series fleet, works across every product. Every kit ships pre-configured with the app and gateway. Open the box, log in, sell.",
     hwChecks: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youShop + youPay natively"],
     hardware: [
-      ["Starter", "$59", "Mobile + BT printer", "img/shop-hw-starter.png", false, ["Runs onYour Android / iOS phone", "Printer 58 mm Bluetooth receipt", "Card reader Bluetooth dongle · optional", "Best for Micro shops · stalls · pop-ups"]],
-      ["y1000", "$189", "Handheld POS", "img/shop-hw-y1000.png", false, ["Display 6.5\" HD+ touch", "ScannerBuilt-in 2D barcode", "Printer 58 mm built-in receipt", "Card readerBuilt-in · NFC + EMV", "Best for Small shops · floor billing"]],
+      ["Starter", "$59", "Mobile + BT printer", "img/shop-hw-starter.jpg", false, ["Runs onYour Android / iOS phone", "Printer 58 mm Bluetooth receipt", "Card reader Bluetooth dongle · optional", "Best for Micro shops · stalls · pop-ups"]],
+      ["y1000", "$189", "Handheld POS", "img/shop-hw-y1000.jpg", false, ["Display 6.5\" HD+ touch", "ScannerBuilt-in 2D barcode", "Printer 58 mm built-in receipt", "Card readerBuilt-in · NFC + EMV", "Best for Small shops · floor billing"]],
       ["y5000", "$549", "Counter POS", "img/shop-hw-y5000.png", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best forBusy shops · full counter"]],
       ["y7000", "$499", "Self-service Kiosk", "img/shop-hw-y7000.png", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes Retail · ticketing · pickup", "Best for Guests check out themselves"]]
     ].map(([name, price, kind, img, popular, specs]) => Object.assign({}, popular ? HW_HOT : HW_LIGHT, { name, price, kind, img, popular, specs })),
@@ -3186,7 +3247,7 @@ const PRODUCT_PAGES = {
     h1a: "Run your restaurant.", h1b: "Without the chaos.",
     sub: "Front-of-house, kitchen, aggregators, and payments — all in one place. One kit. One app. Live in your restaurant in under an hour.",
     cta1: "Book a demo", cta2: "For enterprise",
-    strip: [1,2,3,4,5,6].map(n => "img/resto-strip-" + n + ".png"),
+    strip: [1,2,3,4,5,6].map(n => "img/resto-strip-" + n + ".jpg"),
     stats: [{ value: "$0", label: "To start" }, { value: "<1hr", label: "First order" }, { value: "9+", label: "Markets" }],
     featKicker: "WHAT youResto DOES FOR YOU", featTitleA: "Run the rush.", featTitleB: "Keep the guest.",
     featIntro: "From table to kitchen to aggregators — one app that handles the rush and the reconciliation. Built for single kitchens, ready for nine-outlet chains.",
@@ -3202,9 +3263,9 @@ const PRODUCT_PAGES = {
     hwIntro: "Table-side, counter, or self-service — every device runs youResto and youPay natively. PCI-certified. EMV-compliant. One activation. Ready in 24–48 hours.",
     hwChecks: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youResto + youPay natively", "Fleet-managed OTA"],
     hardware: [
-      ["y4000", "$299", "Handheld POS", "img/resto-hw-y4000.png", false, ["Display 10\" HD+ touch", "Card reader Built-in · NFC + EMV", "Barcode Built-in scanner", "Printer 80 mm external", "Best for Table-side ordering"]],
-      ["y5000", "$549", "Counter POS", "img/resto-hw-y5000.png", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer 80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best for Full-service restaurants"]],
-      ["y7000", "$499", "Self-service Kiosk", "img/resto-hw-y7000.png", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes QSR · café · retail · ticketing", "Best for Guests order themselves"]]
+      ["y4000", "$299", "Handheld POS", "img/resto-hw-y4000.jpg", false, ["Display 10\" HD+ touch", "Card reader Built-in · NFC + EMV", "Barcode Built-in scanner", "Printer 80 mm external", "Best for Table-side ordering"]],
+      ["y5000", "$549", "Counter POS", "img/resto-hw-y5000.jpg", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer 80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best for Full-service restaurants"]],
+      ["y7000", "$499", "Self-service Kiosk", "img/resto-hw-y7000.jpg", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes QSR · café · retail · ticketing", "Best for Guests order themselves"]]
     ].map(([name, price, kind, img, popular, specs]) => Object.assign({}, popular ? HW_HOT : HW_LIGHT, { name, price, kind, img, popular, specs })),
     hwTrust: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youShop + youPay natively", "Fleet-managed OTA"],
     tierIntro: "Freemium is $0 forever. Each paid tier includes everything below it, plus more. Enterprise is a custom plan above Power.",
@@ -3227,19 +3288,19 @@ const SOLUTIONS = [
   { cat: "Hospitality", name: "Digital Café", tagline: "Serve faster. Own the customer. Waste less.",
     body: "QR ordering, self-service kiosks, unified payments and AI-powered kitchen operations.",
     solves: ["Long ordering & payment queues", "High aggregator commissions", "Overproduction & food waste", "Manual bookkeeping"],
-    flow: ["Order", "Kitchen", "Pay", "Books", "Insights"], stack: "youResto · youQR · youPay", img: "img/qr-step-table.png" },
+    flow: ["Order", "Kitchen", "Pay", "Books", "Insights"], stack: "youResto · youQR · youPay", img: "img/sol-cafe.jpg" },
   { cat: "Distribution", name: "FMCG Distribution", tagline: "Sell the route. Settle the same day.",
     body: "Van-sales order capture, per-outlet credit limits, goods receiving and one settlement ledger back to head office.",
     solves: ["Paper order books on the route", "Uncontrolled outlet credit", "Stock leakage between van and depot", "Slow cash reconciliation"],
-    flow: ["Route", "Order", "Deliver", "Collect", "Settle"], stack: "youShop · youPay · youInsight", img: "img/shop-strip-2.png" },
+    flow: ["Route", "Order", "Deliver", "Collect", "Settle"], stack: "youShop · youPay · youInsight", img: "img/sol-distribution.jpg" },
   { cat: "Mobility", name: "Taxi and Fleet", tagline: "Accept in the vehicle. Pay the driver daily.",
     body: "SoundBox and tap-to-pay in every vehicle, driver-level settlement and fleet reconciliation in one ledger.",
     solves: ["Cash handling and driver float", "No proof of fare payment", "Manual daily payouts", "No fleet-level visibility"],
-    flow: ["Ride", "Tap", "Confirm", "Payout", "Report"], stack: "youPay · y10D SoundBox · youWorkflows", img: "img/pay-strip-3.png" },
+    flow: ["Ride", "Tap", "Confirm", "Payout", "Report"], stack: "youPay · y10D SoundBox · youWorkflows", img: "img/sol-fleet.jpg" },
   { cat: "Manufacturing", name: "Production Enterprise", tagline: "Cost the recipe. Track every batch.",
     body: "Central production with dependent outlets: planning, batch tracking, inter-outlet transfers and recipe costing.",
     solves: ["Unknown true cost per unit", "Untracked batches and wastage", "Manual transfer paperwork", "Disconnected outlet demand"],
-    flow: ["Plan", "Produce", "Transfer", "Sell", "Cost"], stack: "youResto · Commissary · youInsight", img: "img/resto-strip-4.png" },
+    flow: ["Plan", "Produce", "Transfer", "Sell", "Cost"], stack: "youResto · Commissary · youInsight", img: "img/sol-production.jpg" },
   { cat: "Ultra-SMB", name: "Micro-merchant", tagline: "Start at zero. Grow into the stack.",
     body: "Single-counter shops begin with QR acceptance and audio confirmation, then add billing and stock as the business grows.",
     solves: ["No affordable POS", "No proof of payment", "No credit history", "No digital records"],
@@ -3247,11 +3308,11 @@ const SOLUTIONS = [
   { cat: "Enterprise Retail", name: "Multi-brand Chain", tagline: "Several brands. One back office.",
     body: "Central menu and price push, role-based access per brand, consolidated P&L and group KPIs across the estate.",
     solves: ["Divergent pricing across outlets", "No consolidated reporting", "Uncontrolled user access", "Fragmented supplier terms"],
-    flow: ["Central", "Push", "Sell", "Consolidate", "Govern"], stack: "youShop Enterprise · RBAC · youAccounts", img: "img/shopent-hero.png" },
+    flow: ["Central", "Push", "Sell", "Consolidate", "Govern"], stack: "youShop Enterprise · RBAC · youAccounts", img: "img/sol-chain.jpg" },
   { cat: "Cloud Kitchen", name: "Cloud Kitchen", tagline: "Delivery only. Every channel in one queue.",
     body: "Aggregator connectors, dispatch orchestration, auto-86 across channels and prime-cost reporting per brand.",
     solves: ["A tablet farm per aggregator", "Menu drift between channels", "Items sold after running out", "No prime-cost visibility"],
-    flow: ["Channels", "KDS", "Dispatch", "Sync", "Prime cost"], stack: "youResto · Aggregators · youWorkflows", img: "img/resto-strip-2.png" }
+    flow: ["Channels", "KDS", "Dispatch", "Sync", "Prime cost"], stack: "youResto · Aggregators · youWorkflows", img: "img/sol-kitchen.jpg" }
 ];
 
 const MAP_PINS = [
@@ -3479,7 +3540,7 @@ class Component extends DCLogic {
       homeSoundStats: [{ value: "<3s", label: "Scan to audio confirm" }, { value: "105dB", label: "Speaker volume" }, { value: "T+0", label: "To your bank" }],
       homeProducts: [
         { name: "youShop", icon: "img/ic-shop.png", img: "img/home-p-shop.jpg", onClick: this.go("youshop"), body: "All-in-one retail POS. Billing, stock, customers & payments — on a single handheld. Built for SMBs, scales to chains.", chips: ["Billing", "Inventory", "CRM & loyalty", "Offline-first"] },
-        { name: "youResto", icon: "img/ic-resto.png", img: "img/home-p-resto.png", onClick: this.go("youresto"), body: "Front-of-house, kitchen, aggregators & payments — one restaurant OS. Table-side POS, KDS, and commission-free delivery.", chips: ["Table POS", "KDS", "Aggregator sync", "Direct delivery"] },
+        { name: "youResto", icon: "img/ic-resto.png", img: "img/home-p-resto.jpg", onClick: this.go("youresto"), body: "Front-of-house, kitchen, aggregators & payments — one restaurant OS. Table-side POS, KDS, and commission-free delivery.", chips: ["Table POS", "KDS", "Aggregator sync", "Direct delivery"] },
         { name: "youQR", icon: "img/ic-qr.png", img: "img/home-p-qr.jpg", onClick: this.go("youqr"), body: "One QR code, a complete commerce stack. Scan-to-order, pay, and earn loyalty — under 60 seconds. No app, no new device.", chips: ["Scan-to-pay", "Live menu", "Loyalty", "Working capital"] },
         { name: "youPay", icon: "img/ic-pay.png", img: "img/home-p-pay.jpg", onClick: this.go("youpay"), body: "The payment engine under every product. Cards, wallets, QR, Pay-by-Link, SVA. PCI L1. Sub-200ms auth. Same-day settlement.", chips: ["Cards + wallets", "Pay-by-Link", "QR + SoundBox", "PCI L1"] }
       ],
@@ -3520,14 +3581,14 @@ class Component extends DCLogic {
       quotesLoop: (() => { const q = HOME_QUOTES; return q.concat(q); })(),
       isQR: page === "youqr",
       isPay: page === "youpay",
-      payStrip: [1,2,3,4].map(n => "img/pay-strip-" + n + ".png"),
-      payStripLoop: [1,2,3,4].map(n => "img/pay-strip-" + n + ".png").concat([1,2,3,4].map(n => "img/pay-strip-" + n + ".png")),
+      payStrip: [1,2,3,4].map(n => "img/pay-strip-" + n + ".jpg"),
+      payStripLoop: [1,2,3,4].map(n => "img/pay-strip-" + n + ".jpg").concat([1,2,3,4].map(n => "img/pay-strip-" + n + ".jpg")),
       payStats: [{ value: "24hr", label: "Activation" }, { value: "<200ms", label: "Auth latency" }, { value: "T+0", label: "Settlement" }],
       payChannels: [
         { img: "img/pay-ch-instore.jpg", title: "Tap, chip, or PIN. Card in hand, done.", body: "The y1000 all-in-one Android POS — 6.5\" HD+ touchscreen, built-in 2\" receipt printer, barcode scanner, EMV chip and contactless NFC. Bill on the floor, at the table, or at the counter. SoftPOS on any Android phone for pop-ups.", chips: ["EMV chip + PIN", "Contactless NFC", "SoftPOS"], logos: "img/pay-cards-1.png" },
-        { img: "img/pay-ch-online.png", title: "Your website, your checkout.", body: "Drop-in hosted checkout, S2S API for full control, or a PCI-scoped iFrame that keeps you out of scope. Recurring billing and saved cards for one-click repeat purchases.", chips: ["Hosted checkout", "S2S API", "iFrame", "3DS2 · SCA", "Recurring & MIT"], logos: "img/pay-cards-2.png" },
-        { img: "img/pay-ch-link.png", title: "Send a link. Get paid instantly.", body: "Single-use or reusable payment links via WhatsApp, SMS, email, Instagram DM or Facebook Messenger. No website needed. Great for social sellers, invoicing, and delivery-on-demand.", chips: ["Single-use links", "Reusable links", "Invoice-on-link", "QR fallback"], logos: "", icons: "img/pay-social.png", redChips: ["SMS", "Email"] },
-        { img: "img/pay-ch-qr.png", title: "One QR sticker. Every wallet in your market.", body: "EMVCo QR accepts every in-country mobile wallet, bank app and domestic QR scheme. Pair with the y10 / y10D SoundBox for 105dB audio confirmation — never chase a customer to check.", chips: ["Static QR", "Dynamic QR", "105dB audio", "T+0 settlement"], logos: "", redChips: ["EMVCo QR", "Local wallets", "Bank apps", "y10 / y10D"] }
+        { img: "img/pay-ch-online.jpg", title: "Your website, your checkout.", body: "Drop-in hosted checkout, S2S API for full control, or a PCI-scoped iFrame that keeps you out of scope. Recurring billing and saved cards for one-click repeat purchases.", chips: ["Hosted checkout", "S2S API", "iFrame", "3DS2 · SCA", "Recurring & MIT"], logos: "img/pay-cards-2.png" },
+        { img: "img/pay-ch-link.jpg", title: "Send a link. Get paid instantly.", body: "Single-use or reusable payment links via WhatsApp, SMS, email, Instagram DM or Facebook Messenger. No website needed. Great for social sellers, invoicing, and delivery-on-demand.", chips: ["Single-use links", "Reusable links", "Invoice-on-link", "QR fallback"], logos: "", icons: "img/pay-social.png", redChips: ["SMS", "Email"] },
+        { img: "img/pay-ch-qr.jpg", title: "One QR sticker. Every wallet in your market.", body: "EMVCo QR accepts every in-country mobile wallet, bank app and domestic QR scheme. Pair with the y10 / y10D SoundBox for 105dB audio confirmation — never chase a customer to check.", chips: ["Static QR", "Dynamic QR", "105dB audio", "T+0 settlement"], logos: "", redChips: ["EMVCo QR", "Local wallets", "Bank apps", "y10 / y10D"] }
       ],
       payFeatures: [
         ["01", "Gateway + fraud engine", "PCI L1 gateway with inline ML fraud scoring in under 50ms. XGBoost / GBDT models tuned to your market.", "Fraud < 50ms · PCI L1"],
@@ -3552,8 +3613,8 @@ class Component extends DCLogic {
       ],
       payChips: ["youInsight · $7/mo", "youMarketing · $9/mo + per-msg", "youWorkflows · $12/mo", "youAccounts · $8/mo", "youLend · rev-share *", "3DS2 + tokenisation · per-auth *", "Extra Merchant IDs *", "Chargeback specialist support *"],
       payCtaRows: ["Hosted checkout + Pay-by-Link", "POS + SoftPOS + SoundBox", "Merchant QR + local wallets", "Recurring & saved cards", "MDR only — no setup fees"],
-      qrStrip: [1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".png"),
-      qrStripLoop: [1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".png").concat([1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".png")),
+      qrStrip: [1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".jpg"),
+      qrStripLoop: [1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".jpg").concat([1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".jpg")),
       qrStats: [{ value: "<60s", label: "Scan to paid" }, { value: "0", label: "App downloads" }, { value: "24h", label: "Activation" }],
       qrFeatures: [
         ["01", "Sell from day one", "Your customer scans and pays without downloads. You start collecting orders in minutes, not weeks. No engineering project.", "Browser-native · zero install"],
@@ -3564,8 +3625,8 @@ class Component extends DCLogic {
         ["06", "Custom branding", "Your logo, your colors, your domain. White-label option available. It's your storefront — we're the infrastructure.", "White-label · custom domains"]
       ].map(([num, title, body, tag]) => ({ num, title, body, tag })),
       qrScenes: [
-        { img: "img/qr-step-table.png", title: "At the table", body: "Guest scans. Menu loads on their own phone." },
-        { img: "img/qr-step-counter.png", title: "No ECR needed", body: "Counter freed up. A tablet replaces the cash register — or the order fires directly to KDS." }
+        { img: "img/qr-step-table.jpg", title: "At the table", body: "Guest scans. Menu loads on their own phone." },
+        { img: "img/qr-step-counter.jpg", title: "No ECR needed", body: "Counter freed up. A tablet replaces the cash register — or the order fires directly to KDS." }
       ],
       qrSteps: [
         ["01", "Scan", "Customer scans your QR — printed on the table, counter or shelf. Loads a branded page."],
@@ -3647,9 +3708,9 @@ class Component extends DCLogic {
         { name: "youLend", desc: "Pre-approved working capital sized from live transaction history. No monthly fee.", price: "Revenue share", icon: "img/icon-lend.png" }
       ].map((a, i) => Object.assign({}, a, { rule: i === 0 ? "transparent" : "#EDE9EA" })),
       hwPricing: [
-        { name: "Starter kit", price: "$59", img: "img/shop-hw-starter.png", body: "Your own Android or iOS phone plus a 58mm Bluetooth receipt printer. Card reader dongle optional.", tag: "Micro shops · stalls · pop-ups" },
-        { name: "y1000 handheld", price: "$189", img: "img/shop-hw-y1000.png", body: "6.5\" HD+ touchscreen, built-in 2D scanner, 58mm printer, NFC and EMV card reader. Includes 12 months Power software.", tag: "Small shops · floor billing" },
-        { name: "y10D SoundBox", price: "$35", img: "img/home-soundbox.jpg", body: "Standalone QR acceptance with 105dB audio confirmation in under 3 seconds. Includes Freemium software forever.", tag: "QR-first merchants" }
+        { name: "Starter kit", price: "$59", img: "img/shop-hw-starter.jpg", body: "Your own Android or iOS phone plus a 58mm Bluetooth receipt printer. Card reader dongle optional.", tag: "Micro shops · stalls · pop-ups" },
+        { name: "y1000 handheld", price: "$189", img: "img/shop-hw-y1000.jpg", body: "6.5\" HD+ touchscreen, built-in 2D scanner, 58mm printer, NFC and EMV card reader. Includes 12 months Power software.", tag: "Small shops · floor billing" },
+        { name: "y10D SoundBox", price: "$35", img: "img/hw-soundbox.jpg", body: "Standalone QR acceptance with 105dB audio confirmation in under 3 seconds. Includes Freemium software forever.", tag: "QR-first merchants" }
       ],
       priceFaq: [
         { q: "Is there a contract or lock-in?", a: "No. Software is billed monthly and you can move up, move down or stop any month. Hardware is bought once and owned outright — there is no lease." },
@@ -3940,6 +4001,8 @@ class Component extends DCLogic {
       })),
       supportOpen: this.state.supportOpen,
       supportClosed: !this.state.supportOpen,
+      supportFabBg: this.state.supportOpen ? "#F96167" : "transparent",
+      supportFabShadow: this.state.supportOpen ? "0 14px 34px rgba(249,97,103,0.4)" : "none",
       toggleSupport: this.toggleSupport,
       supportInput: this.state.supportInput,
       onSupportInput: (e) => this.setState({ supportInput: e.target.value }),
@@ -3961,6 +4024,19 @@ class Component extends DCLogic {
         const missing = !f.first || !f.workEmail || !f.company;
         if (missing) return this.setState({ demoError: "Please add your name, work email and company." });
         if (!this.state.consent) return this.setState({ demoError: "Please agree to be contacted." });
+        const body = [
+          "Name: " + [f.first, f.last].filter(Boolean).join(" "),
+          "Work email: " + (f.workEmail || ""),
+          "Phone: " + (f.phone1 || ""),
+          "Company: " + (f.company || ""),
+          "Outlets: " + (f.outlets || ""),
+          "", "What they want to solve:", f.message || "(not provided)"
+        ].join("\n");
+        if (typeof window !== "undefined") {
+          window.location.href = "mailto:" + SALES_EMAIL +
+            "?subject=" + encodeURIComponent("Demo request - " + (f.company || "new merchant")) +
+            "&body=" + encodeURIComponent(body);
+        }
         this.setState({ demoError: "", demoSent: true });
       },
       termsSections: [
@@ -4015,6 +4091,17 @@ class Component extends DCLogic {
       submitContact: () => {
         const f = this.state.contactForm;
         if (!f.name || !f.email || !f.company) return this.setState({ contactError: "Please add your name, work email and company." });
+        const body = [
+          "Name: " + (f.name || ""),
+          "Work email: " + (f.email || ""),
+          "Company: " + (f.company || ""),
+          "", "Message:", f.message || "(not provided)"
+        ].join("\n");
+        if (typeof window !== "undefined") {
+          window.location.href = "mailto:" + SALES_EMAIL +
+            "?subject=" + encodeURIComponent("Website enquiry - " + (f.company || "new contact")) +
+            "&body=" + encodeURIComponent(body);
+        }
         this.setState({ contactError: "", contactSent: true });
       }
     };
