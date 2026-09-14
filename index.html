@@ -237,6 +237,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .yc-quote-card { grid-template-columns: 44px minmax(0, 1fr) !important; }
     .yc-quote-card > span:first-child { width: 40px !important; height: 40px !important; font-size: 16px !important; }
   }
+
+  .yc-grid-5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+  @media (max-width: 1180px) { .yc-grid-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 780px) { .yc-grid-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) { .yc-grid-5 { grid-template-columns: minmax(0, 1fr); } }
+  .yc-chiprow { display: flex; flex-wrap: wrap; gap: 5px; }
+  @media (min-width: 1320px) { .yc-chiprow { flex-wrap: nowrap; } }
+  .yc-imgfade { position: relative; overflow: hidden; }
+  .yc-imgfade::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.94) 100%); pointer-events: none; }
+  @media (max-width: 900px) { .yc-boxarrow { display: none !important; } }
 </style>
 </helmet>
 
@@ -321,7 +332,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div style="max-width: 1280px; margin: 52px auto 0">
-      <img src="img/home-dash.jpg" alt="youcloud merchant dashboard" style="width: 100%; height: auto; border-radius: 20px; display: block" />
+      <img src="img/hero-home.png" alt="youcloud merchant dashboard" style="width: calc(100% - 60px); max-width: 1220px; height: auto; border-radius: 20px; display: block; margin: 0 auto" />
     </div>
   </section>
 
@@ -346,7 +357,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ goPayEnt }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Enterprise</button>
         </div>
       </div>
-      <img src="img/home-soundbox.jpg" alt="youcloud SoundBox y10D" style="width: 100%; height: auto; border-radius: 20px; display: block" />
+      <img src="img/home-soundbox.jpg" alt="youcloud SoundBox y10D and phone" style="width: 100%; height: auto; border-radius: 20px; display: block; align-self: center" />
     </div>
   </section>
 
@@ -359,7 +370,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Pick the products that fit how<br /><span style="color: #F96167">your business actually runs.</span></h2>
         <p style="font-size: 17px; line-height: 1.7; text-align: justify">Every product is built on youPay — one payment engine, one settlement, one ledger. Every product stacks four layers: Commerce · Payments · Embedded Finance · AI — all wired together so insights, money and stock move as one. Whether you're a starter, standard or power merchant, you get the same architecture. The modules grow; the platform doesn't change.</p>
       </div>
-      <div style="margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 28px">
+      <div class="yc-grid-4" style="margin-top: 44px; gap: 20px">
         <sc-for list="{{ homeProducts }}" as="p" hint-placeholder-count="4">
           <div onClick="{{ p.onClick }}" style="border: 1px solid #EDE9EA; border-radius: 22px; padding: 26px; cursor: pointer; display: flex; flex-direction: column; gap: 20px" style-hover="border-color: #F8CDD1">
             <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: auto; border-radius: 14px; display: block" />
@@ -432,7 +443,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Trusted Infrastructure for<br /><span style="color: #F96167">Banks, PSPs, ISOs and Telcos</span></h2>
         <p style="font-size: 17px; line-height: 1.7; text-align: justify">One EMVCo QR. Every in-country wallet, every bank app. A 105dB audio confirmation the moment the money lands - so you never chase a customer to check</p>
       </div>
-      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+      <div class="yc-grid-5" style="margin-top: 40px">
         <sc-for list="{{ homeTrust }}" as="t" hint-placeholder-count="5">
           <div style="border: 1px solid #EDE9EA; border-radius: 18px; padding: 26px 30px">
             <div style="font-size: 24px; font-weight: 700; color: #F96167">{{ t.num }}</div>
@@ -523,20 +534,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
             </sc-for>
           </div>
-          <img src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: auto; border-radius: 14px; display: block" />
+          <div class="yc-imgfade" style="width: 70%; margin: 0 auto; border-radius: 14px"><img src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: auto; display: block" /></div>
         </div>
         <div class="yc-addon-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; align-items: stretch">
           <sc-for list="{{ homeAddons }}" as="a" hint-placeholder-count="4">
-            <div style="border-radius: 22px; background: #F7F8FC; padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: transform .3s ease, box-shadow .3s ease" style-hover="transform: translateY(-4px); box-shadow: 0 18px 40px rgba(11,29,58,0.08)">
+            <div style="border-radius: 22px; background: #F7F8FC; padding: 20px; display: flex; flex-direction: column; gap: 14px; transition: transform .3s ease, box-shadow .3s ease" style-hover="transform: translateY(-4px); box-shadow: 0 18px 40px rgba(11,29,58,0.08)">
               <img src="{{ a.icon }}" alt="" style="width: 40px; height: 40px; border-radius: 11px; display: block" />
               <div style="font-size: 19px; font-weight: 700; color: #0B1D3A">{{ a.name }}</div>
               <p style="font-size: 16px; line-height: 1.6">{{ a.body }}</p>
-              <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <div class="yc-chiprow">
                 <sc-for list="{{ a.chips }}" as="c" hint-placeholder-count="3">
-                  <span style="padding: 8px 14px; border-radius: 999px; background: #FEF3F4; color: #F96167; font-size: 14px">{{ c }}</span>
+                  <span style="padding: 5px 8px; border-radius: 999px; background: #FEF3F4; color: #F96167; font-size: 11px; white-space: nowrap; flex: 0 0 auto">{{ c }}</span>
                 </sc-for>
               </div>
-              <img src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; height: auto; border-radius: 12px; display: block" />
+              <div class="yc-imgfade" style="margin-top: auto; border-radius: 12px"><img src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; height: 170px; object-fit: cover; display: block" /></div>
             </div>
           </sc-for>
         </div>
@@ -578,12 +589,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="margin-top: 40px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
       <div class="yc-marquee" style="display: flex; gap: 26px; width: max-content; animation: ycMarquee 52s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ quotesLoop }}" as="q" hint-placeholder-count="6">
-          <div class="yc-quote-card" style="flex: 0 0 clamp(300px, 78vw, 600px); border: 1px solid #EDE9EA; border-radius: 20px; padding: 30px; display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 24px">
-            <span style="width: 76px; height: 76px; border-radius: 50%; background: #FBD8DA; color: #F96167; display: inline-flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700">{{ q.initial }}</span>
+          <div class="yc-quote-card" style="flex: 0 0 clamp(250px, 64vw, 380px); border: 1px solid #EDE9EA; border-radius: 18px; padding: 20px 22px; display: block">
             <div>
-              <div style="font-size: 34px; line-height: 1; color: #D7DEEC">”</div>
-              <p style="margin-top: 10px; font-size: 16px; line-height: 1.6">{{ q.quote }}</p>
-              <div style="margin-top: 34px; display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap">
+              <div style="font-size: 24px; line-height: 1; color: #D7DEEC">”</div>
+              <p style="margin-top: 6px; font-size: 15px; line-height: 1.55">{{ q.quote }}</p>
+              <div style="margin-top: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap">
                 <div>
                   <div style="font-size: 16px; font-weight: 700; color: #0B1D3A">{{ q.name }}</div>
                   <div style="margin-top: 4px; font-size: 15px; color: #8A93A8">{{ q.where }}</div>
@@ -616,6 +626,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
         <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <svg class="yc-boxarrow" viewBox="0 0 160 90" style="position: absolute; left: 44%; top: 54%; width: 172px; height: 96px; z-index: 3; pointer-events: none; overflow: visible">
+          <path d="M150 16 C 112 4, 60 26, 26 56" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 7" />
+          <path d="M26 56 l 15 -3 M26 56 l 3 -15" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
         <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 18%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What's in the box</span>
@@ -2777,7 +2791,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </sc-for>
       </div>
-      <img src="img/logo.png" alt="youcloud" style="height: 44px; width: auto; display: block; margin: 0 auto" />
+      <img src="img/logo.png" alt="youcloud" style="height: 44px; width: auto; display: block; margin: -34px auto 0" />
       <p style="max-width: 520px; font-size: 16px; line-height: 1.6; text-align: center; margin: 0 auto">The operating layer for SMB and enterprise merchants. One licence, four products, unlimited merchants — live in 9+ markets.</p>
       <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center">
         <button onClick="{{ openDemo }}" style="padding: 13px 30px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
@@ -3553,9 +3567,9 @@ class Component extends DCLogic {
       ],
       homeTrust: [
         ["01", "PCI DSS Level 1", "Certified card data environment, audited annually."],
-        ["02", "199.999% uptime", "Redundant, multi-region processing infrastructure."],
+        ["02", "99.999% uptime", "Redundant, multi-region processing infrastructure."],
         ["03", "Sub-200ms authorisation", "Measured at the switch across live markets."],
-        ["04", "Sub-200ms authorisation", "Measured at the switch across live markets."],
+        ["04", "ML fraud scoring", "Inline scoring in under 50ms on every transaction."],
         ["05", "Local payment rails", "Domestic schemes, wallets and bank rails per market."]
       ].map(([num, title, body]) => ({ num, title, body })),
       homeEnterprise: [
