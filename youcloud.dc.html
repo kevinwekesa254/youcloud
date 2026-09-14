@@ -248,6 +248,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .yc-imgfade::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.94) 100%); pointer-events: none; }
   @media (max-width: 900px) { .yc-boxarrow { display: none !important; } }
+
+  .yc-shimmer { position: relative; overflow: hidden; display: inline-block; }
+  .yc-shimmer::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.75) 48%, rgba(255,255,255,0.75) 54%, transparent 68%);
+    background-size: 220% 100%; background-position: 160% 0;
+    animation: ycShimmer 3.4s ease-in-out infinite;
+  }
+  @keyframes ycShimmer { 0% { background-position: 180% 0; } 55%, 100% { background-position: -90% 0; } }
 </style>
 </helmet>
 
@@ -1034,7 +1043,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </sc-for>
       </div>
-      <div class="yc-feat-grid" style="margin-top: 34px">
+      <div class="yc-grid-5" style="margin-top: 34px">
         <sc-for list="{{ qrSteps }}" as="s" hint-placeholder-count="5">
           <div style="border: 1px solid #E7E3E4; border-radius: 18px; padding: 26px 30px">
             <div style="font-size: 24px; font-weight: 700; color: #F96167">{{ s.num }}</div>
@@ -1261,7 +1270,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <sc-for list="{{ payChannels }}" as="c" hint-placeholder-count="4">
           <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
             <div style="position: relative">
-              <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}"><img src="{{ c.img }}" alt="{{ c.title }}" style="width: 100%; height: auto; border-radius: 16px; display: block" /></sc-if>
+              <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}"><img src="{{ c.img }}" alt="{{ c.title }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; display: block" /></sc-if>
             </div>
             <div>
               <div style="font-size: 19px; font-weight: 700; color: #0B1D3A">{{ c.title }}</div>
@@ -1294,9 +1303,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p style="font-size: 13px; letter-spacing: 0.09em; line-height: 1.9; color: #4A5878">GLOBAL + DOMESTIC CARD SCHEMES, WALLETS AND QR RAILS — PRE-INTEGRATED ACROSS 9+ MARKETS</p>
         </div>
         <div style="margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
-          <img class="yc-logos" src="img/pay-schemes.png" alt="Visa, Mastercard, Amex, UnionPay, Discover, Apple Pay, Google Pay, JCB, WhatsApp" style="height: 38px; width: auto; display: block" />
-          <span style="padding: 12px 22px; border-radius: 999px; background: #F4F5FA; font-size: 16px; color: #4A5878">Domestic QR</span>
-          <span style="padding: 12px 22px; border-radius: 999px; background: #F4F5FA; font-size: 16px; color: #4A5878">Local wallets</span>
+          <div class="yc-shimmer" style="border-radius: 10px; transition: transform .3s ease" style-hover="transform: translateY(-3px) scale(1.03)">
+            <img class="yc-logos" src="img/pay-schemes.png" alt="Visa, Mastercard, Amex, UnionPay, Discover, Apple Pay, Google Pay, JCB, WhatsApp" style="height: 38px; width: auto; display: block" />
+          </div>
+          <span style="padding: 12px 22px; border-radius: 999px; background: #F4F5FA; font-size: 16px; color: #4A5878; transition: transform .25s ease, background .25s ease, color .25s ease" style-hover="transform: translateY(-3px); background: #F96167; color: #fff">Domestic QR</span>
+          <span style="padding: 12px 22px; border-radius: 999px; background: #F4F5FA; font-size: 16px; color: #4A5878; transition: transform .25s ease, background .25s ease, color .25s ease" style-hover="transform: translateY(-3px); background: #F96167; color: #fff">Local wallets</span>
         </div>
       </div>
     </div>
