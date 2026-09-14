@@ -332,7 +332,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div style="max-width: 1280px; margin: 52px auto 0">
-      <img src="img/hero-home.png" alt="youcloud merchant dashboard" style="width: calc(100% - 60px); max-width: 1220px; height: auto; border-radius: 20px; display: block; margin: 0 auto" />
+      <img src="img/hero-home.jpg" alt="youcloud merchant dashboard" style="width: calc(100% - 60px); max-width: 1220px; height: auto; border-radius: 20px; display: block; margin: 0 auto" />
     </div>
   </section>
 
@@ -370,7 +370,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Pick the products that fit how<br /><span style="color: #F96167">your business actually runs.</span></h2>
         <p style="font-size: 17px; line-height: 1.7; text-align: justify">Every product is built on youPay — one payment engine, one settlement, one ledger. Every product stacks four layers: Commerce · Payments · Embedded Finance · AI — all wired together so insights, money and stock move as one. Whether you're a starter, standard or power merchant, you get the same architecture. The modules grow; the platform doesn't change.</p>
       </div>
-      <div class="yc-grid-4" style="margin-top: 44px; gap: 20px">
+      <div class="yc-grid-4" style="margin-top: 44px; gap: 20px; align-items: stretch">
         <sc-for list="{{ homeProducts }}" as="p" hint-placeholder-count="4">
           <div onClick="{{ p.onClick }}" style="border: 1px solid #EDE9EA; border-radius: 22px; padding: 26px; cursor: pointer; display: flex; flex-direction: column; gap: 20px" style-hover="border-color: #F8CDD1">
             <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: auto; border-radius: 14px; display: block" />
@@ -517,7 +517,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Five add-ons. One data layer.<br /><span style="color: #F96167">zero re-integration.</span></h2>
         <p style="font-size: 17px; line-height: 1.7; text-align: justify">Every add-on plugs into the same merchant data your POS, KDS, and QR checkout are already producing. Turn one on this month, another next quarter. No new integrations, no re-plumbing, no additional PSP contracts.</p>
       </div>
-      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; align-items: start">
+      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; align-items: stretch">
         <div style="border: 1px solid #F8D9DC; background: linear-gradient(180deg, #FEF6F7 0%, #ffffff 70%); border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap">
             <img src="img/icon-lend.png" alt="" style="width: 44px; height: 44px; border-radius: 12px; display: block" />
@@ -534,7 +534,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
             </sc-for>
           </div>
-          <div class="yc-imgfade" style="width: 70%; margin: 0 auto; border-radius: 14px"><img src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: auto; display: block" /></div>
+          <div class="yc-imgfade" style="width: 70%; margin: 0 auto; border-radius: 14px; flex: 1; min-height: 160px; display: flex"><img src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: 100%; object-fit: cover; display: block" /></div>
         </div>
         <div class="yc-addon-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; align-items: stretch">
           <sc-for list="{{ homeAddons }}" as="a" hint-placeholder-count="4">
@@ -593,12 +593,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div>
               <div style="font-size: 24px; line-height: 1; color: #D7DEEC">”</div>
               <p style="margin-top: 6px; font-size: 15px; line-height: 1.55">{{ q.quote }}</p>
-              <div style="margin-top: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-                <div>
-                  <div style="font-size: 16px; font-weight: 700; color: #0B1D3A">{{ q.name }}</div>
-                  <div style="margin-top: 4px; font-size: 15px; color: #8A93A8">{{ q.where }}</div>
+              <div style="margin-top: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: nowrap">
+                <div style="min-width: 0">
+                  <div style="font-size: 16px; font-weight: 700; color: #0B1D3A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ q.name }}</div>
+                  <div style="margin-top: 4px; font-size: 15px; color: #8A93A8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ q.where }}</div>
                 </div>
-                <span style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #E7E3E4; border-radius: 999px; font-size: 15px; color: #0B1D3A"><span style="width: 6px; height: 6px; border-radius: 50%; background: #0B1D3A"></span>{{ q.product }}</span>
+                <span style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #E7E3E4; border-radius: 999px; font-size: 15px; color: #0B1D3A; flex-shrink: 0"><span style="width: 6px; height: 6px; border-radius: 50%; background: #0B1D3A"></span>{{ q.product }}</span>
               </div>
             </div>
           </div>
@@ -2937,7 +2937,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
   </sc-if>
-  <div onClick="{{ toggleSupport }}" style="width: 64px; height: 64px; border-radius: 50%; background: {{ supportFabBg }}; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: {{ supportFabShadow }}; transition: transform .25s cubic-bezier(.2,.7,.3,1.4)" style-hover="transform: scale(1.08)">
+  <div onClick="{{ toggleSupport }}" style="width: 83px; height: 83px; border-radius: 50%; background: {{ supportFabBg }}; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; box-shadow: {{ supportFabShadow }}; transition: transform .25s cubic-bezier(.2,.7,.3,1.4)" style-hover="transform: scale(1.08)">
     <sc-if value="{{ supportOpen }}" hint-placeholder-val="{{ false }}"><span>✕</span></sc-if>
     <sc-if value="{{ supportClosed }}" hint-placeholder-val="{{ true }}"><img src="img/bot-icon.png" alt="Support assistant" style="width: 124%; height: 124%; margin: -12%; display: block" /></sc-if>
   </div>
