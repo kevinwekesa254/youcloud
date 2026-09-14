@@ -366,7 +366,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ goPayEnt }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Enterprise</button>
         </div>
       </div>
-      <img src="img/home-soundbox.jpg" alt="youcloud SoundBox y10D and phone" style="width: 100%; height: auto; border-radius: 20px; display: block; align-self: center" />
+      <img src="img/home-soundbox.jpg" alt="youcloud SoundBox y10D and phone" style="width: 78%; height: auto; border-radius: 20px; display: block; margin: 0 auto; align-self: center" />
     </div>
   </section>
 
@@ -2810,27 +2810,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <div style="margin-top: 60px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap">
-      <div style="display: flex; align-items: center; gap: 18px">
-        <img src="img/logo.png" alt="youcloud" style="height: 30px; width: auto; display: block" />
-        <div style="width: 1px; height: 26px; background: #E7E3E4"></div>
-        <div style="display: flex; gap: 10px">
-          <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
-            <span onClick="{{ s.onClick }}" title="{{ s.title }}" style="width: 32px; height: 32px; border-radius: 50%; background: #0B1D3A; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: transform .25s ease, background .25s ease" style-hover="background: #F96167; transform: translateY(-3px)">
-              <sc-if value="{{ s.isInsta }}" hint-placeholder-val="{{ false }}">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="2" y="2" width="20" height="20" rx="5.5" />
-                  <circle cx="12" cy="12" r="4.6" />
-                  <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
-                </svg>
-              </sc-if>
-              <sc-if value="{{ s.isText }}" hint-placeholder-val="{{ true }}">{{ s.glyph }}</sc-if>
-            </span>
-          </sc-for>
-        </div>
-      </div>
-      <div style="font-size: 15px; color: #8A93A8">© 2026 youcloud Paytech • DIFC Dubai • All rights reserved.</div>
-    </div>
+    <div style="margin-top: 60px; text-align: center; font-size: 15px; color: #8A93A8">© 2026 youcloud Paytech • DIFC Dubai • All rights reserved.</div>
 
     <div style="height: 1px; background: #EEE9EA; margin: 28px 0 40px"></div>
 
@@ -2844,6 +2824,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </sc-for>
           </ul>
         </div>
+      </sc-for>
+    </div>
+
+    <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid #EEE9EA; display: flex; justify-content: center; gap: 10px">
+      <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
+        <span onClick="{{ s.onClick }}" title="{{ s.title }}" style="width: 36px; height: 36px; border-radius: 50%; background: #0B1D3A; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: transform .25s ease, background .25s ease" style-hover="background: #F96167; transform: translateY(-3px)">
+          <sc-if value="{{ s.isInsta }}" hint-placeholder-val="{{ false }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5.5" />
+              <circle cx="12" cy="12" r="4.6" />
+              <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+            </svg>
+          </sc-if>
+          <sc-if value="{{ s.isText }}" hint-placeholder-val="{{ true }}">{{ s.glyph }}</sc-if>
+        </span>
       </sc-for>
     </div>
   </div>
