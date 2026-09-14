@@ -2810,9 +2810,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <div style="margin-top: 60px; text-align: center; font-size: 15px; color: #8A93A8">© 2026 youcloud Paytech • DIFC Dubai • All rights reserved.</div>
-
-    <div style="height: 1px; background: #EEE9EA; margin: 28px 0 40px"></div>
+    <div style="height: 1px; background: #EEE9EA; margin: 60px 0 40px"></div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 32px">
       <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="6">
@@ -2823,24 +2821,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li onClick="{{ l.onClick }}" style="font-size: 16px; color: #6C7689; cursor: pointer" style-hover="color: #F96167">{{ l.label }}</li>
             </sc-for>
           </ul>
+          <div style="margin-top: 20px; display: flex; gap: 10px">
+            <sc-for list="{{ col.socials }}" as="s" hint-placeholder-count="0">
+              <span onClick="{{ s.onClick }}" title="{{ s.title }}" style="width: 36px; height: 36px; border-radius: 50%; background: #0B1D3A; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: transform .25s ease, background .25s ease" style-hover="background: #F96167; transform: translateY(-3px)">
+                <sc-if value="{{ s.isInsta }}" hint-placeholder-val="{{ false }}">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5.5" />
+                    <circle cx="12" cy="12" r="4.6" />
+                    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+                  </svg>
+                </sc-if>
+                <sc-if value="{{ s.isText }}" hint-placeholder-val="{{ true }}">{{ s.glyph }}</sc-if>
+              </span>
+            </sc-for>
+          </div>
         </div>
       </sc-for>
     </div>
 
-    <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid #EEE9EA; display: flex; justify-content: center; gap: 10px">
-      <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
-        <span onClick="{{ s.onClick }}" title="{{ s.title }}" style="width: 36px; height: 36px; border-radius: 50%; background: #0B1D3A; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: transform .25s ease, background .25s ease" style-hover="background: #F96167; transform: translateY(-3px)">
-          <sc-if value="{{ s.isInsta }}" hint-placeholder-val="{{ false }}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="2" width="20" height="20" rx="5.5" />
-              <circle cx="12" cy="12" r="4.6" />
-              <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
-            </svg>
-          </sc-if>
-          <sc-if value="{{ s.isText }}" hint-placeholder-val="{{ true }}">{{ s.glyph }}</sc-if>
-        </span>
-      </sc-for>
-    </div>
+    <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid #EEE9EA; text-align: center; font-size: 15px; color: #8A93A8">© 2026 youcloud Paytech • DIFC Dubai • All rights reserved.</div>
   </div>
 </footer>
 
@@ -2972,6 +2971,12 @@ const PAGE_SEO = {
   privacy:         { title: "Privacy Policy | youcloud", description: "How Youcloud Paytech collects, uses, shares and protects merchant and customer data. PCI DSS Level 1, AES-256, no sale of personal data." },
   cookies:         { title: "Cookie Policy | youcloud", description: "How youcloud uses essential, preference and analytics cookies, and how to control them." }
 };
+
+const SOCIAL_LINKS = [
+  { glyph: "in", title: "LinkedIn", isText: true, isInsta: false, onClick: () => window.open("https://www.linkedin.com/company/youcloudpaytech", "_blank", "noopener,noreferrer") },
+  { glyph: "", title: "Instagram", isText: false, isInsta: true, onClick: () => window.open("https://www.instagram.com/youcloudpay/", "_blank", "noopener,noreferrer") },
+  { glyph: "f", title: "Facebook", isText: true, isInsta: false, onClick: () => window.open("https://www.facebook.com/YouCloudPay/", "_blank", "noopener,noreferrer") }
+];
 
 const SALES_EMAIL = "connect@youcloudtech.com";
 
@@ -3969,13 +3974,10 @@ class Component extends DCLogic {
         { name: "youShop", icon: "img/ic-shop.png", onClick: this.go("youshop"), left: "72%", top: 44, size: 64, iconSize: 28, bg: "#fff", shadow: "0 8px 20px rgba(11,29,58,0.08)" },
         { name: "youQR", icon: "img/ic-qr.png", onClick: this.go("youqr"), left: "95%", top: 108, size: 60, iconSize: 26, bg: "#fff", shadow: "0 8px 20px rgba(11,29,58,0.08)" }
       ],
-      socials: [
-        { glyph: "in", title: "LinkedIn", isText: true, isInsta: false, onClick: () => window.open("https://www.linkedin.com/company/youcloudpaytech", "_blank", "noopener,noreferrer") },
-        { glyph: "", title: "Instagram", isText: false, isInsta: true, onClick: () => window.open("https://www.instagram.com/youcloudpay/", "_blank", "noopener,noreferrer") },
-        { glyph: "f", title: "Facebook", isText: true, isInsta: false, onClick: () => window.open("https://www.facebook.com/YouCloudPay/", "_blank", "noopener,noreferrer") }
-      ],
+      socials: SOCIAL_LINKS,
       footerCols: FOOTER.map(([title, links]) => ({
         title,
+        socials: title === "Legal" ? SOCIAL_LINKS : [],
         links: links.map(label => {
           const solIndex = SOLUTIONS.findIndex(s => s.name === label);
           if (solIndex >= 0) return { label, onClick: this.goSolution(solIndex) };
