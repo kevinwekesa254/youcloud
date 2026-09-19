@@ -257,6 +257,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     animation: ycShimmer 3.4s ease-in-out infinite;
   }
   @keyframes ycShimmer { 0% { background-position: 180% 0; } 55%, 100% { background-position: -90% 0; } }
+
+  /* ---------- motion layer: page transitions, micro-interactions, staggered reveals ---------- */
+  @keyframes ycPageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .yc-pagein { animation: ycPageIn .42s cubic-bezier(.2,.7,.3,1) both; }
+
+  /* press feedback on every control (inline style-hover still wins where set) */
+  button { transition: transform .18s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  button:active { transform: translateY(1px) scale(.985); }
+
+  /* card grids lift on hover */
+  .yc-grid-2 > *, .yc-grid-4 > *, .yc-grid-5 > *, .yc-feat-grid > *, .yc-addon-grid > * {
+    transition: transform .32s cubic-bezier(.2,.7,.3,1), box-shadow .32s ease;
+  }
+  .yc-grid-2 > *:hover, .yc-grid-4 > *:hover, .yc-feat-grid > *:hover, .yc-addon-grid > *:hover {
+    transform: translateY(-5px); box-shadow: 0 18px 40px rgba(11,29,58,0.07);
+  }
+  .yc-grid-5 > *:hover { transform: translateY(-3px) scale(1.03); }
+
+  /* photos breathe inside their frame */
+  .yc-imgfade img { transition: transform .8s cubic-bezier(.2,.7,.3,1); }
+  .yc-imgfade:hover img { transform: scale(1.04); }
+
+  .yc-chiprow > * { transition: transform .22s ease, background .22s ease, color .22s ease; }
+  .yc-chiprow > *:hover { transform: translateY(-2px); }
+
+  .yc-quote-card { transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease; }
+  .yc-quote-card:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(11,29,58,0.10); }
+
+  .yc-logos { transition: transform .3s ease, opacity .3s ease; }
+  .yc-logos:hover { transform: scale(1.05); }
+
+  /* staggered child reveal — delays assigned in reveal() */
+  .yc-rise { opacity: 0; transform: translateY(18px);
+    transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1); }
+  .yc-rise.yc-in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important; scroll-behavior: auto !important;
+    }
+    .yc-rise { opacity: 1 !important; transform: none !important; }
+  }
 </style>
 </helmet>
 
@@ -3361,6 +3404,16 @@ class Component extends DCLogic {
     narrow: typeof window !== "undefined" && window.innerWidth < 960, burger: false, sol: 0, pin: -1, supportOpen: false, supportInput: "", supportMessages: [], scrolled: false, fabOpen: false,
     contactForm: {}, contactError: "", contactSent: false };
 
+  // replays the fade-up on <main> so route changes read as a transition, not a jump cut
+  playPageIn = () => {
+    if (typeof document === "undefined") return;
+    const main = document.querySelector("main");
+    if (!main) return;
+    main.classList.remove("yc-pagein");
+    void main.offsetWidth;
+    main.classList.add("yc-pagein");
+  };
+
   go = (page) => () => {
     this.setState({ page, menu: false, burger: false, sol: 0 });
     if (typeof window !== "undefined") {
@@ -3444,10 +3497,29 @@ class Component extends DCLogic {
 
   onSupportKey = (e) => { if (e.key === "Enter") this.sendSupport(); };
 
+  // cards inside these grids come in one after another rather than all at once
+  stagger = (section) => {
+    const GRIDS = ".yc-grid-2, .yc-grid-4, .yc-grid-5, .yc-feat-grid, .yc-addon-grid";
+    section.querySelectorAll(GRIDS).forEach((grid) => {
+      if (grid.closest(".yc-marquee")) return;
+      Array.prototype.forEach.call(grid.children, (child, i) => {
+        if (child.dataset.ycRise) return;
+        child.dataset.ycRise = "1";
+        child.classList.add("yc-rise");
+        child.style.transitionDelay = Math.min(i, 7) * 70 + "ms";
+      });
+    });
+  };
+
   reveal = () => {
-    const show = (n) => { n.style.opacity = "1"; n.style.transform = "none"; if (this._io) this._io.unobserve(n); };
+    const show = (n) => {
+      if (n.classList.contains("yc-rise")) n.classList.add("yc-in");
+      else { n.style.opacity = "1"; n.style.transform = "none"; }
+      if (this._io) this._io.unobserve(n);
+    };
     if (typeof IntersectionObserver === "undefined" || document.hidden) {
       document.querySelectorAll("main > section").forEach((n) => { n.dataset.ycReveal = "1"; show(n); });
+      document.querySelectorAll(".yc-rise").forEach(show);
       return;
     }
     if (!this._io) {
@@ -3455,22 +3527,32 @@ class Component extends DCLogic {
         entries.forEach((e) => { if (e.isIntersecting) show(e.target); });
       }, { rootMargin: "0px 0px -6% 0px", threshold: 0.04 });
     }
+    const failsafe = (n) => setTimeout(() => {
+      const r = n.getBoundingClientRect();
+      const seen = r.top < window.innerHeight + 200 && r.bottom > -200;
+      if (seen || document.hidden) show(n);
+    }, 1500);
+
     document.querySelectorAll("main > section").forEach((n) => {
       if (n.dataset.ycReveal) return;
       n.dataset.ycReveal = "1";
       n.style.opacity = "0";
       n.style.transform = "translateY(24px)";
       n.style.transition = "opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1)";
+      this.stagger(n);
       this._io.observe(n);
-      setTimeout(() => {
-        const r = n.getBoundingClientRect();
-        const seen = r.top < window.innerHeight + 200 && r.bottom > -200;
-        if ((seen || document.hidden) && n.style.opacity !== "1") show(n);
-      }, 1500);
+      failsafe(n);
+    });
+    document.querySelectorAll(".yc-rise:not(.yc-in)").forEach((n) => {
+      if (n.dataset.ycRiseObs) return;
+      n.dataset.ycRiseObs = "1";
+      this._io.observe(n);
+      failsafe(n);
     });
   };
 
   componentDidMount() {
+    this._lastPage = this.state.page;
     window.addEventListener("resize", this.onResize);
     window.addEventListener("scroll", this.onScroll, { passive: true });
     this.syncSeo(this.state.page, false);
@@ -3484,7 +3566,15 @@ class Component extends DCLogic {
     }, 250);
   }
 
-  componentDidUpdate() { requestAnimationFrame(this.reveal); }
+  componentDidUpdate() {
+    // tracked on the instance — the runtime does not pass prevState to this hook.
+    // runs after the commit, so the render cannot wipe the class we just added.
+    if (this._lastPage !== this.state.page) {
+      this._lastPage = this.state.page;
+      this.playPageIn();
+    }
+    requestAnimationFrame(this.reveal);
+  }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.onResize);
@@ -3565,14 +3655,14 @@ class Component extends DCLogic {
       homeSoundStats: [{ value: "<3s", label: "Scan to audio confirm" }, { value: "105dB", label: "Speaker volume" }, { value: "T+0", label: "To your bank" }],
       homeProducts: [
         { name: "youShop", icon: "img/ic-shop.png", img: "img/home-p-shop.jpg", onClick: this.go("youshop"), body: "All-in-one retail POS. Billing, stock, customers & payments — on a single handheld. Built for SMBs, scales to chains.", chips: ["Billing", "Inventory", "CRM & loyalty", "Offline-first"] },
-        { name: "youResto", icon: "img/ic-resto.png", img: "img/home-p-resto.jpg", onClick: this.go("youresto"), body: "Front-of-house, kitchen, aggregators & payments — one restaurant OS. Table-side POS, KDS, and commission-free delivery.", chips: ["Table POS", "KDS", "Aggregator sync", "Direct delivery"] },
+        { name: "youResto", icon: "img/ic-resto.png", img: "img/home-p-resto.jpg", onClick: this.go("youresto"), body: "Front-of-house, kitchen, aggregators & payments — one restaurant OS. Table-side POS, KDS, and commission-free delivery.", chips: ["Table POS", "Aggregator sync", "KDS", "Direct delivery"] },
         { name: "youQR", icon: "img/ic-qr.png", img: "img/home-p-qr.jpg", onClick: this.go("youqr"), body: "One QR code, a complete commerce stack. Scan-to-order, pay, and earn loyalty — under 60 seconds. No app, no new device.", chips: ["Scan-to-pay", "Live menu", "Loyalty", "Working capital"] },
         { name: "youPay", icon: "img/ic-pay.png", img: "img/home-p-pay.jpg", onClick: this.go("youpay"), body: "The payment engine under every product. Cards, wallets, QR, Pay-by-Link, SVA. PCI L1. Sub-200ms auth. Same-day settlement.", chips: ["Cards + wallets", "Pay-by-Link", "QR + SoundBox", "PCI L1"] }
       ],
       homeRegions: ["MENA", "South Asia", "Africa"],
       homeMerchants: [
         { img: "img/home-m-1.jpg", product: "youShop", quote: "“The stock finally stays right. I know what I sold this morning by lunch.\"", name: "Rajesh k.", where: "Grocery • Jaipur, India", value: "3", unit: "SHOPS" },
-        { img: "img/home-m-2.jpg", product: "youShop", quote: "“Six months of clean sales on the app. My bank approved the loan in a day. I finally have working capital.”", name: "Aminata D.", where: "Marché de Fatou • Dakar, Senegal", value: "$1k", unit: "LOAN APPROVED" },
+        { img: "img/home-m-2.jpg", product: "youShop", quote: "“Six months of clean sales on the app. My bank approved the loan in a day. I finally have working capital.”", name: "Aminata D.", where: "Marché de Fatou • Dakar, Senegal", value: "600k", unit: "CFA LOAN APPROVED" },
         { img: "img/home-m-3.jpg", product: "youQR", quote: "“A QR on every table. Guests order themselves. Sunday sales up 22%”", name: "Layla H.", where: "Mario's Café • Dubai, UAE", value: "1", unit: "OUTLETS" },
         { img: "img/home-m-4.jpg", product: "Enterprise Cooperative", quote: "“One inventory across 118 outlets. One settlement, one ledger. Our members finally see the same numbers we do - every day.”", name: "Kotapala Cooperative", where: "Cooperative retail • Sri Lanka", value: "118", unit: "OUTLETS" }
       ],
