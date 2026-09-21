@@ -261,6 +261,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   /* full-bleed photographic hero */
   .yc-hero { min-height: clamp(540px, 80vh, 760px); display: flex; align-items: center; }
   .yc-hero-inner { width: 100%; }
+  /* slow drift. baseline scale 1.06 leaves a 3% margin per side, so the pan
+     (max ~1.3% of width) can never expose an edge. */
+  .yc-hero-img { transform-origin: 58% 52%; will-change: transform;
+    animation: ycHeroPan 34s ease-in-out infinite; }
+  @keyframes ycHeroPan {
+    0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+    50%  { transform: scale(1.12) translate3d(-1.1%, -0.7%, 0); }
+    100% { transform: scale(1.06) translate3d(0, 0, 0); }
+  }
   @media (max-width: 767px) {
     .yc-hero { min-height: 0; }
     .yc-hero-inner { padding: 92px 22px 84px !important; }
@@ -377,7 +386,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
 <main>
   <section class="yc-hero" style="position: relative; overflow: hidden; background: #0B1D3A; padding: 0">
-    <img src="img/hero-store.jpg" alt="Shoppers paying at the counter of a youcloud-powered grocery store" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 52%; display: block" />
+    <img class="yc-hero-img" src="img/hero-store.jpg" alt="Shoppers paying at the counter of a youcloud-powered grocery store" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 52%; display: block" />
     <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(7,16,34,0.58) 0%, rgba(7,16,34,0.30) 100%), linear-gradient(180deg, rgba(7,16,34,0.72) 0%, rgba(7,16,34,0.42) 40%, rgba(7,16,34,0.56) 76%, rgba(7,16,34,0.86) 100%)"></div>
     <div class="yc-hero-inner" style="position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; text-align: center; padding: 128px 30px 118px">
       <h1 style="font-size: clamp(38px, 6vw, 74px); line-height: 1.12; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45)">Run your business.<br />All from <span style="display: inline-block; padding: 2px 20px; border: 1px solid rgba(255,255,255,0.55)">One Place</span></h1>
