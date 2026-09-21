@@ -258,6 +258,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   @keyframes ycShimmer { 0% { background-position: 180% 0; } 55%, 100% { background-position: -90% 0; } }
 
+  /* full-bleed photographic hero */
+  .yc-hero { min-height: clamp(540px, 80vh, 760px); display: flex; align-items: center; }
+  .yc-hero-inner { width: 100%; }
+  @media (max-width: 767px) {
+    .yc-hero { min-height: 0; }
+    .yc-hero-inner { padding: 92px 22px 84px !important; }
+  }
+
   /* ---------- motion layer: page transitions, micro-interactions, staggered reveals ---------- */
   @keyframes ycPageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .yc-pagein { animation: ycPageIn .42s cubic-bezier(.2,.7,.3,1) both; }
@@ -368,23 +376,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
 <main>
-  <section style="background: linear-gradient(180deg, #F1F4FB 0%, #F7F9FD 60%, #ffffff 100%); padding: 76px 30px 0">
-    <div style="max-width: 1100px; margin: 0 auto; text-align: center">
-      <h1 style="font-size: clamp(38px, 6vw, 74px); line-height: 1.12">Run your business.<br />All from <span style="display: inline-block; padding: 2px 20px; border: 1px solid #D9DEEA">One Place</span></h1>
-      <p style="margin: 24px auto 0; font-size: 17px; line-height: 1.65; max-width: 700px">Billing, stock, payments, and QR ordering — for retail shops, restaurants, and QR-first merchants. One kit. One app. Live in your business in under an hour.</p>
+  <section class="yc-hero" style="position: relative; overflow: hidden; background: #0B1D3A; padding: 0">
+    <img src="img/hero-store.jpg" alt="Shoppers paying at the counter of a youcloud-powered grocery store" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 52%; display: block" />
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(7,16,34,0.58) 0%, rgba(7,16,34,0.30) 100%), linear-gradient(180deg, rgba(7,16,34,0.72) 0%, rgba(7,16,34,0.42) 40%, rgba(7,16,34,0.56) 76%, rgba(7,16,34,0.86) 100%)"></div>
+    <div class="yc-hero-inner" style="position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; text-align: center; padding: 128px 30px 118px">
+      <h1 style="font-size: clamp(38px, 6vw, 74px); line-height: 1.12; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45)">Run your business.<br />All from <span style="display: inline-block; padding: 2px 20px; border: 1px solid rgba(255,255,255,0.55)">One Place</span></h1>
+      <p style="margin: 24px auto 0; font-size: 17px; line-height: 1.65; max-width: 700px; color: rgba(255,255,255,0.90); text-shadow: 0 1px 14px rgba(0,0,0,0.5)">Billing, stock, payments, and QR ordering — for retail shops, restaurants, and QR-first merchants. One kit. One app. Live in your business in under an hour.</p>
       <div style="margin-top: 32px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
-        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
-        <button onClick="{{ goProducts }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: transparent; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Explore Products</button>
+        <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: 0 14px 34px rgba(249,97,103,0.38)" style-hover="background: #e84f56">Book a demo</button>
+        <button onClick="{{ goProducts }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.10); color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; backdrop-filter: blur(6px)" style-hover="background: rgba(255,255,255,0.22)">Explore Products</button>
       </div>
       <div style="margin-top: 28px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap">
-        <span style="font-size: 16px; color: #4A5878">Trusted layer for</span>
+        <span style="font-size: 16px; color: rgba(255,255,255,0.78)">Trusted layer for</span>
         <sc-for list="{{ homeTrusted }}" as="t" hint-placeholder-count="4">
-          <span style="padding: 8px 18px; border-radius: 999px; background: #fff; border: 1px solid #E6EAF3; font-size: 15px; color: #4A5878">{{ t }}</span>
+          <span style="padding: 8px 18px; border-radius: 999px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.34); font-size: 15px; color: #fff; backdrop-filter: blur(6px)">{{ t }}</span>
         </sc-for>
       </div>
-    </div>
-    <div style="max-width: 1280px; margin: 52px auto 0">
-      <img src="img/hero-home.jpg" alt="youcloud merchant dashboard" style="width: calc(100% - 60px); max-width: 1220px; height: auto; border-radius: 20px; display: block; margin: 0 auto" />
     </div>
   </section>
 
