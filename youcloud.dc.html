@@ -279,6 +279,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .yc-hero-inner { padding: 92px 22px 84px !important; }
   }
 
+  /* platform-layer flow: need -> layer -> outcome, joined by travelling dotted lines */
+  .yc-flow { display: grid; grid-template-columns: minmax(0,1fr) 54px minmax(0,1fr) 54px minmax(0,1.5fr);
+    gap: 10px 0; align-items: stretch; }
+  .yc-flow-head { background: #0B1D3A; color: #fff; border-radius: 13px; padding: 13px 18px;
+    font-size: 13.5px; font-weight: 700; letter-spacing: 0.055em; text-transform: uppercase; }
+  .yc-flow-cell { border: 1px solid #EDE9EA; background: #fff; border-radius: 13px; padding: 15px 18px;
+    font-size: 15px; line-height: 1.5; color: #0B1D3A; display: flex; align-items: center;
+    transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease; }
+  .yc-flow-cell.is-layer { background: #FBF7F8; font-weight: 700; }
+  .yc-flow-cell.is-does { color: #4A5878; font-size: 14.5px; }
+  .yc-flow-row:hover .yc-flow-cell { border-color: #F8CDD1; box-shadow: 0 14px 32px rgba(11,29,58,0.07); }
+  .yc-flow-row:hover .yc-flow-cell.is-need { transform: translateX(-2px); }
+  .yc-flow-row:hover .yc-flow-cell.is-does { transform: translateX(2px); }
+  /* the connector itself: dots that travel from one box to the next */
+  .yc-flow-link { align-self: center; height: 3px; margin: 0 5px;
+    background-image: radial-gradient(circle, #EF9096 1.7px, transparent 1.8px);
+    background-size: 9px 3px; background-repeat: repeat-x;
+    animation: ycFlowDots 1.15s linear infinite; }
+  .yc-flow-row:hover .yc-flow-link { background-image: radial-gradient(circle, #F96167 1.9px, transparent 2px); }
+  @keyframes ycFlowDots { to { background-position: 9px 0; } }
+  @media (max-width: 900px) {
+    .yc-flow { grid-template-columns: minmax(0,1fr); gap: 0; }
+    .yc-flow-head { display: none; }
+    .yc-flow-cell.is-need { font-weight: 700; }
+    .yc-flow-cell.is-does { margin-bottom: 20px; }
+    /* connector turns vertical when the row stacks */
+    .yc-flow-link { height: 30px; width: 3px; margin: 8px auto; justify-self: center;
+      background-image: radial-gradient(circle, #EF9096 1.7px, transparent 1.8px);
+      background-size: 3px 9px; background-repeat: repeat-y;
+      animation: ycFlowDotsV 1.15s linear infinite; }
+  }
+  @keyframes ycFlowDotsV { to { background-position: 0 9px; } }
+
   /* ---------- motion layer: page transitions, micro-interactions, staggered reveals ---------- */
   @keyframes ycPageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .yc-pagein { animation: ycPageIn .42s cubic-bezier(.2,.7,.3,1) both; }
@@ -429,7 +462,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ goPayEnt }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Enterprise</button>
         </div>
       </div>
-      <img loading="lazy" decoding="async" src="img/home-soundbox.jpg" alt="youcloud SoundBox y10D and phone" style="width: 78%; height: auto; border-radius: 20px; display: block; margin: 0 auto; align-self: center" />
+      <img loading="lazy" decoding="async" src="img/youpay-tap.jpg" alt="Customer paying by phone on a youcloud card terminal" style="width: 70%; height: auto; border-radius: 20px; display: block; margin: 0 auto; align-self: center" />
+    </div>
+  </section>
+
+  <section style="padding: 0 30px 80px">
+    <div style="max-width: 1280px; margin: 0 auto">
+      <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #E7E3E4; border-radius: 999px; font-size: 13px; letter-spacing: 0.09em; color: #0B1D3A">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #0B1D3A"></span>ENTERPRISE &middot; UNIFIED COMMERCE
+      </div>
+      <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 48px; align-items: start">
+        <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">One platform for<br /><span style="color: #F96167">every merchant need.</span></h2>
+        <p style="font-size: 17px; line-height: 1.65; color: #4A5878">For Enterprise buyers the same platform is presented in unified-commerce terms &mdash; a set of connected clouds &mdash; with payments and embedded finance built in rather than integrated.</p>
+      </div>
+      <div class="yc-flow" style="margin-top: 38px">
+        <div class="yc-flow-head">Merchant need</div>
+        <div></div>
+        <div class="yc-flow-head">youcloud platform layer</div>
+        <div></div>
+        <div class="yc-flow-head">What it does</div>
+        <sc-for list="{{ platformRows }}" as="r" hint-placeholder-count="6">
+          <div class="yc-flow-row" style="display: contents">
+            <div class="yc-flow-cell is-need">{{ r.need }}</div>
+            <div class="yc-flow-link"></div>
+            <div class="yc-flow-cell is-layer">{{ r.layer }}</div>
+            <div class="yc-flow-link"></div>
+            <div class="yc-flow-cell is-does">{{ r.does }}</div>
+          </div>
+        </sc-for>
+      </div>
     </div>
   </section>
 
@@ -3015,6 +3076,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F96167&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#F96167&quot;,&quot;#0B1D3A&quot;,&quot;#1F9D63&quot;,&quot;#5B6CF9&quot;]},&quot;showDemoModal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+const PLATFORM_ROWS = [
+  { need: "Run the shop or the kitchen", layer: "Commerce & retail cloud",
+    does: "Billing, inventory, recipes, KDS, multi-outlet transfers, WebShop, branded delivery." },
+  { need: "Bring customers back", layer: "Marketing cloud",
+    does: "WhatsApp campaigns built from transaction data, on youcloud's own WABA platform." },
+  { need: "Know what sells and what to reorder", layer: "Merchandising & analytics",
+    does: "Cross-outlet BI, demand forecasting, price elasticity." },
+  { need: "Keep the books, pay staff, meet e-invoicing", layer: "Service & operations",
+    does: "Books and VAT with e-invoicing through an accredited provider, WPS payroll, approvals and exception queues." },
+  { need: "Get paid every way customers pay", layer: "Payments \u2014 built in, not integrated",
+    does: "Card present, card not present, wallets, QR, Pay-by-Link. PCI DSS Level 1." },
+  { need: "Fund stock and growth", layer: "Embedded finance \u2014 built in",
+    does: "Working capital underwritten on the merchant's own trading data. Partner-funded; the partner carries credit risk." }
+];
+
 const PAGE_SEO = {
   home:            { title: "youcloud — POS, Payments & QR Commerce for SMB Merchants", description: "Billing, stock, payments and QR ordering for retail shops, restaurants and QR-first merchants. One kit, one app, live in under an hour. $0 to start." },
   youshop:         { title: "youShop — All-in-One Retail POS & Inventory | youcloud", description: "Retail POS with billing, real-time stock, AI OCR stock entry, CRM and loyalty on a single handheld. Offline-first. Scales from one shop to a chain." },
@@ -3672,6 +3748,7 @@ class Component extends DCLogic {
       goPay: this.go("youpay"),
       goPayEnt: this.go("youpay-ent"),
       homeTrusted: ["Banks", "PSPs", "ISOs", "Telcos"],
+      platformRows: PLATFORM_ROWS,
       homeSoundStats: [{ value: "<3s", label: "Scan to audio confirm" }, { value: "105dB", label: "Speaker volume" }, { value: "T+0", label: "To your bank" }],
       homeProducts: [
         { name: "youShop", icon: "img/ic-shop.png", img: "img/home-p-shop.jpg", onClick: this.go("youshop"), body: "All-in-one retail POS. Billing, stock, customers & payments — on a single handheld. Built for SMBs, scales to chains.", chips: ["Billing", "Inventory", "CRM & loyalty", "Offline-first"] },
