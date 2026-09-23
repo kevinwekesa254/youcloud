@@ -281,15 +281,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   /* platform-layer flow: need -> layer -> outcome, joined by travelling dotted lines */
   .yc-flow { display: grid; grid-template-columns: minmax(0,1fr) 54px minmax(0,1fr) 54px minmax(0,1.5fr);
-    gap: 10px 0; align-items: stretch; }
-  .yc-flow-head { background: #0B1D3A; color: #fff; border-radius: 13px; padding: 13px 18px;
-    font-size: 13.5px; font-weight: 700; letter-spacing: 0.055em; text-transform: uppercase; }
-  .yc-flow-cell { border: 1px solid #EDE9EA; background: #fff; border-radius: 13px; padding: 15px 18px;
-    font-size: 15px; line-height: 1.5; color: #0B1D3A; display: flex; align-items: center;
+    gap: 12px 0; align-items: stretch; }
+  .yc-flow-head { background: #0B1D3A; color: #fff; border-radius: 14px; padding: 15px 20px;
+    font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    box-shadow: 0 10px 24px rgba(11,29,58,0.16); }
+  .yc-flow-cell { border: 1px solid #E4E9F4; background: #fff; border-radius: 14px; padding: 18px 20px;
+    font-size: 15.5px; line-height: 1.5; color: #0B1D3A; display: flex; align-items: center;
+    box-shadow: 0 3px 12px rgba(11,29,58,0.05);
     transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease; }
-  .yc-flow-cell.is-layer { background: #FBF7F8; font-weight: 700; }
-  .yc-flow-cell.is-does { color: #4A5878; font-size: 14.5px; }
-  .yc-flow-row:hover .yc-flow-cell { border-color: #F8CDD1; box-shadow: 0 14px 32px rgba(11,29,58,0.07); }
+  .yc-flow-cell.is-layer { background: #FFF3F4; border-color: #F8CDD1; font-weight: 700; }
+  .yc-flow-cell.is-does { color: #4A5878; font-size: 15px; }
+  .yc-flow-row:hover .yc-flow-cell { border-color: #F8CDD1; box-shadow: 0 16px 36px rgba(11,29,58,0.11); }
   .yc-flow-row:hover .yc-flow-cell.is-need { transform: translateX(-2px); }
   .yc-flow-row:hover .yc-flow-cell.is-does { transform: translateX(2px); }
   /* the connector itself: dots that travel from one box to the next */
@@ -466,13 +468,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <section style="padding: 0 30px 80px">
+  <section style="padding: 78px 30px 84px; background: linear-gradient(180deg, #F3F6FD 0%, #F9FAFE 58%, #ffffff 100%)">
     <div style="max-width: 1280px; margin: 0 auto">
-      <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #E7E3E4; border-radius: 999px; font-size: 13px; letter-spacing: 0.09em; color: #0B1D3A">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background: #0B1D3A"></span>ENTERPRISE &middot; UNIFIED COMMERCE
+      <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #D9E0F0; background: #fff; border-radius: 999px; font-size: 13px; letter-spacing: 0.09em; color: #0B1D3A">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #F96167"></span>ENTERPRISE &middot; UNIFIED COMMERCE
       </div>
       <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 48px; align-items: start">
-        <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">One platform for<br /><span style="color: #F96167">every merchant need.</span></h2>
+        <h2 style="font-size: clamp(31px, 4.1vw, 50px); line-height: 1.2">One platform for<br /><span style="color: #F96167">every merchant need.</span></h2>
         <p style="font-size: 17px; line-height: 1.65; color: #4A5878">For Enterprise buyers the same platform is presented in unified-commerce terms &mdash; a set of connected clouds &mdash; with payments and embedded finance built in rather than integrated.</p>
       </div>
       <div class="yc-flow" style="margin-top: 38px">
@@ -3068,7 +3070,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </sc-if>
   <div onClick="{{ toggleSupport }}" style="width: 83px; height: 83px; border-radius: 50%; background: {{ supportFabBg }}; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; box-shadow: {{ supportFabShadow }}; transition: transform .25s cubic-bezier(.2,.7,.3,1.4)" style-hover="transform: scale(1.08)">
     <sc-if value="{{ supportOpen }}" hint-placeholder-val="{{ false }}"><span>✕</span></sc-if>
-    <sc-if value="{{ supportClosed }}" hint-placeholder-val="{{ true }}"><img loading="lazy" decoding="async" src="img/bot-icon.png" alt="Support assistant" style="width: 124%; height: 124%; margin: -12%; display: block" /></sc-if>
+    <sc-if value="{{ supportClosed }}" hint-placeholder-val="{{ true }}"><img loading="lazy" decoding="async" src="img/bot-icon.png" alt="Support assistant" style="width: 100%; height: 100%; margin: 0; display: block" /></sc-if>
   </div>
 </div>
 
