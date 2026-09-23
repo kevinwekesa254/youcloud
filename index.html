@@ -10,6 +10,9 @@
 <meta name="keywords" content="POS system, restaurant POS, retail POS, QR ordering, payment gateway, merchant payments, SoundBox, Pay-by-Link, EMVCo QR, merchant lending, Dubai, DIFC, emerging markets" />
 <meta name="author" content="Youcloud Paytech DIFC" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="preload" as="image" href="img/hero-store.jpg" imagesrcset="img/hero-store-800.jpg 800w, img/hero-store-1200.jpg 1200w, img/hero-store.jpg 1536w" imagesizes="100vw" fetchpriority="high" />
+<link rel="preconnect" href="https://unpkg.com" crossorigin />
+<link rel="dns-prefetch" href="https://unpkg.com" />
 <link rel="canonical" href="https://youcloudpay.com/" />
 
 <!-- ── Open Graph / social ─────────────────────────────────────── -->
@@ -326,7 +329,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header style="position: sticky; top: 0; z-index: 50; background: {{ headerBg }}; backdrop-filter: blur({{ headerBlur }}); border-bottom: 1px solid #F4F1F2; box-shadow: {{ headerShadow }}; transition: background .25s ease, box-shadow .25s ease">
   <div style="max-width: 1280px; margin: 0 auto; padding: 14px 30px; display: flex; align-items: center; gap: 18px">
     <div onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 9px; cursor: pointer; flex: 1 1 0; min-width: 0">
-      <img src="img/logo.png" alt="youcloud" style="height: 30px; width: auto; display: block" />
+      <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 30px; width: auto; display: block" />
     </div>
     <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
       <nav style="display: flex; align-items: center; justify-content: center; gap: 2px; flex-shrink: 0">
@@ -387,7 +390,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
 <main>
   <section class="yc-hero" style="position: relative; overflow: hidden; background: #0B1D3A; padding: 0">
-    <img class="yc-hero-img" src="img/hero-store.jpg" alt="Shoppers paying at the counter of a youcloud-powered grocery store" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 52%; display: block" />
+    <img fetchpriority="high" decoding="async" class="yc-hero-img" srcset="img/hero-store-800.jpg 800w, img/hero-store-1200.jpg 1200w, img/hero-store.jpg 1536w" sizes="100vw" src="img/hero-store.jpg" alt="Shoppers paying at the counter of a youcloud-powered grocery store" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 52%; display: block" />
     <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(7,16,34,0.58) 0%, rgba(7,16,34,0.30) 100%), linear-gradient(180deg, rgba(7,16,34,0.72) 0%, rgba(7,16,34,0.42) 40%, rgba(7,16,34,0.56) 76%, rgba(7,16,34,0.86) 100%)"></div>
     <div class="yc-hero-inner" style="position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; text-align: center; padding: 128px 30px 118px">
       <h1 style="font-size: clamp(38px, 6vw, 74px); line-height: 1.12; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45)">Run your business.<br />All from <span style="display: inline-block; padding: 2px 20px; border: 1px solid rgba(255,255,255,0.55)">One Place</span></h1>
@@ -426,7 +429,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ goPayEnt }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Enterprise</button>
         </div>
       </div>
-      <img src="img/home-soundbox.jpg" alt="youcloud SoundBox y10D and phone" style="width: 78%; height: auto; border-radius: 20px; display: block; margin: 0 auto; align-self: center" />
+      <img loading="lazy" decoding="async" src="img/home-soundbox.jpg" alt="youcloud SoundBox y10D and phone" style="width: 78%; height: auto; border-radius: 20px; display: block; margin: 0 auto; align-self: center" />
     </div>
   </section>
 
@@ -442,9 +445,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="yc-grid-4" style="margin-top: 44px; gap: 20px; align-items: stretch">
         <sc-for list="{{ homeProducts }}" as="p" hint-placeholder-count="4">
           <div onClick="{{ p.onClick }}" style="border: 1px solid #EDE9EA; border-radius: 22px; padding: 26px; cursor: pointer; display: flex; flex-direction: column; gap: 20px" style-hover="border-color: #F8CDD1">
-            <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: auto; border-radius: 14px; display: block" />
+            <img loading="lazy" decoding="async" src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; height: auto; border-radius: 14px; display: block" />
             <div style="display: flex; align-items: center; gap: 12px">
-              <img src="{{ p.icon }}" alt="" style="width: 36px; height: 36px; border-radius: 10px; display: block" />
+              <img loading="lazy" decoding="async" src="{{ p.icon }}" alt="" style="width: 36px; height: 36px; border-radius: 10px; display: block" />
               <span style="font-size: 24px; font-weight: 700; color: #0B1D3A">{{ p.name }}</span>
             </div>
             <p style="font-size: 16px; line-height: 1.6; flex: 1">{{ p.body }}</p>
@@ -482,7 +485,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(430px, 1fr)); gap: 34px 44px">
         <sc-for list="{{ homeMerchants }}" as="m" hint-placeholder-count="4">
           <div class="yc-story" style="display: grid; grid-template-columns: 212px minmax(0, 1fr); gap: 16px; align-items: stretch">
-            <img src="{{ m.img }}" alt="{{ m.name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 18px; display: block" />
+            <img loading="lazy" decoding="async" src="{{ m.img }}" alt="{{ m.name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 18px; display: block" />
             <div style="border: 1px solid #EDE9EA; border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px">
               <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: #F4F5FA; font-size: 15px; font-weight: 700; color: #0B1D3A">{{ m.product }}</span>
               <p style="font-size: 16px; line-height: 1.55; flex: 1">{{ m.quote }}</p>
@@ -540,7 +543,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 48px; align-items: center">
-        <img src="img/home-ent-map.jpg" alt="youcloud enterprise topology" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+        <img loading="lazy" decoding="async" src="img/home-ent-map.jpg" alt="youcloud enterprise topology" style="width: 100%; height: auto; border-radius: 18px; display: block" />
         <div>
           <sc-for list="{{ homeEnterprise }}" as="e" hint-placeholder-count="4">
             <div onClick="{{ e.onClick }}" style="border-top: 1px solid #EDE9EA; padding: 22px 4px; display: flex; align-items: center; justify-content: space-between; gap: 20px; cursor: pointer" style-hover="background: #FDF7F8">
@@ -589,7 +592,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; align-items: stretch">
         <div style="border: 1px solid #F8D9DC; background: linear-gradient(180deg, #FEF6F7 0%, #ffffff 70%); border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap">
-            <img src="img/icon-lend.png" alt="" style="width: 44px; height: 44px; border-radius: 12px; display: block" />
+            <img loading="lazy" decoding="async" src="img/icon-lend.png" alt="" style="width: 44px; height: 44px; border-radius: 12px; display: block" />
             <span style="font-size: 17px; color: #0B1D3A">Working capital · pre-approved</span>
             <span style="padding: 8px 16px; border-radius: 999px; border: 1px solid #F8CDD1; color: #F96167; font-size: 14px">SPOTLIGHT</span>
           </div>
@@ -603,12 +606,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
             </sc-for>
           </div>
-          <div class="yc-imgfade" style="width: 70%; margin: 0 auto; border-radius: 14px; flex: 1; min-height: 160px; display: flex"><img src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: 100%; object-fit: cover; object-position: 20% 25%; display: block" /></div>
+          <div class="yc-imgfade" style="width: 70%; margin: 0 auto; border-radius: 14px; flex: 1; min-height: 160px; display: flex"><img loading="lazy" decoding="async" src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: 100%; object-fit: cover; object-position: 20% 25%; display: block" /></div>
         </div>
         <div class="yc-addon-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; align-items: stretch">
           <sc-for list="{{ homeAddons }}" as="a" hint-placeholder-count="4">
             <div style="border-radius: 22px; background: #F7F8FC; padding: 20px; display: flex; flex-direction: column; gap: 14px; transition: transform .3s ease, box-shadow .3s ease" style-hover="transform: translateY(-4px); box-shadow: 0 18px 40px rgba(11,29,58,0.08)">
-              <img src="{{ a.icon }}" alt="" style="width: 40px; height: 40px; border-radius: 11px; display: block" />
+              <img loading="lazy" decoding="async" src="{{ a.icon }}" alt="" style="width: 40px; height: 40px; border-radius: 11px; display: block" />
               <div style="font-size: 19px; font-weight: 700; color: #0B1D3A">{{ a.name }}</div>
               <p style="font-size: 16px; line-height: 1.6">{{ a.body }}</p>
               <div class="yc-chiprow">
@@ -616,7 +619,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <span style="padding: 5px 8px; border-radius: 999px; background: #FEF3F4; color: #F96167; font-size: 11px; white-space: nowrap; flex: 0 0 auto">{{ c }}</span>
                 </sc-for>
               </div>
-              <div class="yc-imgfade" style="margin-top: auto; border-radius: 12px"><img src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; height: 170px; object-fit: cover; display: block" /></div>
+              <div class="yc-imgfade" style="margin-top: auto; border-radius: 12px"><img loading="lazy" decoding="async" src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; height: 170px; object-fit: cover; display: block" /></div>
             </div>
           </sc-for>
         </div>
@@ -634,7 +637,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="margin-top: 22px; font-size: 17px; line-height: 1.7; text-align: justify">MENA, South Asia, Africa and APAC. Local wallets, local schemes, local settlement rails — pre-integrated. <strong style="color: #0B1D3A">10,000+ merchants doing live transactions</strong>, acquired over 3+ years across every profile — from single-till micro shops to 100-outlet cooperatives.</p>
       </div>
       <div style="position: relative; border-radius: 16px; overflow: hidden">
-        <img src="img/home-world.jpg" alt="youcloud live markets" style="width: 100%; height: auto; border-radius: 20px; display: block" />
+        <img loading="lazy" decoding="async" src="img/home-world.jpg" alt="youcloud live markets" style="width: 100%; height: auto; border-radius: 20px; display: block" />
         <sc-for list="{{ mapPins }}" as="pin" hint-placeholder-count="9">
           <div onMouseEnter="{{ pin.onEnter }}" onMouseLeave="{{ pin.onLeave }}" style="position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; cursor: pointer; left: {{ pin.left }}; top: {{ pin.top }}">
             <span style="position: absolute; inset: 0; border-radius: 50%; background: rgba(249,97,103,0.45); animation: ycPing 2.8s ease-out infinite; animation-delay: {{ pin.delay }}"></span>
@@ -692,9 +695,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
-          <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
+          <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
         <svg class="yc-boxarrow" viewBox="0 0 160 90" style="position: absolute; left: 44%; top: 54%; width: 172px; height: 96px; z-index: 3; pointer-events: none; overflow: visible">
           <path d="M150 16 C 112 4, 60 26, 26 56" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 7" />
           <path d="M26 56 l 15 -3 M26 56 l 3 -15" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" />
@@ -729,7 +732,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div style="display: flex; justify-content: center">
-        <img src="img/hero-cards.png" alt="youLend add-on cards" style="width: 100%; max-width: 490px; height: auto; border-radius: 20px" />
+        <img loading="lazy" decoding="async" src="img/hero-cards.png" alt="youLend add-on cards" style="width: 100%; max-width: 490px; height: auto; border-radius: 20px" />
       </div>
     </div>
   </section>
@@ -742,7 +745,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span style="width: 6px; height: 6px; border-radius: 50%; background: #F96167"></span>{{ a.kicker }}
           </div>
           <div style="margin-top: 22px; display: flex; align-items: center; gap: 12px">
-            <sc-if value="{{ a.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ a.icon }}" alt="" style="width: 32px; height: 32px; border-radius: 9px; display: block" /></sc-if>
+            <sc-if value="{{ a.icon }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ a.icon }}" alt="" style="width: 32px; height: 32px; border-radius: 9px; display: block" /></sc-if>
             <span style="font-size: 17px; color: #0B1D3A">{{ a.tag }}</span>
           </div>
           <h2 style="margin-top: 18px; font-size: 34px">{{ a.name }}</h2>
@@ -762,7 +765,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div style="order: {{ a.imgOrder }}">
-          <sc-if value="{{ a.img }}" hint-placeholder-val="{{ false }}"><img src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center; border-radius: 18px; display: block" /></sc-if>
+          <sc-if value="{{ a.img }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ a.img }}" alt="{{ a.name }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center; border-radius: 18px; display: block" /></sc-if>
         </div>
       </div>
     </section>
@@ -794,7 +797,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <sc-for list="{{ layer }}" as="l" hint-placeholder-count="5">
           <div style="border: 1px solid #F7D3D6; background: #FEF3F4; border-radius: 16px; padding: 24px 18px; text-align: center">
             <div style="display: flex; align-items: center; justify-content: center; gap: 9px">
-              <sc-if value="{{ l.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ l.icon }}" alt="" style="width: 22px; height: 22px; display: block" /></sc-if>
+              <sc-if value="{{ l.icon }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ l.icon }}" alt="" style="width: 22px; height: 22px; display: block" /></sc-if>
               <span style="font-size: 18px; font-weight: 700; color: #0B1D3A">{{ l.name }}</span>
             </div>
             <div style="margin-top: 12px; font-size: 13px; letter-spacing: 0.06em; color: #4A5878; line-height: 1.7">{{ l.line1 }}<br />{{ l.line2 }}</div>
@@ -819,9 +822,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 28px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 26px; left: 30px; display: flex; align-items: center; gap: 8px">
-          <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
+          <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; align-self: center; margin-right: -6%; position: relative; z-index: 1" />
+        <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; align-self: center; margin-right: -6%; position: relative; z-index: 1" />
         <div class="yc-devicecard" style="position: absolute; left: 3%; top: 24%; width: 50%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 22px 30px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 17px; font-weight: 700; color: #0B1D3A">What's included at launch</span>
@@ -853,7 +856,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
       <div class="yc-marquee" style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ p.stripLoop }}" as="s" hint-placeholder-count="12">
-          <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img src="{{ s }}" alt="youcloud in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
+          <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ s }}" alt="youcloud in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
         </sc-for>
       </div>
     </div>
@@ -914,7 +917,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <sc-if value="{{ h.popular }}" hint-placeholder-val="{{ false }}">
               <span style="position: absolute; top: -14px; right: 22px; padding: 6px 14px; border-radius: 999px; background: #fff; border: 1px solid #F96167; color: #F96167; font-size: 14px">Most Popular</span>
             </sc-if>
-            <sc-if value="{{ h.img }}" hint-placeholder-val="{{ false }}"><img src="{{ h.img }}" alt="{{ h.name }}" style="width: 100%; height: auto; border-radius: 12px; display: block" /></sc-if>
+            <sc-if value="{{ h.img }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ h.img }}" alt="{{ h.name }}" style="width: 100%; height: auto; border-radius: 12px; display: block" /></sc-if>
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
               <span style="font-size: 17px; font-weight: 700; color: {{ h.ink }}">{{ h.name }}</span>
               <span><span style="font-size: 25px; font-weight: 700; color: {{ h.priceColor }}">{{ h.price }}</span> <span style="font-size: 15px; color: {{ h.muted }}">one-time</span></span>
@@ -1015,9 +1018,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
-          <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
+          <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
         <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">{{ p.ctaCardTitle }}</span>
@@ -1049,7 +1052,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
       <div class="yc-marquee" style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ qrStripLoop }}" as="s" hint-placeholder-count="12">
-          <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img src="{{ s }}" alt="youQR in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
+          <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ s }}" alt="youQR in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
         </sc-for>
       </div>
     </div>
@@ -1097,7 +1100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 26px">
         <sc-for list="{{ qrScenes }}" as="s" hint-placeholder-count="2">
           <div>
-            <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="{{ s.title }}" style="width: 100%; height: auto; border-radius: 14px; display: block" /></sc-if>
+            <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ s.img }}" alt="{{ s.title }}" style="width: 100%; height: auto; border-radius: 14px; display: block" /></sc-if>
             <div style="margin-top: 18px; font-size: 16px; font-weight: 700; color: #F96167">{{ s.title }}</div>
             <p style="margin-top: 8px; font-size: 16px; line-height: 1.6">{{ s.body }}</p>
           </div>
@@ -1130,7 +1133,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="yc-feat-grid" style="margin-top: 36px">
         <sc-for list="{{ qrChannels }}" as="c" hint-placeholder-count="6">
           <div style="border: 1px solid #E7E3E4; border-radius: 16px; padding: 20px 18px">
-            <sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ c.icon }}" alt="" style="width: 36px; height: 36px; border-radius: 10px; display: block" /></sc-if>
+            <sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ c.icon }}" alt="" style="width: 36px; height: 36px; border-radius: 10px; display: block" /></sc-if>
             <div style="margin-top: 16px; font-size: 16px; font-weight: 700; color: #0B1D3A">{{ c.title }}</div>
             <div style="margin-top: 8px; font-size: 15px; line-height: 1.5">{{ c.body }}</div>
           </div>
@@ -1266,9 +1269,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
-          <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
+          <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
         <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">youQR Freemium</span>
@@ -1300,7 +1303,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%)">
       <div class="yc-marquee" style="display: flex; gap: 22px; width: max-content; animation: ycMarquee 38s linear infinite" style-hover="animation-play-state: paused">
         <sc-for list="{{ payStripLoop }}" as="s" hint-placeholder-count="8">
-          <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img src="{{ s }}" alt="youPay in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
+          <sc-if value="{{ s }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ s }}" alt="youPay in market" style="height: 271px; border-radius: 14px; flex-shrink: 0" /></sc-if>
         </sc-for>
       </div>
     </div>
@@ -1330,7 +1333,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <sc-for list="{{ payChannels }}" as="c" hint-placeholder-count="4">
           <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
             <div style="position: relative">
-              <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}"><img src="{{ c.img }}" alt="{{ c.title }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; display: block" /></sc-if>
+              <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ c.img }}" alt="{{ c.title }}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; display: block" /></sc-if>
             </div>
             <div>
               <div style="font-size: 19px; font-weight: 700; color: #0B1D3A">{{ c.title }}</div>
@@ -1340,9 +1343,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <span style="padding: 10px 18px; border-radius: 999px; background: #F4F5FA; font-size: 15px; color: #4A5878">{{ ch }}</span>
                 </sc-for>
               </div>
-              <sc-if value="{{ c.logos }}" hint-placeholder-val="{{ false }}"><img class="yc-logos" src="{{ c.logos }}" alt="accepted schemes" style="margin-top: 18px; height: 34px; width: auto; display: block" /></sc-if>
+              <sc-if value="{{ c.logos }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" class="yc-logos" src="{{ c.logos }}" alt="accepted schemes" style="margin-top: 18px; height: 34px; width: auto; display: block" /></sc-if>
               <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
-                <sc-if value="{{ c.icons }}" hint-placeholder-val="{{ false }}"><img class="yc-logos" src="{{ c.icons }}" alt="supported wallets and payment methods" style="height: 34px; width: auto; display: block" /></sc-if>
+                <sc-if value="{{ c.icons }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" class="yc-logos" src="{{ c.icons }}" alt="supported wallets and payment methods" style="height: 34px; width: auto; display: block" /></sc-if>
                 <sc-for list="{{ c.redChips }}" as="rc" hint-placeholder-count="0">
                   <span style="padding: 10px 18px; border-radius: 999px; background: #F96167; color: #fff; font-size: 15px; font-weight: 700">{{ rc }}</span>
                 </sc-for>
@@ -1364,7 +1367,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div style="margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
           <div class="yc-shimmer" style="border-radius: 10px; transition: transform .3s ease" style-hover="transform: translateY(-3px) scale(1.03)">
-            <img class="yc-logos" src="img/pay-schemes.png" alt="Visa, Mastercard, Amex, UnionPay, Discover, Apple Pay, Google Pay, JCB, WhatsApp" style="height: 38px; width: auto; display: block" />
+            <img loading="lazy" decoding="async" class="yc-logos" src="img/pay-schemes.png" alt="Visa, Mastercard, Amex, UnionPay, Discover, Apple Pay, Google Pay, JCB, WhatsApp" style="height: 38px; width: auto; display: block" />
           </div>
           <span style="padding: 12px 22px; border-radius: 999px; background: #F4F5FA; font-size: 16px; color: #4A5878; transition: transform .25s ease, background .25s ease, color .25s ease" style-hover="transform: translateY(-3px); background: #F96167; color: #fff">Domestic QR</span>
           <span style="padding: 12px 22px; border-radius: 999px; background: #F4F5FA; font-size: 16px; color: #4A5878; transition: transform .25s ease, background .25s ease, color .25s ease" style-hover="transform: translateY(-3px); background: #F96167; color: #fff">Local wallets</span>
@@ -1484,9 +1487,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 360px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
-          <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
+          <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
+        <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
         <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What you get</span>
@@ -1513,7 +1516,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="margin-top: 26px; font-size: 17px; line-height: 1.7; max-width: 620px"><strong style="color: #0B1D3A">youShop, youResto, youQR and youPay</strong> aren't just four products — they're building blocks. Combine them with the intelligent add-ons and every merchant business gets a purpose-built solution. Same platform underneath. Radically different outcomes on top.</p>
         <p style="margin-top: 20px; font-size: 16px; line-height: 1.7; font-style: italic; color: #6C7689; max-width: 620px">A capability map for partners, prospective buyers and investors. Each solution below is a compositional outcome — showing how the platform assembles for a real-world business type.</p>
       </div>
-      <img src="img/solutions-hero.png" alt="youcloud product suite — all products dashboard" style="width: 100%; height: auto; border-radius: 20px; display: block" />
+      <img loading="lazy" decoding="async" src="img/solutions-hero.png" alt="youcloud product suite — all products dashboard" style="width: 100%; height: auto; border-radius: 20px; display: block" />
     </div>
   </section>
 
@@ -1556,7 +1559,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="position: sticky; top: 96px; border-radius: 22px; overflow: hidden; height: 100%; min-height: 340px; max-height: calc(100vh - 116px); background: #F4F5FA">
         <sc-for list="{{ solutionImgs }}" as="im" hint-placeholder-count="7">
-          <img src="{{ im.src }}" alt="{{ im.alt }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .6s ease, transform 1.4s ease; opacity: {{ im.op }}; transform: {{ im.tf }}" />
+          <img loading="lazy" decoding="async" src="{{ im.src }}" alt="{{ im.alt }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .6s ease, transform 1.4s ease; opacity: {{ im.op }}; transform: {{ im.tf }}" />
         </sc-for>
       </div>
     </div>
@@ -1575,9 +1578,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="yc-devicepanel" style="position: relative; background: #F7F6F6; border-radius: 20px; padding: 26px; min-height: 380px; display: flex; justify-content: flex-end; align-items: center; overflow: hidden">
         <div style="position: absolute; top: 24px; left: 28px; display: flex; align-items: center; gap: 8px">
-          <img src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
+          <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 24px; width: auto; display: block" />
         </div>
-        <img src="img/pos-box.jpg" alt="youcloud POS" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1; animation: ycFloat 6s ease-in-out infinite" />
+        <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1; animation: ycFloat 6s ease-in-out infinite" />
         <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 20%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
             <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">What's included at launch</span>
@@ -1624,7 +1627,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="display: inline-flex; padding: 6px; border: 1px solid #F1DFE1; border-radius: 999px; background: #fff; gap: 4px; flex-wrap: wrap">
           <sc-for list="{{ pricingTabs }}" as="t" hint-placeholder-count="4">
             <button onClick="{{ t.onClick }}" style="padding: 10px 20px; border-radius: 999px; border: none; background: {{ t.bg }}; color: {{ t.ink }}; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .2s ease, color .2s ease">
-              <img src="{{ t.icon }}" alt="" style="width: 18px; height: 18px; display: block" />{{ t.name }}
+              <img loading="lazy" decoding="async" src="{{ t.icon }}" alt="" style="width: 18px; height: 18px; display: block" />{{ t.name }}
             </button>
           </sc-for>
         </div>
@@ -1710,7 +1713,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <sc-for list="{{ addonPricing }}" as="a" hint-placeholder-count="5">
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: center; padding: 22px 26px; border-top: 1px solid {{ a.rule }}; transition: background .25s ease" style-hover="background: #FEF9F9">
             <div style="display: flex; align-items: center; gap: 14px">
-              <img src="{{ a.icon }}" alt="" style="width: 38px; height: 38px; border-radius: 10px; display: block" />
+              <img loading="lazy" decoding="async" src="{{ a.icon }}" alt="" style="width: 38px; height: 38px; border-radius: 10px; display: block" />
               <span style="font-size: 18px; font-weight: 700; color: #0B1D3A">{{ a.name }}</span>
             </div>
             <div style="font-size: 16px; line-height: 1.5">{{ a.desc }}</div>
@@ -1732,7 +1735,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px">
         <sc-for list="{{ hwPricing }}" as="h" hint-placeholder-count="3">
           <div style="border: 1px solid #EDE9EA; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 16px; transition: transform .3s ease, box-shadow .3s ease" style-hover="transform: translateY(-5px); box-shadow: 0 18px 40px rgba(11,29,58,0.07)">
-            <img src="{{ h.img }}" alt="{{ h.name }}" style="width: 100%; height: 190px; object-fit: contain; display: block" />
+            <img loading="lazy" decoding="async" src="{{ h.img }}" alt="{{ h.name }}" style="width: 100%; height: 190px; object-fit: contain; display: block" />
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
               <span style="font-size: 19px; font-weight: 700; color: #0B1D3A">{{ h.name }}</span>
               <span style="font-size: 24px; font-weight: 700; color: #F96167">{{ h.price }}</span>
@@ -1819,7 +1822,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p style="margin-top: 18px; font-size: 17px; line-height: 1.7">A shop owner shouldn't need a cash register, a stock notebook, a card terminal, a QR display, a WhatsApp broadcast tool, a settlement spreadsheet and a bookkeeper. That's the problem. We're the answer.</p>
           <p style="margin-top: 18px; font-size: 17px; line-height: 1.7">We stay invisible. Our products are white-labelled — merchants see their bank's brand, their acquirer's brand, their partner's brand. We're the infrastructure. They get the customers.</p>
         </div>
-        <img src="img/about-icp.jpg" alt="youcloud platform — POS, payments, QR and add-ons" style="width: 100%; height: auto; border-radius: 20px; display: block" />
+        <img loading="lazy" decoding="async" src="img/about-icp.jpg" alt="youcloud platform — POS, payments, QR and add-ons" style="width: 100%; height: auto; border-radius: 20px; display: block" />
       </div>
     </div>
   </section>
@@ -1857,7 +1860,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p style="margin-top: 20px; font-size: 17px; line-height: 1.7">Nine live markets across MENA, South Asia, Africa and APAC — with local wallet integration, local settlement banks, and local compliance done. No 12-month engineering project. No lawyer. No greenfield launch.</p>
         </div>
         <div style="position: relative; border-radius: 18px; overflow: hidden">
-          <img src="img/home-world.jpg" alt="youcloud live markets" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+          <img loading="lazy" decoding="async" src="img/home-world.jpg" alt="youcloud live markets" style="width: 100%; height: auto; border-radius: 18px; display: block" />
           <sc-for list="{{ mapPins }}" as="pin" hint-placeholder-count="9">
           <div onMouseEnter="{{ pin.onEnter }}" onMouseLeave="{{ pin.onLeave }}" style="position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; cursor: pointer; left: {{ pin.left }}; top: {{ pin.top }}">
             <span style="position: absolute; inset: 0; border-radius: 50%; background: rgba(249,97,103,0.45); animation: ycPing 2.8s ease-out infinite; animation-delay: {{ pin.delay }}"></span>
@@ -1950,7 +1953,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </sc-for>
             </div>
           </div>
-          <img src="img/pos-box.jpg" alt="youcloud POS" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+          <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS" style="width: 100%; height: auto; border-radius: 18px; display: block" />
         </div>
       </div>
     </div>
@@ -2118,7 +2121,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ openDemo }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">See modules</button>
         </div>
       </div>
-      <img src="{{ e.hero }}" alt="{{ e.name }}" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+      <img loading="lazy" decoding="async" src="{{ e.hero }}" alt="{{ e.name }}" style="width: 100%; height: auto; border-radius: 18px; display: block" />
     </div>
   </section>
 
@@ -2171,7 +2174,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 24px">
         <sc-for list="{{ e.hardware }}" as="h" hint-placeholder-count="3">
           <div style="background: #F96167; border-radius: 20px; padding: 24px; color: #fff">
-            <img src="{{ h.img }}" alt="{{ h.name }}" style="width: 100%; height: auto; border-radius: 14px; display: block" />
+            <img loading="lazy" decoding="async" src="{{ h.img }}" alt="{{ h.name }}" style="width: 100%; height: auto; border-radius: 14px; display: block" />
             <div style="margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px">
               <span style="font-size: 18px; font-weight: 700; color: #fff">{{ h.name }}</span>
               <span style="padding: 8px 16px; border-radius: 10px; background: rgba(255,255,255,0.92); color: #F96167; font-size: 15px">{{ h.code }}</span>
@@ -2246,7 +2249,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ goPayEnt }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">youPay Enterprise</button>
         </div>
       </div>
-      <img src="{{ e.cta }}" alt="Included in every deployment" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+      <img loading="lazy" decoding="async" src="{{ e.cta }}" alt="Included in every deployment" style="width: 100%; height: auto; border-radius: 18px; display: block" />
     </div>
   </section>
 </main>
@@ -2418,7 +2421,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ openDemo }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Request whitepaper</button>
         </div>
       </div>
-      <img src="img/payent-cta.jpg" alt="What a demo covers" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+      <img loading="lazy" decoding="async" src="img/payent-cta.jpg" alt="What a demo covers" style="width: 100%; height: auto; border-radius: 18px; display: block" />
     </div>
   </section>
 </main>
@@ -2453,11 +2456,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="yc-hub-ring" style="animation-delay: 0s"></span>
         <span class="yc-hub-ring" style="animation-delay: 1.2s"></span>
         <span class="yc-hub-ring" style="animation-delay: 2.4s"></span>
-        <div class="yc-hub-core"><img src="img/logomark.png" alt="youcloud" style="width: 46%; height: auto; display: block" /></div>
-        <div class="yc-hub-tile" style="left: 8%; top: 12%; animation-delay: 0s"><img src="img/ic-shop.png" alt="youShop" /></div>
-        <div class="yc-hub-tile" style="left: 73%; top: 8%; animation-delay: .8s"><img src="img/ic-pay.png" alt="youPay" /></div>
-        <div class="yc-hub-tile" style="left: 5%; top: 58%; animation-delay: 1.6s"><img src="img/ic-qr.png" alt="youQR" /></div>
-        <div class="yc-hub-tile" style="left: 70%; top: 70%; animation-delay: 2.4s"><img src="img/ic-resto.png" alt="youResto" /></div>
+        <div class="yc-hub-core"><img loading="lazy" decoding="async" src="img/logomark.png" alt="youcloud" style="width: 46%; height: auto; display: block" /></div>
+        <div class="yc-hub-tile" style="left: 8%; top: 12%; animation-delay: 0s"><img loading="lazy" decoding="async" src="img/ic-shop.png" alt="youShop" /></div>
+        <div class="yc-hub-tile" style="left: 73%; top: 8%; animation-delay: .8s"><img loading="lazy" decoding="async" src="img/ic-pay.png" alt="youPay" /></div>
+        <div class="yc-hub-tile" style="left: 5%; top: 58%; animation-delay: 1.6s"><img loading="lazy" decoding="async" src="img/ic-qr.png" alt="youQR" /></div>
+        <div class="yc-hub-tile" style="left: 70%; top: 70%; animation-delay: 2.4s"><img loading="lazy" decoding="async" src="img/ic-resto.png" alt="youResto" /></div>
       </div>
     </div>
   </section>
@@ -2486,7 +2489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 44px; align-items: start">
-        <img src="img/partners-problem.jpg" alt="Merchant using six disconnected tools" style="width: 100%; height: auto; border-radius: 16px; display: block" />
+        <img loading="lazy" decoding="async" src="img/partners-problem.jpg" alt="Merchant using six disconnected tools" style="width: 100%; height: auto; border-radius: 16px; display: block" />
         <div style="display: flex; flex-direction: column; gap: 20px">
           <sc-for list="{{ ptProblems }}" as="p" hint-placeholder-count="3">
             <div style="border: 1px solid #F7D3D6; border-radius: 16px; padding: 24px 26px">
@@ -2614,7 +2617,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="margin-top: 34px; display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; border: 1px solid #F2DEDF; border-radius: 999px; background: #fff">
         <sc-for list="{{ ptProdTabs }}" as="t" hint-placeholder-count="5">
           <button onClick="{{ t.onClick }}" style="flex: 1; min-width: 150px; padding: 14px 18px; border-radius: 999px; border: none; background: {{ t.bg }}; color: {{ t.ink }}; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
-            <sc-if value="{{ t.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ t.icon }}" alt="" style="width: 22px; height: 22px; display: block" /></sc-if>
+            <sc-if value="{{ t.icon }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ t.icon }}" alt="" style="width: 22px; height: 22px; display: block" /></sc-if>
             {{ t.name }}
           </button>
         </sc-for>
@@ -2649,7 +2652,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <sc-for list="{{ ptAddonFees }}" as="a" hint-placeholder-count="5">
           <div style="border: 1px solid #EDE9EA; border-radius: 16px; padding: 22px">
             <div style="display: flex; align-items: center; gap: 10px">
-              <sc-if value="{{ a.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ a.icon }}" alt="" style="width: 22px; height: 22px; display: block" /></sc-if>
+              <sc-if value="{{ a.icon }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ a.icon }}" alt="" style="width: 22px; height: 22px; display: block" /></sc-if>
               <span style="font-size: 17px; font-weight: 700; color: #0B1D3A">{{ a.name }}</span>
             </div>
             <div style="margin-top: 12px; font-size: 16px; color: #4A5878">{{ a.desc }}</div>
@@ -2843,7 +2846,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ openDemo }}" style="padding: 15px 32px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Book a partner call</button>
         </div>
       </div>
-      <img src="img/partners-cta.jpg" alt="What you get in the brief" style="width: 100%; height: auto; border-radius: 18px; display: block" />
+      <img loading="lazy" decoding="async" src="img/partners-cta.jpg" alt="What you get in the brief" style="width: 100%; height: auto; border-radius: 18px; display: block" />
     </div>
   </section>
 </main>
@@ -2858,11 +2861,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </svg>
         <sc-for list="{{ footerArcIcons }}" as="f" hint-placeholder-count="5">
           <div onClick="{{ f.onClick }}" title="{{ f.name }}" style="position: absolute; left: {{ f.left }}; top: {{ f.top }}px; transform: translateX(-50%); width: {{ f.size }}px; height: {{ f.size }}px; border-radius: 50%; background: {{ f.bg }}; box-shadow: {{ f.shadow }}; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .3s cubic-bezier(.2,.7,.3,1.4), box-shadow .3s ease" style-hover="transform: translateX(-50%) translateY(-8px) scale(1.08); box-shadow: 0 16px 34px rgba(249,97,103,0.32)">
-            <img src="{{ f.icon }}" alt="{{ f.name }}" style="width: {{ f.iconSize }}px; height: {{ f.iconSize }}px; display: block" />
+            <img loading="lazy" decoding="async" src="{{ f.icon }}" alt="{{ f.name }}" style="width: {{ f.iconSize }}px; height: {{ f.iconSize }}px; display: block" />
           </div>
         </sc-for>
       </div>
-      <img src="img/logo.png" alt="youcloud" style="height: 44px; width: auto; display: block; margin: -34px auto 0" />
+      <img loading="lazy" decoding="async" src="img/logo.png" alt="youcloud" style="height: 44px; width: auto; display: block; margin: -34px auto 0" />
       <p style="max-width: 520px; font-size: 16px; line-height: 1.6; text-align: center; margin: 0 auto">The operating layer for SMB and enterprise merchants. One licence, four products, unlimited merchants — live in 9+ markets.</p>
       <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center">
         <button onClick="{{ openDemo }}" style="padding: 13px 30px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Book a demo</button>
@@ -2961,7 +2964,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="background: #fff; border: 1px solid #EDE9EA; border-radius: 18px; box-shadow: 0 22px 50px rgba(11,29,58,0.18); padding: 8px; min-width: 210px; animation: ycFadeUp .22s ease both">
       <sc-for list="{{ fabLinks }}" as="l" hint-placeholder-count="8">
         <div onClick="{{ l.onClick }}" style="padding: 11px 14px; border-radius: 11px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: {{ l.color }}" style-hover="background: #FEF3F4; color: #F96167">
-          <sc-if value="{{ l.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ l.icon }}" alt="" style="width: 18px; height: 18px; display: block" /></sc-if>
+          <sc-if value="{{ l.icon }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ l.icon }}" alt="" style="width: 18px; height: 18px; display: block" /></sc-if>
           {{ l.label }}
         </div>
       </sc-for>
@@ -2979,7 +2982,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="width: min(360px, calc(100vw - 48px)); height: 460px; background: #fff; border-radius: 20px; box-shadow: 0 24px 60px rgba(11,29,58,0.22); border: 1px solid #EDE9EA; display: flex; flex-direction: column; overflow: hidden; animation: ycFadeUp .25s ease both">
       <div style="padding: 16px 18px; background: #0B1D3A; color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 10px">
         <div style="display: flex; align-items: center; gap: 10px">
-          <img src="img/logomark.png" alt="" style="width: 24px; height: 24px; display: block" />
+          <img loading="lazy" decoding="async" src="img/logomark.png" alt="" style="width: 24px; height: 24px; display: block" />
           <span style="font-size: 16px; font-weight: 700">youcloud assistant</span>
         </div>
         <span onClick="{{ toggleSupport }}" style="cursor: pointer; font-size: 20px; line-height: 1">✕</span>
@@ -3004,7 +3007,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </sc-if>
   <div onClick="{{ toggleSupport }}" style="width: 83px; height: 83px; border-radius: 50%; background: {{ supportFabBg }}; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; box-shadow: {{ supportFabShadow }}; transition: transform .25s cubic-bezier(.2,.7,.3,1.4)" style-hover="transform: scale(1.08)">
     <sc-if value="{{ supportOpen }}" hint-placeholder-val="{{ false }}"><span>✕</span></sc-if>
-    <sc-if value="{{ supportClosed }}" hint-placeholder-val="{{ true }}"><img src="img/bot-icon.png" alt="Support assistant" style="width: 124%; height: 124%; margin: -12%; display: block" /></sc-if>
+    <sc-if value="{{ supportClosed }}" hint-placeholder-val="{{ true }}"><img loading="lazy" decoding="async" src="img/bot-icon.png" alt="Support assistant" style="width: 124%; height: 124%; margin: -12%; display: block" /></sc-if>
   </div>
 </div>
 
