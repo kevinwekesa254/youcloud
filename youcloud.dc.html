@@ -3113,6 +3113,16 @@ const PAGE_SEO = {
   cookies:         { title: "Cookie Policy | youcloud", description: "How youcloud uses essential, preference and analytics cookies, and how to control them." }
 };
 
+// Real URLs for the client-side views. Page ids double as path segments, so
+// /pricing <-> "pricing"; anything unrecognised falls back to home.
+const ycPathForPage = (page) => (page === "home" ? "/" : "/" + page);
+const ycPageFromPath = (pathname) => {
+  if (typeof pathname !== "string") pathname = (typeof location !== "undefined" && location.pathname) || "/";
+  const seg = pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
+  if (!seg) return "home";
+  return Object.prototype.hasOwnProperty.call(PAGE_SEO, seg) ? seg : "home";
+};
+
 const SOCIAL_LINKS = [
   { glyph: "in", title: "LinkedIn", isText: true, isInsta: false, onClick: () => window.open("https://www.linkedin.com/company/youcloudpaytech", "_blank", "noopener,noreferrer") },
   { glyph: "", title: "Instagram", isText: false, isInsta: true, onClick: () => window.open("https://www.instagram.com/youcloudpay/", "_blank", "noopener,noreferrer") },
@@ -3498,7 +3508,7 @@ const HOME_QUOTES = [
 const ENT_FOR = { youshop: "youshop-ent", youresto: "youresto-ent", youpay: "youpay-ent" };
 
 class Component extends DCLogic {
-  state = { page: "home", ptModel: 1, ptProduct: "youResto", pricingProduct: "youShop", menu: false, demoOpen: false, consent: true, form: {}, demoError: "", demoSent: false,
+  state = { page: ycPageFromPath(), ptModel: 1, ptProduct: "youResto", pricingProduct: "youShop", menu: false, demoOpen: false, consent: true, form: {}, demoError: "", demoSent: false,
     narrow: typeof window !== "undefined" && window.innerWidth < 960, burger: false, sol: 0, pin: -1, supportOpen: false, supportInput: "", supportMessages: [], scrolled: false, fabOpen: false,
     contactForm: {}, contactError: "", contactSent: false };
 
@@ -3516,8 +3526,22 @@ class Component extends DCLogic {
     this.setState({ page, menu: false, burger: false, sol: 0 });
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "auto" });
+      this.pushPath(page);
       this.syncSeo(page);
     }
+  };
+
+  // keep the address bar in step, so links can be shared and Back works
+  pushPath = (page) => {
+    if (typeof history === "undefined" || !history.pushState) return;
+    const next = ycPathForPage(page);
+    if (location.pathname !== next) history.pushState({ ycPage: page }, "", next);
+  };
+
+  onPopState = () => {
+    const page = ycPageFromPath();
+    this.setState({ page, menu: false, burger: false, sol: 0 });
+    this.syncSeo(page);
   };
 
   // keeps document title / canonical / analytics in step with the SPA route
@@ -3552,6 +3576,7 @@ class Component extends DCLogic {
     this.setState({ page: "solutions", sol: index, menu: false, burger: false });
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "auto" });
+      this.pushPath("solutions");
       this.syncSeo("solutions");
       setTimeout(() => {
         const el = document.getElementById("yc-solutions-list");
@@ -3653,6 +3678,7 @@ class Component extends DCLogic {
     this._lastPage = this.state.page;
     window.addEventListener("resize", this.onResize);
     window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("popstate", this.onPopState);
     this.syncSeo(this.state.page, false);
     requestAnimationFrame(this.reveal);
     this._mo = new MutationObserver(() => this.reveal());
@@ -3677,6 +3703,7 @@ class Component extends DCLogic {
   componentWillUnmount() {
     window.removeEventListener("resize", this.onResize);
     window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("popstate", this.onPopState);
     clearTimeout(this._failsafe);
     clearInterval(this._poll);
     if (this._io) this._io.disconnect();
