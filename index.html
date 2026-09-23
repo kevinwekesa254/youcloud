@@ -13,20 +13,20 @@
 <link rel="preload" as="image" href="img/hero-store.jpg" imagesrcset="img/hero-store-800.jpg 800w, img/hero-store-1200.jpg 1200w, img/hero-store.jpg 1536w" imagesizes="100vw" fetchpriority="high" />
 <link rel="preconnect" href="https://unpkg.com" crossorigin />
 <link rel="dns-prefetch" href="https://unpkg.com" />
-<link rel="canonical" href="https://youcloudpay.com/" />
+<link rel="canonical" href="https://www.youcloudpay.com/" />
 
 <!-- ── Open Graph / social ─────────────────────────────────────── -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="youcloud" />
 <meta property="og:title" content="youcloud — Run your business. All from One Place." />
 <meta property="og:description" content="Billing, stock, payments and QR ordering for retail shops, restaurants and QR-first merchants. One kit. One app. Live in under an hour." />
-<meta property="og:url" content="https://youcloudpay.com/" />
-<meta property="og:image" content="https://youcloudpay.com/img/home-dash.jpg" />
+<meta property="og:url" content="https://www.youcloudpay.com/" />
+<meta property="og:image" content="https://www.youcloudpay.com/img/home-dash.jpg" />
 <meta property="og:locale" content="en_US" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="youcloud — Run your business. All from One Place." />
 <meta name="twitter:description" content="POS, payments, QR ordering and AI add-ons for SMB merchants across emerging markets. $0 to start." />
-<meta name="twitter:image" content="https://youcloudpay.com/img/home-dash.jpg" />
+<meta name="twitter:image" content="https://www.youcloudpay.com/img/home-dash.jpg" />
 <meta name="theme-color" content="#F96167" />
 <link rel="icon" type="image/png" href="img/logomark.png" />
 <link rel="apple-touch-icon" href="img/logomark.png" />
@@ -43,11 +43,11 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://youcloudpay.com/#organization",
+      "@id": "https://www.youcloudpay.com/#organization",
       "name": "Youcloud Paytech DIFC",
       "alternateName": "youcloud",
-      "url": "https://youcloudpay.com/",
-      "logo": "https://youcloudpay.com/img/logo.png",
+      "url": "https://www.youcloudpay.com/",
+      "logo": "https://www.youcloudpay.com/img/logo.png",
       "email": "connect@youcloudtech.com",
       "foundingDate": "2022",
       "address": {
@@ -68,10 +68,10 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://youcloudpay.com/#website",
-      "url": "https://youcloudpay.com/",
+      "@id": "https://www.youcloudpay.com/#website",
+      "url": "https://www.youcloudpay.com/",
       "name": "youcloud",
-      "publisher": { "@id": "https://youcloudpay.com/#organization" },
+      "publisher": { "@id": "https://www.youcloudpay.com/#organization" },
       "inLanguage": "en"
     },
     {
@@ -86,7 +86,7 @@
         "priceCurrency": "USD",
         "description": "Freemium plan — $0 forever, no setup fee, no lock-in."
       },
-      "publisher": { "@id": "https://youcloudpay.com/#organization" }
+      "publisher": { "@id": "https://www.youcloudpay.com/#organization" }
     }
   ]
 }
@@ -99,16 +99,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PSHP5TKH');</script>
 <!-- End Google Tag Manager -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X55S79585D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X55S79585D');
+</script>
 <script>
   // Single-page app: navigating doesn't reload the page, so each route change
   // pushes a "virtual_page_view" event for a GTM trigger to pick up.
   window.ycTrackPage = function (page) {
     window.dataLayer = window.dataLayer || [];
+    var path = '/' + (page === 'home' ? '' : page);
     window.dataLayer.push({
       event: 'virtual_page_view',
-      page_path: '/' + (page === 'home' ? '' : page),
+      page_path: path,
       page_title: document.title
     });
+    // No gtag page_view is sent here on purpose. GA4 enhanced measurement
+    // raises its own page_view for each History API change (it arrives a beat
+    // later than the navigation), so sending one as well counted every route
+    // twice. GTM still gets the virtual_page_view push above.
   };
 </script>
 
@@ -280,8 +295,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   /* platform-layer flow: need -> layer -> outcome, joined by travelling dotted lines */
-  .yc-flow { display: grid; grid-template-columns: minmax(0,1fr) 54px minmax(0,1fr) 54px minmax(0,1.5fr);
+  .yc-flow { position: relative; display: grid;
+    grid-template-columns: minmax(0,1fr) 54px minmax(0,1fr) 54px minmax(0,1.5fr);
     gap: 12px 0; align-items: stretch; }
+  /* Column outlines. An absolutely positioned layer repeating the same column
+     template, so the frames track the fr widths without touching the flow -
+     the cells keep their row alignment exactly as before. */
+  .yc-flow-frames { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    display: grid; grid-template-columns: minmax(0,1fr) 54px minmax(0,1fr) 54px minmax(0,1.5fr); }
+  .yc-flow-frames > div:nth-child(odd) { margin: -14px -7px; border: 1px solid #D7DFEE;
+    border-radius: 22px; background: rgba(255,255,255,0.45); }
+  .yc-flow-frames > div:nth-child(3) { border-color: #F6C4C9; background: rgba(255,244,245,0.5); }
+  .yc-flow-head, .yc-flow-cell, .yc-flow-link { position: relative; z-index: 1; }
   .yc-flow-head { background: #0B1D3A; color: #fff; border-radius: 14px; padding: 15px 20px;
     font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     box-shadow: 0 10px 24px rgba(11,29,58,0.16); }
@@ -296,13 +321,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .yc-flow-row:hover .yc-flow-cell.is-does { transform: translateX(2px); }
   /* the connector itself: dots that travel from one box to the next */
   .yc-flow-link { align-self: center; height: 3px; margin: 0 5px;
+    animation: ycFlowDots 1.15s linear infinite, ycFlowFade .6s ease-out both;
     background-image: radial-gradient(circle, #EF9096 1.7px, transparent 1.8px);
-    background-size: 9px 3px; background-repeat: repeat-x;
-    animation: ycFlowDots 1.15s linear infinite; }
+    background-size: 9px 3px; background-repeat: repeat-x; }
+  @keyframes ycFlowFade { from { opacity: 0; } to { opacity: 1; } }
   .yc-flow-row:hover .yc-flow-link { background-image: radial-gradient(circle, #F96167 1.9px, transparent 2px); }
   @keyframes ycFlowDots { to { background-position: 9px 0; } }
   @media (max-width: 900px) {
     .yc-flow { grid-template-columns: minmax(0,1fr); gap: 0; }
+    .yc-flow-frames { display: none; }
     .yc-flow-head { display: none; }
     .yc-flow-cell.is-need { font-weight: 700; }
     .yc-flow-cell.is-does { margin-bottom: 20px; }
@@ -478,6 +505,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="font-size: 17px; line-height: 1.65; color: #4A5878">For Enterprise buyers the same platform is presented in unified-commerce terms &mdash; a set of connected clouds &mdash; with payments and embedded finance built in rather than integrated.</p>
       </div>
       <div class="yc-flow" style="margin-top: 38px">
+        <div class="yc-flow-frames" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div>
         <div class="yc-flow-head">Merchant need</div>
         <div></div>
         <div class="yc-flow-head">youcloud platform layer</div>
@@ -3554,10 +3582,10 @@ class Component extends DCLogic {
         if (el) el.setAttribute(attr, val);
       };
       setMeta('meta[name="description"]', "content", meta.description);
-      setMeta('link[rel="canonical"]', "href", "https://youcloudpay.com/" + (page === "home" ? "" : page));
+      setMeta('link[rel="canonical"]', "href", "https://www.youcloudpay.com/" + (page === "home" ? "" : page));
       setMeta('meta[property="og:title"]', "content", meta.title);
       setMeta('meta[property="og:description"]', "content", meta.description);
-      setMeta('meta[property="og:url"]', "content", "https://youcloudpay.com/" + (page === "home" ? "" : page));
+      setMeta('meta[property="og:url"]', "content", "https://www.youcloudpay.com/" + (page === "home" ? "" : page));
     }
     if (track && typeof window !== "undefined" && typeof window.ycTrackPage === "function") window.ycTrackPage(page);
   };
@@ -3630,6 +3658,19 @@ class Component extends DCLogic {
         child.dataset.ycRise = "1";
         child.classList.add("yc-rise");
         child.style.transitionDelay = Math.min(i, 7) * 70 + "ms";
+      });
+    });
+
+    // The platform flow stages its cells rather than its grid children: each row
+    // is a display:contents wrapper, which generates no box for a transform to
+    // act on. Document order is header row first, then row by row, so the
+    // cascade reads left-to-right and down.
+    section.querySelectorAll(".yc-flow").forEach((flow) => {
+      flow.querySelectorAll(".yc-flow-head, .yc-flow-cell").forEach((cell, i) => {
+        if (cell.dataset.ycRise) return;
+        cell.dataset.ycRise = "1";
+        cell.classList.add("yc-rise");
+        cell.style.transitionDelay = Math.min(i, 15) * 45 + "ms";
       });
     });
   };
