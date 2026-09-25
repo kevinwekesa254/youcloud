@@ -308,10 +308,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .yc-flow-frames > div:nth-child(3) { border-color: #F6C4C9; background: rgba(255,244,245,0.5); }
   .yc-flow-head, .yc-flow-cell, .yc-flow-link { position: relative; z-index: 1; }
   .yc-flow-head { background: #0B1D3A; color: #fff; border-radius: 14px; padding: 15px 20px;
-    font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;
     box-shadow: 0 10px 24px rgba(11,29,58,0.16); }
   .yc-flow-cell { border: 1px solid #E4E9F4; background: #fff; border-radius: 14px; padding: 18px 20px;
     font-size: 15.5px; line-height: 1.5; color: #0B1D3A; display: flex; align-items: center;
+    justify-content: center; text-align: center;
     box-shadow: 0 3px 12px rgba(11,29,58,0.05);
     transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease; }
   .yc-flow-cell.is-layer { background: #FFF3F4; border-color: #F8CDD1; font-weight: 700; }
@@ -456,7 +457,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(7,16,34,0.58) 0%, rgba(7,16,34,0.30) 100%), linear-gradient(180deg, rgba(7,16,34,0.72) 0%, rgba(7,16,34,0.42) 40%, rgba(7,16,34,0.56) 76%, rgba(7,16,34,0.86) 100%)"></div>
     <div class="yc-hero-inner" style="position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; text-align: center; padding: 128px 30px 118px">
       <h1 style="font-size: clamp(38px, 6vw, 74px); line-height: 1.12; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45)">Run your business.<br />All from <span style="display: inline-block; padding: 2px 20px; border: 1px solid rgba(255,255,255,0.55)">One Place</span></h1>
-      <p style="margin: 24px auto 0; font-size: 17px; line-height: 1.65; max-width: 700px; color: rgba(255,255,255,0.90); text-shadow: 0 1px 14px rgba(0,0,0,0.5)">Billing, Stock, Payments, QR Ordering, Loyalty, Promotions, AI Insights and Back Office (HR, payroll, accounts). One kit. One app. Live in your business in under an hour.</p>
+      <p style="margin: 24px auto 0; font-size: 17px; line-height: 1.65; max-width: 700px; color: rgba(255,255,255,0.90); text-shadow: 0 1px 14px rgba(0,0,0,0.5)">Youcloud provides a single platform with connected clouds &mdash; Commerce Cloud, Payments Cloud, Marketing Cloud, Service &amp; Operations Cloud and Analytics Cloud &mdash; all feeding into embedded finance.<br /><span style="display: inline-block; margin-top: 10px">Billing, Stock, Payments, QR Ordering, Loyalty, Promotions, AI Insights and Back Office (HR, payroll, accounts). One kit. One app. Live in your business in under an hour.</span></p>
       <div style="margin-top: 32px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
         <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: 0 14px 34px rgba(249,97,103,0.38)" style-hover="background: #e84f56">Book a demo</button>
         <button onClick="{{ goProducts }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.10); color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; backdrop-filter: blur(6px)" style-hover="background: rgba(255,255,255,0.22)">Explore Products</button>
@@ -478,7 +479,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 48px; align-items: start">
         <h2 style="font-size: clamp(31px, 4.1vw, 50px); line-height: 1.2">One platform for<br /><span style="color: #F96167">every merchant need.</span></h2>
-        <p style="font-size: 17px; line-height: 1.65; color: #4A5878">Youcloud provides a single platform with connected clouds &mdash; Commerce Cloud, Payments Cloud, Marketing Cloud, Service &amp; Operations Cloud and Analytics Cloud &mdash; all feeding into embedded finance.</p>
+        <p style="font-size: 17px; line-height: 1.65; color: #4A5878">For Enterprise buyers the same platform is presented in unified-commerce terms &mdash; a set of connected clouds &mdash; with payments and embedded finance built in rather than integrated.</p>
       </div>
       <div class="yc-flow" style="margin-top: 38px">
         <div class="yc-flow-frames" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div>
@@ -3111,7 +3112,7 @@ const PLATFORM_ROWS = [
   { need: "Run the shop or the kitchen", layer: "Commerce & retail cloud",
     does: "Billing, inventory, recipes, KDS, multi-outlet transfers, WebShop, branded delivery." },
   { need: "Bring customers back", layer: "Marketing cloud",
-    does: "WhatsApp campaigns built from transaction data, on youcloud's own WABA platform." },
+    does: "Campaigns built from transaction data \u2014 WhatsApp on youcloud's own WABA platform, plus Meta, Google and other social channels." },
   { need: "Know what sells and what to reorder", layer: "Analytics",
     does: "Cross-outlet BI, demand forecasting, price elasticity." },
   { need: "Keep the books, pay staff, meet e-invoicing", layer: "Service & operations",
@@ -3818,7 +3819,7 @@ class Component extends DCLogic {
       isHome: page === "home",
       goPay: this.go("youpay"),
       goPayEnt: this.go("youpay-ent"),
-      homeTrusted: ["Retail shops", "Restaurants", "QR-first merchants"],
+      homeTrusted: ["Banks", "PSPs", "ISOs", "Telcos"],
       platformRows: PLATFORM_ROWS,
       homeSoundStats: [{ value: "<3s", label: "Scan to audio confirm" }, { value: "105dB", label: "Speaker volume" }, { value: "T+0", label: "To your bank" }],
       homeProducts: [
