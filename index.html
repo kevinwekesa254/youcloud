@@ -276,6 +276,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   @keyframes ycShimmer { 0% { background-position: 180% 0; } 55%, 100% { background-position: -90% 0; } }
 
+  /* youQR channel hub: every channel points at the one kitchen display */
+  .yc-kdshub { display: grid; grid-template-columns: 1fr minmax(230px, 0.9fr) 1fr;
+    grid-template-rows: repeat(3, auto); gap: 16px 56px; align-items: stretch; }
+  .yc-kdshub-box { position: relative; background: #fff;
+    transition: transform .3s cubic-bezier(.2,.7,.3,1), border-color .3s ease, box-shadow .3s ease; }
+  .yc-kdshub-box:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .yc-kdshub-box:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .yc-kdshub-box:nth-child(3) { grid-column: 1; grid-row: 3; }
+  .yc-kdshub-box:nth-child(4) { grid-column: 3; grid-row: 1; }
+  .yc-kdshub-box:nth-child(5) { grid-column: 3; grid-row: 2; }
+  .yc-kdshub-box:nth-child(6) { grid-column: 3; grid-row: 3; }
+  .yc-kdshub-core { grid-column: 2; grid-row: 1 / span 4;
+    box-shadow: 0 20px 44px rgba(249,97,103,0.28); }
+  /* travelling dots running from each channel toward the centre */
+  .yc-kdshub-box::after { content: ""; position: absolute; top: 50%; margin-top: -1.5px;
+    width: 56px; height: 3px;
+    background-image: radial-gradient(circle, #EF9096 1.7px, transparent 1.8px);
+    background-size: 9px 3px; background-repeat: repeat-x; }
+  .yc-kdshub-box:nth-child(-n+3)::after { left: 100%; animation: ycFlowDots 1.15s linear infinite; }
+  .yc-kdshub-box:nth-child(n+4)::after { right: 100%; animation: ycHubDotsRev 1.15s linear infinite; }
+  @keyframes ycHubDotsRev { to { background-position: -9px 0; } }
+  .yc-kdshub-box:hover { transform: translateY(-3px); border-color: #F8CDD1 !important;
+    box-shadow: 0 14px 32px rgba(11,29,58,0.08); }
+  @media (max-width: 900px) {
+    .yc-kdshub { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 14px; }
+    .yc-kdshub-box, .yc-kdshub-core { grid-column: auto !important; grid-row: auto !important; }
+    .yc-kdshub-core { order: -1; }
+    .yc-kdshub-box::after { display: none; }
+  }
+
   /* full-bleed photographic hero */
   .yc-hero { min-height: clamp(540px, 80vh, 760px); display: flex; align-items: center; }
   .yc-hero-inner { width: 100%; }
@@ -1198,19 +1228,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p style="font-size: 17px; line-height: 1.7">The youQR model: guests order themselves — from a kiosk, from the table, from your website, from Instagram, or via an aggregator — and every ticket lands on the same KDS. Your team is multidimensional, guests skip the wait, and you keep every dollar.</p>
         </div>
       </div>
-      <div class="yc-feat-grid" style="margin-top: 36px">
+      <div class="yc-kdshub" style="margin-top: 36px">
         <sc-for list="{{ qrChannels }}" as="c" hint-placeholder-count="6">
-          <div style="border: 1px solid #E7E3E4; border-radius: 16px; padding: 20px 18px">
+          <div class="yc-kdshub-box" style="border: 1px solid #E7E3E4; border-radius: 16px; padding: 20px 18px">
             <sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="{{ c.icon }}" alt="" style="width: 36px; height: 36px; border-radius: 10px; display: block" /></sc-if>
             <div style="margin-top: 16px; font-size: 16px; font-weight: 700; color: #0B1D3A">{{ c.title }}</div>
             <div style="margin-top: 8px; font-size: 15px; line-height: 1.5">{{ c.body }}</div>
           </div>
         </sc-for>
-      </div>
-      <div style="margin: 30px auto 0; max-width: 440px; border-radius: 16px; background: #F96167; color: #fff; padding: 22px 30px; text-align: center">
-        <div style="font-size: 15px; opacity: 0.92">One KDS / KP</div>
-        <div style="margin-top: 10px; font-size: 26px; font-weight: 700; color: #fff; line-height: 1.25">Every order.<br />One kitchen.</div>
-        <div style="margin-top: 12px; font-size: 15px; opacity: 0.92">Course firing · prep timers · 86-sync · expo view</div>
+        <div class="yc-kdshub-core" style="border-radius: 16px; background: #F96167; color: #fff; padding: 26px 28px; text-align: center; display: flex; flex-direction: column; justify-content: center">
+          <div style="font-size: 15px; opacity: 0.92">One KDS / KP</div>
+          <div style="margin-top: 10px; font-size: 26px; font-weight: 700; color: #fff; line-height: 1.25">Every order.<br />One kitchen.</div>
+          <div style="margin-top: 12px; font-size: 15px; opacity: 0.92">Course firing · prep timers · 86-sync · expo view</div>
+        </div>
       </div>
       <div style="margin-top: 26px; border: 1px solid #E7E3E4; border-radius: 999px; padding: 16px 26px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: space-between">
         <span style="font-size: 17px; color: #0B1D3A">Every ticket collects payment via</span>
@@ -1650,7 +1680,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </sc-for>
         </div>
       </div>
-      <div style="position: sticky; top: 96px; border-radius: 22px; overflow: hidden; height: 100%; min-height: 340px; max-height: calc(100vh - 116px); background: #F4F5FA">
+      <div style="position: sticky; top: 108px; align-self: start; width: 94%; margin: 34px 0 0 auto; border-radius: 22px; overflow: hidden; height: clamp(300px, 47vh, 460px); background: #F4F5FA">
         <sc-for list="{{ solutionImgs }}" as="im" hint-placeholder-count="7">
           <img loading="lazy" decoding="async" src="{{ im.src }}" alt="{{ im.alt }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .6s ease, transform 1.4s ease; opacity: {{ im.op }}; transform: {{ im.tf }}" />
         </sc-for>
@@ -3799,7 +3829,7 @@ class Component extends DCLogic {
         head: ("0" + (i + 1)) + " · " + s.cat,
         name: s.name, tagline: s.tagline, body: s.body, solves: s.solves, stack: s.stack,
         flow: s.flow.map((step, j) => ({ step, arrow: j < s.flow.length - 1 ? "→" : "" })),
-        open: sol === i, sign: sol === i ? "＋" : "−",
+        open: sol === i, sign: sol === i ? "−" : "＋",
         ink: sol === i ? "#0B1D3A" : "#0B1D3A",
         onClick: () => this.setState({ sol: sol === i ? -1 : i })
       })),
