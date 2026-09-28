@@ -276,9 +276,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   @keyframes ycShimmer { 0% { background-position: 180% 0; } 55%, 100% { background-position: -90% 0; } }
 
+  /* solutions: opening a row reveals its copy beside its picture */
+  .yc-solopen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    gap: 34px; align-items: start; }
+  .yc-solopen-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 18px;
+    display: block; background: #F4F5FA; animation: ycFadeUp .5s cubic-bezier(.2,.7,.3,1) both; }
+  @media (max-width: 860px) {
+    .yc-solopen { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .yc-solopen-img { aspect-ratio: 16 / 10; }
+  }
+
   /* youQR channel hub: every channel points at the one kitchen display */
-  .yc-kdshub { display: grid; grid-template-columns: 1fr minmax(230px, 0.9fr) 1fr;
-    grid-template-rows: repeat(3, auto); gap: 16px 56px; align-items: stretch; }
+  .yc-kdshub { display: grid; grid-template-columns: minmax(0, 0.74fr) minmax(210px, 0.72fr) minmax(0, 0.74fr);
+    grid-template-rows: repeat(3, auto); gap: 14px 38px; align-items: stretch;
+    max-width: 1020px; margin-inline: auto; }
   .yc-kdshub-box { position: relative; background: #fff;
     transition: transform .3s cubic-bezier(.2,.7,.3,1), border-color .3s ease, box-shadow .3s ease; }
   .yc-kdshub-box:nth-child(1) { grid-column: 1; grid-row: 1; }
@@ -291,7 +302,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     box-shadow: 0 20px 44px rgba(249,97,103,0.28); }
   /* travelling dots running from each channel toward the centre */
   .yc-kdshub-box::after { content: ""; position: absolute; top: 50%; margin-top: -1.5px;
-    width: 56px; height: 3px;
+    width: 38px; height: 3px;
     background-image: radial-gradient(circle, #EF9096 1.7px, transparent 1.8px);
     background-size: 9px 3px; background-repeat: repeat-x; }
   .yc-kdshub-box:nth-child(-n+3)::after { left: 100%; animation: ycFlowDots 1.15s linear infinite; }
@@ -1656,7 +1667,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span style="font-size: 24px; color: #F96167; line-height: 1; font-weight: 400">{{ s.sign }}</span>
               </div>
               <sc-if value="{{ s.open }}" hint-placeholder-val="{{ false }}">
-                <div style="padding: 0 2px 28px; animation: ycFadeUp .45s cubic-bezier(.2,.7,.3,1) both">
+                <div class="yc-solopen" style="padding: 0 2px 28px; animation: ycFadeUp .45s cubic-bezier(.2,.7,.3,1) both">
+                  <div>
                   <div style="font-size: 19px; font-weight: 700; color: #0B1D3A">{{ s.name }}</div>
                   <p style="margin-top: 10px; font-size: 16px; line-height: 1.6; color: #0B1D3A; font-weight: 700">{{ s.tagline }}</p>
                   <p style="margin-top: 12px; font-size: 16px; line-height: 1.6">{{ s.body }}</p>
@@ -1674,17 +1686,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   </div>
                   <div style="margin-top: 20px; font-size: 15px; font-weight: 700; color: #0B1D3A">Stack</div>
                   <div style="margin-top: 8px; font-size: 16px">{{ s.stack }}</div>
+                  </div>
+                  <img class="yc-solopen-img" loading="lazy" decoding="async" src="{{ s.img }}" alt="{{ s.name }}" />
                 </div>
               </sc-if>
             </div>
           </sc-for>
         </div>
       </div>
-      <div style="position: sticky; top: 108px; align-self: start; width: 94%; margin: 34px 0 0 auto; border-radius: 22px; overflow: hidden; height: clamp(300px, 47vh, 460px); background: #F4F5FA">
-        <sc-for list="{{ solutionImgs }}" as="im" hint-placeholder-count="7">
-          <img loading="lazy" decoding="async" src="{{ im.src }}" alt="{{ im.alt }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .6s ease, transform 1.4s ease; opacity: {{ im.op }}; transform: {{ im.tf }}" />
-        </sc-for>
-      </div>
+      
     </div>
   </section>
 
@@ -3829,7 +3839,7 @@ class Component extends DCLogic {
         head: ("0" + (i + 1)) + " · " + s.cat,
         name: s.name, tagline: s.tagline, body: s.body, solves: s.solves, stack: s.stack,
         flow: s.flow.map((step, j) => ({ step, arrow: j < s.flow.length - 1 ? "→" : "" })),
-        open: sol === i, sign: sol === i ? "−" : "＋",
+        open: sol === i, sign: sol === i ? "−" : "＋", img: s.img,
         ink: sol === i ? "#0B1D3A" : "#0B1D3A",
         onClick: () => this.setState({ sol: sol === i ? -1 : i })
       })),
