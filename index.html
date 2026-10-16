@@ -175,6 +175,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .yc-devicepanel > div:not(.yc-devicecard) { position: static !important; margin-bottom: 14px !important; }
     .yc-devicepanel > img { width: 68% !important; margin: 0 auto !important; display: block !important; }
     .yc-devicecard { position: static !important; width: 100% !important; margin: 18px 0 0 !important; }
+    .yc-boxarrow-m { display: block !important; width: 56px; height: 64px; margin: 6px auto -8px; position: relative; z-index: 3; overflow: visible; }
     .yc-modal { grid-template-columns: minmax(0, 1fr) !important; }
     .yc-modal-art { min-height: 0 !important; padding: 28px 24px !important; }
     .yc-modal-art > div { display: none !important; }
@@ -191,7 +192,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .yc-formgrid [style*="grid-column"] { grid-column: auto !important; }
 
     .yc-story { grid-template-columns: minmax(0, 1fr) !important; }
-    .yc-story > img { height: 230px !important; }
+    .yc-story > img { height: auto !important; }
+    .yc-lendimg { width: 100% !important; flex: none !important; height: 200px; }
     .yc-addon-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 16px !important; }
 
     div[style*="border-radius: 999px"][style*="flex-wrap: wrap"] { border-radius: 22px !important; }
@@ -263,6 +265,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .yc-chiprow { display: flex; flex-wrap: wrap; gap: 5px; }
   @media (min-width: 1320px) { .yc-chiprow { flex-wrap: nowrap; } }
   .yc-imgfade { position: relative; overflow: hidden; }
+  .yc-boxarrow-m { display: none; }
   .yc-imgfade::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.94) 100%); pointer-events: none; }
   @media (max-width: 900px) { .yc-boxarrow { display: none !important; } }
@@ -369,19 +372,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   @keyframes ycFlowFade { from { opacity: 0; } to { opacity: 1; } }
   .yc-flow-row:hover .yc-flow-link { background-image: radial-gradient(circle, #F96167 1.9px, transparent 2px); }
   @keyframes ycFlowDots { to { background-position: 9px 0; } }
+  /* on narrow screens the table keeps its columns and scrolls sideways */
+  .yc-flow-scroll { margin-top: 38px; }
+  .yc-flow-hint { display: none; }
   @media (max-width: 900px) {
-    .yc-flow { grid-template-columns: minmax(0,1fr); gap: 0; }
-    .yc-flow-frames { display: none; }
-    .yc-flow-head { display: none; }
-    .yc-flow-cell.is-need { font-weight: 700; }
-    .yc-flow-cell.is-does { margin-bottom: 20px; }
-    /* connector turns vertical when the row stacks */
-    .yc-flow-link { height: 30px; width: 3px; margin: 8px auto; justify-self: center;
-      background-image: radial-gradient(circle, #EF9096 1.7px, transparent 1.8px);
-      background-size: 3px 9px; background-repeat: repeat-y;
-      animation: ycFlowDotsV 1.15s linear infinite; }
+    .yc-flow-scroll { margin-top: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      padding: 18px 10px 22px; scrollbar-width: thin; }
+    .yc-flow { min-width: 760px; }
+    .yc-flow-hint { display: flex; align-items: center; gap: 8px; margin-top: 30px;
+      font-size: 14px; color: #8A93A8; }
+    .yc-flow-hint span { color: #F96167; font-size: 16px; animation: ycSwipeHint 1.6s ease-in-out infinite; }
   }
-  @keyframes ycFlowDotsV { to { background-position: 0 9px; } }
+  @media (max-width: 760px) { .yc-flow-scroll { margin-left: -18px; margin-right: -18px; padding-left: 18px; padding-right: 18px; } }
+  @keyframes ycSwipeHint { 50% { transform: translateX(5px); } }
 
   /* ---------- motion layer: page transitions, micro-interactions, staggered reveals ---------- */
   @keyframes ycPageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -522,7 +525,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 style="font-size: clamp(31px, 4.1vw, 50px); line-height: 1.2">One platform for<br /><span style="color: #F96167">every merchant need.</span></h2>
         <p style="font-size: 17px; line-height: 1.65; color: #4A5878">Commerce Cloud, Marketing Cloud, AI Cloud, Service &amp; Operations Cloud, Payments Cloud and Embedded Finance Cloud. One kit. One app. Live in your business in under an hour.</p>
       </div>
-      <div class="yc-flow" style="margin-top: 38px">
+      <div class="yc-flow-hint">Swipe to see the full table <span>&rarr;</span></div>
+      <div class="yc-flow-scroll">
+      <div class="yc-flow">
         <div class="yc-flow-frames" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div>
         <div class="yc-flow-head">Merchant need</div>
         <div></div>
@@ -538,6 +543,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="yc-flow-cell is-does">{{ r.does }}</div>
           </div>
         </sc-for>
+      </div>
       </div>
     </div>
   </section>
@@ -558,6 +564,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div style="display: flex; align-items: center; gap: 12px">
               <img loading="lazy" decoding="async" src="{{ p.icon }}" alt="" style="width: 36px; height: 36px; border-radius: 10px; display: block" />
               <span style="font-size: 24px; font-weight: 700; color: #0B1D3A">{{ p.name }}</span>
+              <span style="margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border: 1px solid #F8CDD1; border-radius: 999px; color: #F96167; font-size: 13px; font-weight: 700; white-space: nowrap">Learn more <span style="font-size: 14px">↗</span></span>
             </div>
             <p style="font-size: 16px; line-height: 1.6; flex: 1">{{ p.body }}</p>
             <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap">
@@ -566,7 +573,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <span style="padding: 9px 16px; border-radius: 999px; background: #F4F5FA; font-size: 15px; color: #4A5878">{{ c }}</span>
                 </sc-for>
               </div>
-              <span style="width: 52px; height: 52px; flex-shrink: 0; border: 1px solid #EDE9EA; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; color: #F96167; font-size: 20px">↗</span>
             </div>
           </div>
         </sc-for>
@@ -715,7 +721,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
             </sc-for>
           </div>
-          <div class="yc-imgfade" style="width: 70%; margin: 0 auto; border-radius: 14px; flex: 1; min-height: 160px; display: flex"><img loading="lazy" decoding="async" src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: 100%; object-fit: cover; object-position: 20% 25%; display: block" /></div>
+          <div class="yc-imgfade yc-lendimg" style="width: 70%; margin: 0 auto; border-radius: 14px; flex: 1; min-height: 160px; display: flex"><img loading="lazy" decoding="async" src="img/home-a-lend.jpg" alt="Merchant receiving a youLend loan" style="width: 100%; height: 100%; object-fit: cover; object-position: 20% 25%; display: block" /></div>
         </div>
         <div class="yc-addon-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; align-items: stretch">
           <sc-for list="{{ homeAddons }}" as="a" hint-placeholder-count="4">
@@ -810,6 +816,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <svg class="yc-boxarrow" viewBox="0 0 160 90" style="position: absolute; left: 44%; top: 54%; width: 172px; height: 96px; z-index: 3; pointer-events: none; overflow: visible">
           <path d="M150 16 C 112 4, 60 26, 26 56" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 7" />
           <path d="M26 56 l 15 -3 M26 56 l 3 -15" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+        <svg class="yc-boxarrow-m" viewBox="0 0 56 64" aria-hidden="true">
+          <path d="M36 4 C 52 22, 14 32, 26 58" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 6" />
+          <path d="M26 58 l -8 -9 M26 58 l 9 -7" fill="none" stroke="#F96167" stroke-width="2.5" stroke-linecap="round" />
         </svg>
         <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 18%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
