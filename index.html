@@ -338,53 +338,108 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .yc-hero-inner { padding: 92px 22px 84px !important; }
   }
 
-  /* platform-layer flow: need -> layer -> outcome, joined by travelling dotted lines */
-  .yc-flow { position: relative; display: grid;
-    grid-template-columns: minmax(0,1fr) 54px minmax(0,1fr) 54px minmax(0,1.5fr);
-    gap: 12px 0; align-items: stretch; }
-  /* Column outlines. An absolutely positioned layer repeating the same column
-     template, so the frames track the fr widths without touching the flow -
-     the cells keep their row alignment exactly as before. */
-  .yc-flow-frames { position: absolute; inset: 0; z-index: 0; pointer-events: none;
-    display: grid; grid-template-columns: minmax(0,1fr) 54px minmax(0,1fr) 54px minmax(0,1.5fr); }
-  .yc-flow-frames > div:nth-child(odd) { margin: -14px -7px; border: 1px solid #D7DFEE;
-    border-radius: 22px; background: rgba(255,255,255,0.45); }
-  .yc-flow-frames > div:nth-child(3) { border-color: #F6C4C9; background: rgba(255,244,245,0.5); }
-  .yc-flow-head, .yc-flow-cell, .yc-flow-link { position: relative; z-index: 1; }
-  .yc-flow-head { background: #0B1D3A; color: #fff; border-radius: 14px; padding: 15px 20px;
-    font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-align: center;
-    box-shadow: 0 10px 24px rgba(11,29,58,0.16); }
-  .yc-flow-cell { border: 1px solid #E4E9F4; background: #fff; border-radius: 14px; padding: 18px 20px;
-    font-size: 15.5px; line-height: 1.5; color: #0B1D3A; display: flex; align-items: center;
-    justify-content: center; text-align: center;
-    box-shadow: 0 3px 12px rgba(11,29,58,0.05);
-    transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease; }
-  .yc-flow-cell.is-layer { background: #FFF3F4; border-color: #F8CDD1; font-weight: 700; }
-  .yc-flow-cell.is-does { color: #4A5878; font-size: 15px; }
-  .yc-flow-row:hover .yc-flow-cell { border-color: #F8CDD1; box-shadow: 0 16px 36px rgba(11,29,58,0.11); }
-  .yc-flow-row:hover .yc-flow-cell.is-need { transform: translateX(-2px); }
-  .yc-flow-row:hover .yc-flow-cell.is-does { transform: translateX(2px); }
-  /* the connector itself: dots that travel from one box to the next */
-  .yc-flow-link { align-self: center; height: 3px; margin: 0 5px;
-    animation: ycFlowDots 1.15s linear infinite, ycFlowFade .6s ease-out both;
-    background-image: radial-gradient(circle, #EF9096 1.7px, transparent 1.8px);
-    background-size: 9px 3px; background-repeat: repeat-x; }
-  @keyframes ycFlowFade { from { opacity: 0; } to { opacity: 1; } }
-  .yc-flow-row:hover .yc-flow-link { background-image: radial-gradient(circle, #F96167 1.9px, transparent 2px); }
-  @keyframes ycFlowDots { to { background-position: 9px 0; } }
-  /* on narrow screens the table keeps its columns and scrolls sideways */
-  .yc-flow-scroll { margin-top: 38px; }
-  .yc-flow-hint { display: none; }
-  @media (max-width: 900px) {
-    .yc-flow-scroll { margin-top: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-      padding: 18px 10px 22px; scrollbar-width: thin; }
-    .yc-flow { min-width: 760px; }
-    .yc-flow-hint { display: flex; align-items: center; gap: 8px; margin-top: 30px;
-      font-size: 14px; color: #8A93A8; }
-    .yc-flow-hint span { color: #F96167; font-size: 16px; animation: ycSwipeHint 1.6s ease-in-out infinite; }
+  /* platform stack: SMB / Enterprise timeline (sell -> run -> record -> know/connect) */
+  .yc-pf-toggle { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 6px; border: 1px solid #D9E0F0;
+    border-radius: 999px; background: #fff; box-shadow: 0 8px 24px rgba(11,29,58,0.06); }
+  .yc-pf-thumb { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc(50% - 6px); border-radius: 999px; background: #0B1D3A;
+    box-shadow: 0 6px 16px rgba(11,29,58,0.25); transition: transform .35s cubic-bezier(.2,.7,.3,1); }
+  .yc-pf-toggle button { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-width: 128px; padding: 8px 18px; border: none; background: transparent; border-radius: 999px; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.04em; cursor: pointer; transition: color .25s ease; }
+  .yc-pf-toggle button img { width: 17px; height: 17px; display: block; }
+  .yc-pf { margin-top: 22px; }
+  .yc-pf-step { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 16px; padding-bottom: 12px; }
+  .yc-pf-step:last-child { padding-bottom: 0; }
+  .yc-pf-rail { position: relative; display: flex; justify-content: center; }
+  .yc-pf-node { position: relative; z-index: 1; width: 42px; height: 42px; border-radius: 50%; background: #fff; border: 1px solid #F8CDD1;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 5px rgba(249,97,103,0.08), 0 8px 18px rgba(11,29,58,0.08); }
+  .yc-pf-node img { width: 19px; height: 19px; display: block; }
+  .yc-pf-step:not(:last-child) .yc-pf-rail::after { content: ""; position: absolute; top: 49px; bottom: -5px; left: 50%; width: 3px; margin-left: -1.5px;
+    background-image: radial-gradient(circle, #EF9096 1.6px, transparent 1.8px); background-size: 3px 9px; background-repeat: repeat-y;
+    animation: ycPfDots 1.15s linear infinite; }
+  @keyframes ycPfDots { to { background-position: 0 9px; } }
+  .yc-pf-body { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 18px; align-items: start; }
+  .yc-pf-head { padding-top: 0; }
+  .yc-pf-num { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #F96167; }
+  .yc-pf-title { margin-top: 2px; font-size: 19px; font-weight: 700; color: #0B1D3A; }
+  .yc-pf-desc { margin-top: 3px; font-size: 13.5px; line-height: 1.4; color: #6B7896; }
+  .yc-pf-card { background: #fff; border: 1px solid #E6EAF4; border-radius: 16px; padding: 12px; box-shadow: 0 10px 26px rgba(11,29,58,0.05); }
+  .yc-pf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .yc-pf-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px 6px 9px; border-radius: 999px; background: #F6F7FB;
+    border: 1px solid #ECEFF6; font-size: 13px; font-weight: 700; color: #0B1D3A; transition: border-color .2s ease, background .2s ease; }
+  .yc-pf-chip:hover { border-color: #F8CDD1; background: #fff; }
+  .yc-pf-chip img { width: 15px; height: 15px; display: block; }
+  .yc-pf-mods { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .yc-pf-mod { border: 1px solid #EEF1F7; border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; gap: 10px; background: #fff;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .yc-pf-mod:hover { transform: translateY(-3px); border-color: #E2E7F2; box-shadow: 0 14px 30px rgba(11,29,58,0.08); }
+  .yc-pf-ico { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .yc-pf-ico img { width: 17px; height: 17px; display: block; }
+  .yc-pf-mod span { font-size: 14.5px; font-weight: 700; color: #0B1D3A; line-height: 1.3; }
+  .yc-pf-ledger { position: relative; overflow: hidden; border-radius: 16px; padding: 14px 20px; display: flex; align-items: center; gap: 16px;
+    background: linear-gradient(120deg, #0B1D3A 0%, #142A52 100%); box-shadow: 0 22px 50px rgba(249,97,103,0.22), 0 12px 30px rgba(11,29,58,0.18); }
+  .yc-pf-ledger::after { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 46%; pointer-events: none;
+    background: repeating-linear-gradient(180deg, rgba(255,255,255,0.07) 0 1px, transparent 1px 22px);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 70%); mask-image: linear-gradient(90deg, transparent, #000 70%); }
+  .yc-pf-ledger .yc-pf-ico { width: 42px; height: 42px; border-radius: 12px; background: #F96167; box-shadow: 0 10px 24px rgba(249,97,103,0.45); }
+  .yc-pf-ledger .yc-pf-ico img { width: 21px; height: 21px; }
+  .yc-pf-ledger-title { font-size: 21px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .yc-pf-ledger-sub { margin-top: 3px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; font-weight: 700;
+    letter-spacing: 0.18em; color: #FFB4B8; line-height: 1.7; }
+  .yc-pf-know { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .yc-pf-insight { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 12px; background: #F0FBF6; border: 1px solid #D3F1E3;
+    font-size: 14.5px; font-weight: 700; color: #0B3B2E; line-height: 1.3; }
+  .yc-pf-insight .yc-pf-ico { width: 28px; height: 28px; border-radius: 8px; background: #fff; box-shadow: 0 2px 8px rgba(15,159,110,0.12); }
+  .yc-pf-insight .yc-pf-ico img { width: 15px; height: 15px; }
+  .yc-pf-groups { display: grid; grid-template-columns: repeat(4, minmax(0, auto)); gap: 8px; }
+  .yc-pf-group { border: 1px solid #EEF1F7; border-radius: 12px; padding: 10px; }
+  .yc-pf-group-head { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #6B7896; }
+  .yc-pf-group-head .yc-pf-ico { width: 26px; height: 26px; border-radius: 8px; background: #EEF2FB; }
+  .yc-pf-group-head .yc-pf-ico img { width: 14px; height: 14px; }
+  .yc-pf-group .yc-pf-chip { padding: 5px 11px; font-size: 13.5px; }
+  .yc-pf-group .yc-pf-chips { gap: 6px; }
+  .yc-pf-caption { margin: 18px auto 0; max-width: 760px; text-align: center; font-size: 17px; line-height: 1.55; color: #0B1D3A; font-weight: 700; }
+  .yc-pf-caption .yc-pf-dash { color: #F96167; font-weight: 700; }
+  @media (max-width: 1080px) {
+    .yc-pf-body { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    .yc-pf-mods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .yc-pf-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  @media (max-width: 760px) { .yc-flow-scroll { margin-left: -18px; margin-right: -18px; padding-left: 18px; padding-right: 18px; } }
-  @keyframes ycSwipeHint { 50% { transform: translateX(5px); } }
+  @media (max-width: 760px) {
+    .yc-pf-toggle button { min-width: 0; padding: 10px 18px; font-size: 14px; }
+    .yc-pf { margin-top: 20px; }
+    .yc-pf-step { grid-template-columns: 36px minmax(0, 1fr); gap: 12px; padding-bottom: 14px; }
+    .yc-pf-node { width: 36px; height: 36px; box-shadow: 0 0 0 4px rgba(249,97,103,0.08), 0 6px 16px rgba(11,29,58,0.08); }
+    .yc-pf-node img { width: 17px; height: 17px; }
+    .yc-pf-step:not(:last-child) .yc-pf-rail::after { top: 43px; }
+    .yc-pf-head { padding-top: 0; }
+    .yc-pf-title { margin-top: 2px; font-size: 20px; }
+    .yc-pf-desc { font-size: 14px; }
+    .yc-pf-card { padding: 10px; border-radius: 14px; }
+    .yc-pf-chips { gap: 8px; }
+    .yc-pf-chip { padding: 7px 12px 7px 9px; font-size: 13.5px; gap: 7px; }
+    .yc-pf-chip img { width: 16px; height: 16px; }
+    .yc-pf-mods { gap: 8px; }
+    .yc-pf-mod { padding: 9px; gap: 8px; border-radius: 14px; flex-direction: row; align-items: center; }
+    .yc-pf-ico { width: 30px; height: 30px; border-radius: 9px; }
+    .yc-pf-ico img { width: 16px; height: 16px; }
+    .yc-pf-mod span { font-size: 13.5px; min-width: 0; overflow-wrap: anywhere; }
+    .yc-pf-mod .yc-pf-ico { width: 30px; height: 30px; border-radius: 9px; }
+    .yc-pf-mod .yc-pf-ico img { width: 16px; height: 16px; }
+    .yc-pf-ledger { padding: 14px 14px; gap: 12px; align-items: flex-start; }
+    .yc-pf-ledger .yc-pf-ico { width: 44px; height: 44px; border-radius: 13px; }
+    .yc-pf-ledger .yc-pf-ico img { width: 22px; height: 22px; }
+    .yc-pf-ledger-title { font-size: 19px; }
+    .yc-pf-ledger-sub { font-size: 11px; letter-spacing: 0.12em; }
+    .yc-pf-know { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .yc-pf-insight { padding: 8px; gap: 8px; font-size: 13px; }
+    .yc-pf-insight .yc-pf-ico { width: 30px; height: 30px; }
+    .yc-pf-insight .yc-pf-ico img { width: 16px; height: 16px; }
+    .yc-pf-groups { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .yc-pf-group { padding: 10px; }
+    .yc-pf-caption { font-size: 16px; margin-top: 16px; }
+  }
+  @keyframes ycFlowDots { to { background-position: 9px 0; } }
 
   /* ---------- motion layer: page transitions, micro-interactions, staggered reveals ---------- */
   @keyframes ycPageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -516,35 +571,82 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
 
-  <section style="padding: 78px 30px 84px; background: linear-gradient(180deg, #F3F6FD 0%, #F9FAFE 58%, #ffffff 100%)">
+  <section style="padding: 48px 30px 44px; background: linear-gradient(180deg, #F3F6FD 0%, #F9FAFE 58%, #ffffff 100%)">
     <div style="max-width: 1280px; margin: 0 auto">
       <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border: 1px solid #D9E0F0; background: #fff; border-radius: 999px; font-size: 13px; letter-spacing: 0.09em; color: #0B1D3A">
         <span style="width: 6px; height: 6px; border-radius: 50%; background: #F96167"></span>PLATFORM &middot; UNIFIED BUSINESS OPS
       </div>
-      <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 48px; align-items: start">
-        <h2 style="font-size: clamp(31px, 4.1vw, 50px); line-height: 1.2">One platform for<br /><span style="color: #F96167">every merchant need.</span></h2>
-        <p style="font-size: 17px; line-height: 1.65; color: #4A5878">Commerce Cloud, Marketing Cloud, AI Cloud, Service &amp; Operations Cloud, Payments Cloud and Embedded Finance Cloud. One kit. One app. Live in your business in under an hour.</p>
+      <div style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 18px 48px; align-items: end">
+        <h2 style="font-size: clamp(28px, 3.2vw, 40px); line-height: 1.15">One connected system.<br /><span style="color: #F96167; font-style: italic">One shared ledger.</span></h2>
+        <div>
+        <p style="font-size: 16px; line-height: 1.6; color: #4A5878">Commerce Cloud, Marketing Cloud, AI Cloud, Service &amp; Operations Cloud, Payments Cloud and Embedded Finance Cloud. One kit. One app. Live in your business in under an hour.</p>
+      <div style="margin-top: 14px; display: flex">
+        <div class="yc-pf-toggle">
+          <span class="yc-pf-thumb" style="transform: translateX({{ platThumbX }})"></span>
+          <sc-for list="{{ platTabs }}" as="t" hint-placeholder-count="2">
+            <button onClick="{{ t.onClick }}" style="color: {{ t.ink }}"><img loading="lazy" decoding="async" src="{{ t.icon }}" alt="" />{{ t.name }}</button>
+          </sc-for>
+        </div>
       </div>
-      <div class="yc-flow-hint">Swipe to see the full table <span>&rarr;</span></div>
-      <div class="yc-flow-scroll">
-      <div class="yc-flow">
-        <div class="yc-flow-frames" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div>
-        <div class="yc-flow-head">Merchant need</div>
-        <div></div>
-        <div class="yc-flow-head">youcloud platform layer</div>
-        <div></div>
-        <div class="yc-flow-head">What it does</div>
-        <sc-for list="{{ platformRows }}" as="r" hint-placeholder-count="6">
-          <div class="yc-flow-row" style="display: contents">
-            <div class="yc-flow-cell is-need">{{ r.need }}</div>
-            <div class="yc-flow-link"></div>
-            <div class="yc-flow-cell is-layer">{{ r.layer }}</div>
-            <div class="yc-flow-link"></div>
-            <div class="yc-flow-cell is-does">{{ r.does }}</div>
+        </div>
+      </div>
+      <div class="yc-pf">
+        <div class="yc-pf-step">
+          <div class="yc-pf-rail"><span class="yc-pf-node"><img loading="lazy" decoding="async" src="{{ platStageIcons.sell }}" alt="" /></span></div>
+          <div class="yc-pf-body">
+            <div class="yc-pf-head"><div class="yc-pf-num">01</div><div class="yc-pf-title">Sell</div><div class="yc-pf-desc">Every channel your customers buy through.</div></div>
+            <div class="yc-pf-card"><div class="yc-pf-chips">
+              <sc-for list="{{ platSell }}" as="c" hint-placeholder-count="8"><span class="yc-pf-chip"><img loading="lazy" decoding="async" src="{{ c.icon }}" alt="" />{{ c.name }}</span></sc-for>
+            </div></div>
           </div>
-        </sc-for>
+        </div>
+        <div class="yc-pf-step">
+          <div class="yc-pf-rail"><span class="yc-pf-node"><img loading="lazy" decoding="async" src="{{ platStageIcons.run }}" alt="" /></span></div>
+          <div class="yc-pf-body">
+            <div class="yc-pf-head"><div class="yc-pf-num">02</div><div class="yc-pf-title">Run</div><div class="yc-pf-desc">Every module the business runs on, in one app.</div></div>
+            <div class="yc-pf-card"><div class="yc-pf-mods">
+              <sc-for list="{{ platRun }}" as="r" hint-placeholder-count="8"><div class="yc-pf-mod"><span class="yc-pf-ico" style="background: {{ r.tint }}"><img loading="lazy" decoding="async" src="{{ r.icon }}" alt="" /></span><span>{{ r.name }}</span></div></sc-for>
+            </div></div>
+          </div>
+        </div>
+        <div class="yc-pf-step">
+          <div class="yc-pf-rail"><span class="yc-pf-node"><img loading="lazy" decoding="async" src="{{ platStageIcons.record }}" alt="" /></span></div>
+          <div class="yc-pf-body">
+            <div class="yc-pf-head"><div class="yc-pf-num">03</div><div class="yc-pf-title">Record</div><div class="yc-pf-desc">Every sale, payment and payout lands in one place.</div></div>
+            <div class="yc-pf-ledger">
+              <span class="yc-pf-ico"><img loading="lazy" decoding="async" src="{{ platStageIcons.ledgerWhite }}" alt="" /></span>
+              <div style="position: relative; z-index: 1; min-width: 0">
+                <div class="yc-pf-ledger-title">One shared ledger</div>
+                <div class="yc-pf-ledger-sub"><sc-for list="{{ platRecord }}" as="x" hint-placeholder-count="3"><span style="white-space: nowrap">{{ x }}</span> </sc-for></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="yc-pf-step">
+          <div class="yc-pf-rail"><span class="yc-pf-node"><img loading="lazy" decoding="async" src="{{ platLastIcon }}" alt="" /></span></div>
+          <div class="yc-pf-body">
+            <div class="yc-pf-head"><div class="yc-pf-num">04</div><div class="yc-pf-title">{{ platLastTitle }}</div><div class="yc-pf-desc">{{ platLastDesc }}</div></div>
+            <div class="yc-pf-card">
+              <sc-if value="{{ platIsKnow }}" hint-placeholder-val="{{ true }}">
+                <div class="yc-pf-know">
+                  <sc-for list="{{ platKnow }}" as="k" hint-placeholder-count="6"><div class="yc-pf-insight"><span class="yc-pf-ico"><img loading="lazy" decoding="async" src="{{ k.icon }}" alt="" /></span>{{ k.name }}</div></sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ platIsConnect }}" hint-placeholder-val="{{ false }}">
+                <div class="yc-pf-groups">
+                  <sc-for list="{{ platConnect }}" as="g" hint-placeholder-count="4">
+                    <div class="yc-pf-group">
+                      <div class="yc-pf-group-head"><span class="yc-pf-ico"><img loading="lazy" decoding="async" src="{{ g.icon }}" alt="" /></span>{{ g.label }}</div>
+                      <div class="yc-pf-chips"><sc-for list="{{ g.items }}" as="c" hint-placeholder-count="5"><span class="yc-pf-chip">{{ c }}</span></sc-for></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
       </div>
-      </div>
+      <p class="yc-pf-caption">{{ platCaptionLead }} <b class="yc-pf-dash">&mdash;</b> {{ platCaptionRest }}</p>
     </div>
   </section>
 
@@ -3158,20 +3260,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F96167&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#F96167&quot;,&quot;#0B1D3A&quot;,&quot;#1F9D63&quot;,&quot;#5B6CF9&quot;]},&quot;showDemoModal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
-const PLATFORM_ROWS = [
-  { need: "Run the shop or the kitchen", layer: "Commerce cloud",
-    does: "Billing, inventory, recipes, KDS, multi-outlet transfers, WebShop, branded delivery." },
-  { need: "Bring customers back", layer: "Marketing cloud",
-    does: "Campaigns built from transaction data \u2014 WhatsApp on youcloud's own WABA platform, plus Meta, Google and other social channels." },
-  { need: "Know what sells and what to reorder", layer: "AI cloud",
-    does: "Cross-outlet BI, demand forecasting, price elasticity, Lens." },
-  { need: "Keep the books, pay staff, meet e-invoicing", layer: "Service & operations cloud",
-    does: "Books and VAT with e-invoicing through an accredited provider, WPS payroll, approvals and exception queues." },
-  { need: "Get paid every way customers pay", layer: "Payments cloud (built in, not integrated)",
-    does: "Card present, card not present, wallets, QR, Pay-by-Link. PCI DSS Level 1." },
-  { need: "Fund stock and growth", layer: "Embedded finance cloud (built in)",
-    does: "Working capital underwritten on the merchant's own trading data. Partner-funded; the partner carries credit risk." }
-];
+// Line icons (24px, stroke) rendered as data-URI images so they can take any colour.
+const PF_PATHS = {
+  store: "<path d='M3 9l1.5-5h15L21 9'/><path d='M4 9v11h16V9'/><path d='M3 9h18'/><path d='M9.5 20v-6h5v6'/>",
+  building: "<rect x='4' y='3' width='16' height='18' rx='1.5'/><path d='M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1'/><path d='M10.5 21v-3h3v3'/>",
+  layers: "<path d='M12 3l9 5-9 5-9-5z'/><path d='M3 13l9 5 9-5'/>",
+  ledger: "<path d='M5 19.5A2.5 2.5 0 0 1 7.5 17H20V3H7.5A2.5 2.5 0 0 0 5 5.5z'/><path d='M5 19.5A2.5 2.5 0 0 0 7.5 22H20v-5'/><path d='M9 7h7M9 11h5'/>",
+  bulb: "<path d='M9 18h6M10 21h4'/><path d='M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z'/>",
+  plug: "<path d='M9 2v5M15 2v5'/><path d='M6 7h12v4a6 6 0 0 1-12 0z'/><path d='M12 17v5'/>",
+  monitor: "<rect x='3' y='4' width='18' height='12' rx='2'/><path d='M8 20h8M12 16v4'/>",
+  phone: "<rect x='7' y='2' width='10' height='20' rx='2'/><path d='M11 18h2'/>",
+  tablet: "<rect x='4' y='3' width='16' height='18' rx='2'/><path d='M11 17.5h2'/>",
+  kiosk: "<rect x='6' y='2' width='12' height='14' rx='2'/><path d='M9 20h6M12 16v4M9 6h6M9 9.5h4'/>",
+  qr: "<rect x='3' y='3' width='7' height='7' rx='1'/><rect x='14' y='3' width='7' height='7' rx='1'/><rect x='3' y='14' width='7' height='7' rx='1'/><path d='M14 14h3v3M21 14v.01M14 21h.01M17 21h4v-4'/>",
+  globe: "<circle cx='12' cy='12' r='9'/><path d='M3 12h18'/><path d='M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18'/>",
+  truck: "<path d='M2 6h12v10H2z'/><path d='M14 10h4l3 3v3h-7'/><circle cx='6.5' cy='18' r='2'/><circle cx='17.5' cy='18' r='2'/>",
+  chat: "<path d='M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z'/>",
+  cart: "<circle cx='9' cy='20' r='1.5'/><circle cx='18' cy='20' r='1.5'/><path d='M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L22 7H6'/>",
+  card: "<rect x='2' y='5' width='20' height='14' rx='2'/><path d='M2 10h20M6 15h4'/>",
+  book: "<path d='M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z'/><path d='M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z'/>",
+  users: "<circle cx='9' cy='8' r='4'/><path d='M2 21v-1a6 6 0 0 1 12 0v1'/><path d='M16 3.5a4 4 0 0 1 0 9M22 21v-1a6 6 0 0 0-4-5.6'/>",
+  megaphone: "<path d='M3 10v4a1 1 0 0 0 1 1h3l7 5V4L7 9H4a1 1 0 0 0-1 1z'/><path d='M18 8.5a5 5 0 0 1 0 7'/>",
+  headset: "<path d='M4 15v-3a8 8 0 0 1 16 0v3'/><rect x='2' y='14' width='5' height='7' rx='2'/><rect x='17' y='14' width='5' height='7' rx='2'/>",
+  chart: "<path d='M3 3v18h18'/><path d='M7 15l4-4 3 3 6-7'/>",
+  sparkle: "<path d='M12 3l1.9 4.6 4.6 1.9-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z'/><path d='M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z'/>",
+  trend: "<path d='M3 17l6-6 4 4 8-8'/><path d='M15 7h6v6'/>",
+  receipt: "<path d='M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z'/><path d='M9 8h6M9 12h6'/>",
+  box: "<path d='M21 8l-9-5-9 5 9 5z'/><path d='M3 8v8l9 5 9-5V8M12 13v8'/>",
+  cash: "<rect x='2' y='6' width='20' height='12' rx='2'/><circle cx='12' cy='12' r='2.5'/><path d='M6 12h.01M18 12h.01'/>",
+  wallet: "<path d='M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2'/><path d='M3 6v13a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-3'/>",
+  bars: "<path d='M4 20V10M10 20V4M16 20v-7M2 20h20'/>",
+  db: "<ellipse cx='12' cy='5' rx='8' ry='3'/><path d='M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5'/><path d='M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3'/>",
+  bank: "<path d='M3 21h18M4 10h16M12 3l9 5H3z'/><path d='M6 10v8M10 10v8M14 10v8M18 10v8'/>",
+  shield: "<path d='M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z'/><path d='M9 12l2 2 4-4'/>",
+  code: "<path d='M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16'/>"
+};
+const pfIcon = (name, color) => "data:image/svg+xml," + encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" + color +
+  "' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" + PF_PATHS[name] + "</svg>");
+const PF_SELL = {
+  "Counter POS": "monitor", "Handheld": "phone", "Tablet": "tablet", "Self-order kiosk": "kiosk", "QR & SoundBox": "qr",
+  "WebShop": "globe", "Talabat · Deliveroo · Careem": "truck", "WhatsApp": "chat"
+};
+const PLATFORM_RUN = [["Retail POS", "#E8893B", "cart"], ["Payments", "#E2669A", "card"], ["Bookkeeping", "#14A39A", "book"], ["HR & payroll", "#1F9D63", "users"],
+  ["Marketing", "#F05A5F", "megaphone"], ["Service", "#3B82F6", "headset"], ["AI Insights", "#6366F1", "chart"], ["AI Workflows", "#8B5CF6", "sparkle"]];
+const PLATFORM_STACK = {
+  smb: { tab: "SMB", icon: "store",
+    sell: ["Counter POS", "Handheld", "Tablet", "Self-order kiosk", "QR & SoundBox", "WebShop", "Talabat · Deliveroo · Careem", "WhatsApp"],
+    record: "EVERY BRANCH · EVERY DIRHAM · EVERY BILL",
+    know: [["Profit & loss, live", "trend"], ["VAT you owe", "receipt"], ["Stock on hand", "box"], ["Cash & T+2 payouts", "cash"], ["Payroll cost", "wallet"], ["Best & slow sellers", "bars"]],
+    caption: ["Everything is built in", "no extra apps to buy, connect or reconcile."] },
+  ent: { tab: "Enterprise", icon: "building",
+    sell: ["Counter POS", "Handheld", "Self-order kiosk", "QR & SoundBox", "WebShop", "Talabat · Deliveroo · Careem", "WhatsApp"],
+    record: "EVERY OUTLET · EVERY DIRHAM · EVERY EVENT",
+    connect: [["ERP", "db", ["SAP", "Oracle NetSuite", "MS Dynamics", "Tally", "Zoho"]], ["BANKING", "bank", ["UAE banks · T+2"]],
+      ["COMPLIANCE", "shield", ["FTA e-invoicing", "WPS payroll"]], ["DEVELOPERS", "code", ["REST API"]]],
+    caption: ["Every outlet on one ledger", "plugged into your ERP, banks and compliance stack."] }
+};
 
 const PAGE_SEO = {
   home:            { title: "youcloud — POS, Payments & QR Commerce for SMB Merchants", description: "Billing, stock, payments and QR ordering for retail shops, restaurants and QR-first merchants. One kit, one app, live in under an hour. $0 to start." },
@@ -3588,7 +3733,7 @@ const HOME_QUOTES = [
 const ENT_FOR = { youshop: "youshop-ent", youresto: "youresto-ent", youpay: "youpay-ent" };
 
 class Component extends DCLogic {
-  state = { page: ycPageFromPath(), ptModel: 1, ptProduct: "youResto", pricingProduct: "youShop", menu: false, demoOpen: false, consent: true, form: {}, demoError: "", demoSent: false,
+  state = { page: ycPageFromPath(), ptModel: 1, ptProduct: "youResto", pricingProduct: "youShop", menu: false, demoOpen: false, consent: true, form: {}, demoError: "", demoSent: false, platTab: "smb",
     narrow: typeof window !== "undefined" && window.innerWidth < 960, burger: false, sol: 0, pin: -1, supportOpen: false, supportInput: "", supportMessages: [], scrolled: false, fabOpen: false,
     contactForm: {}, contactError: "", contactSent: false };
 
@@ -3870,7 +4015,25 @@ class Component extends DCLogic {
       goPay: this.go("youpay"),
       goPayEnt: this.go("youpay-ent"),
       homeTrusted: ["Banks", "PSPs", "ISOs", "Telcos"],
-      platformRows: PLATFORM_ROWS,
+      platTabs: ["smb", "ent"].map((k) => ({
+        name: PLATFORM_STACK[k].tab, onClick: () => this.setState({ platTab: k }),
+        icon: pfIcon(PLATFORM_STACK[k].icon, this.state.platTab === k ? "#ffffff" : "#6B7896"),
+        ink: this.state.platTab === k ? "#fff" : "#4A5878"
+      })),
+      platThumbX: this.state.platTab === "ent" ? "100%" : "0%",
+      platStageIcons: { sell: pfIcon("store", "#F96167"), run: pfIcon("layers", "#F96167"), record: pfIcon("ledger", "#F96167"), ledgerWhite: pfIcon("ledger", "#ffffff") },
+      platSell: PLATFORM_STACK[this.state.platTab].sell.map((name) => ({ name, icon: pfIcon(PF_SELL[name], "#0B1D3A") })),
+      platRun: PLATFORM_RUN.map(([name, color, ico]) => ({ name, icon: pfIcon(ico, color), tint: color + "1A" })),
+      platRecord: PLATFORM_STACK[this.state.platTab].record.split(" · ").map((x, i, a) => i < a.length - 1 ? x + " ·" : x),
+      platIsKnow: this.state.platTab === "smb",
+      platIsConnect: this.state.platTab === "ent",
+      platLastIcon: pfIcon(this.state.platTab === "smb" ? "bulb" : "plug", "#F96167"),
+      platLastTitle: this.state.platTab === "smb" ? "Know" : "Connect",
+      platLastDesc: this.state.platTab === "smb" ? "The numbers you need, live, without a spreadsheet." : "Plugged into the systems you already run.",
+      platKnow: (PLATFORM_STACK.smb.know).map(([name, ico]) => ({ name, icon: pfIcon(ico, "#0F9F6E") })),
+      platConnect: PLATFORM_STACK.ent.connect.map(([label, ico, items]) => ({ label, icon: pfIcon(ico, "#3B4E7A"), items })),
+      platCaptionLead: PLATFORM_STACK[this.state.platTab].caption[0],
+      platCaptionRest: PLATFORM_STACK[this.state.platTab].caption[1],
       homeSoundStats: [{ value: "<3s", label: "Scan to audio confirm" }, { value: "105dB", label: "Speaker volume" }, { value: "T+0", label: "To your bank" }],
       homeProducts: [
         { name: "youShop", icon: "img/ic-shop.png", img: "img/home-p-shop.jpg", onClick: this.go("youshop"), body: "All-in-one retail POS. Billing, stock, customers & payments — on a single handheld. Built for SMBs, scales to chains.", chips: ["Billing", "Inventory", "CRM & loyalty", "Offline-first"] },
