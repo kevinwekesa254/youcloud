@@ -15,7 +15,11 @@ const fs = require("fs");
 const path = require("path");
 
 const SITE_URL = (process.env.SITE_URL || "https://www.youcloudpay.com").replace(/\/$/, "");
-const USE_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN;
+// Connecting a store may add a prefix to the variable (e.g. YOUCLOUD_BLOB_READ_WRITE_TOKEN).
+const TOKEN_ENV = Object.keys(process.env).find(k => k === "BLOB_READ_WRITE_TOKEN") ||
+  Object.keys(process.env).find(k => /BLOB_READ_WRITE_TOKEN$/.test(k));
+const TOKEN = TOKEN_ENV ? process.env[TOKEN_ENV] : "";
+const USE_BLOB = !!TOKEN;
 const LOCAL_DIR = path.join(__dirname, "..", "..", ".cms-data");
 const PUBLIC_PATH = "cms/public/posts.json";
 const PRIVATE_PREFIX = "cms/posts-";
@@ -28,7 +32,7 @@ function blob() {
 // vercel_blob_rw_<storeId>_<secret>, and public blobs are served from
 // https://<storeId>.public.blob.vercel-storage.com/<pathname>.
 function publicBlobUrl(pathname) {
-  const m = /^vercel_blob_rw_([^_]+)_/.exec(process.env.BLOB_READ_WRITE_TOKEN || "");
+  const m = /^vercel_blob_rw_([^_]+)_/.exec(TOKEN);
   return m ? `https://${m[1].toLowerCase()}.public.blob.vercel-storage.com/${pathname}` : null;
 }
 
@@ -50,7 +54,7 @@ function writeLocal(name, data) {
 async function getAllPosts() {
   if (!USE_BLOB) return readLocal("posts.json", []);
   const { list } = blob();
-  const { blobs } = await list({ prefix: PRIVATE_PREFIX });
+  const { blobs } = await list({ prefix: PRIVATE_PREFIX, token: TOKEN });
   if (!blobs.length) return [];
   blobs.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
   const r = await fetch(blobs[0].url, { cache: "no-store" });
@@ -77,15 +81,15 @@ async function savePosts(posts) {
   }
   const { put, list, del } = blob();
   const saved = await put(PRIVATE_PREFIX.replace(/-$/, "") + ".json", JSON.stringify(posts), {
-    access: "public", addRandomSuffix: true, contentType: "application/json", cacheControlMaxAge: 60
+    access: "public", addRandomSuffix: true, contentType: "application/json", cacheControlMaxAge: 60, token: TOKEN
   });
   await put(PUBLIC_PATH, JSON.stringify(pub), {
     access: "public", addRandomSuffix: false, allowOverwrite: true,
-    contentType: "application/json", cacheControlMaxAge: 60
+    contentType: "application/json", cacheControlMaxAge: 60, token: TOKEN
   });
-  const { blobs } = await list({ prefix: PRIVATE_PREFIX });
+  const { blobs } = await list({ prefix: PRIVATE_PREFIX, token: TOKEN });
   const old = blobs.filter(b => b.url !== saved.url).map(b => b.url);
-  if (old.length) await del(old);
+  if (old.length) await del(old, { token: TOKEN });
   cache = null;
 }
 
@@ -102,7 +106,7 @@ async function getPublishedPosts() {
     if (!r || !r.ok) {
       // Fall back to looking the file up if the URL could not be derived.
       const { list } = blob();
-      const { blobs } = await list({ prefix: PUBLIC_PATH });
+      const { blobs } = await list({ prefix: PUBLIC_PATH, token: TOKEN });
       if (!blobs.length) return [];
       r = await fetch(blobs[0].url);
       if (!r.ok) return [];
@@ -128,7 +132,7 @@ async function saveImage(filename, contentType, buffer) {
     return "/cms-uploads/" + name;
   }
   const { put } = blob();
-  const r = await put(`blog/${base}.${ext}`, buffer, { access: "public", addRandomSuffix: true, contentType });
+  const r = await put(`blog/${base}.${ext}`, buffer, { access: "public", addRandomSuffix: true, contentType, token: TOKEN });
   return r.url;
 }
 
@@ -283,7 +287,7 @@ function stripTags(html) {
 }
 
 module.exports = {
-  SITE_URL, USE_BLOB,
+  SITE_URL, USE_BLOB, TOKEN_ENV,
   getAllPosts, getPublishedPosts, savePosts, saveImage,
   checkPassword, sessionCookie, clearCookie, isAdmin, requireAdmin, sameOrigin,
   slugify, sanitizeHtml, escapeHtml, stripTags
