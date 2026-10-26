@@ -243,6 +243,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   /* --- youQR software tiers: four across --- */
   .yc-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: start; }
+  .yc-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .yc-grid-3 { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 1080px) { .yc-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 620px) { .yc-grid-4 { grid-template-columns: minmax(0, 1fr); } }
 
@@ -504,10 +506,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   button:active { transform: translateY(1px) scale(.985); }
 
   /* card grids lift on hover */
-  .yc-grid-2 > *, .yc-grid-4 > *, .yc-grid-5 > *, .yc-feat-grid > *, .yc-addon-grid > * {
+  .yc-grid-2 > *, .yc-grid-3 > *, .yc-grid-4 > *, .yc-grid-5 > *, .yc-feat-grid > *, .yc-addon-grid > * {
     transition: transform .32s cubic-bezier(.2,.7,.3,1), box-shadow .32s ease;
   }
-  .yc-grid-2 > *:hover, .yc-grid-4 > *:hover, .yc-feat-grid > *:hover, .yc-addon-grid > *:hover {
+  .yc-grid-2 > *:hover, .yc-grid-3 > *:hover, .yc-grid-4 > *:hover, .yc-feat-grid > *:hover, .yc-addon-grid > *:hover {
     transform: translateY(-5px); box-shadow: 0 18px 40px rgba(11,29,58,0.07);
   }
   .yc-grid-5 > *:hover { transform: translateY(-3px) scale(1.03); }
@@ -1429,7 +1431,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="width: 40px; height: 40px; border-radius: 10px; background: #fff; color: #F96167; display: inline-flex; align-items: center; justify-content: center; font-size: 18px">★</span>
         <div>
           <div style="font-size: 18px; font-weight: 700; color: #fff">Every guest earns loyalty · every channel</div>
-          <div style="margin-top: 6px; font-size: 16px; color: #fff">Points, tiers, streaks, birthday drops — one profile, no card at the door.</div>
+          <div style="margin-top: 6px; font-size: 16px; color: #fff">Points and reward tiers on every paid order — one profile, no card at the door.</div>
         </div>
       </div>
       <div style="margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px">
@@ -1451,7 +1453,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 34px; align-items: start">
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Free to start.<br /><span style="color: #F96167">Pay only when you sell.</span></h2>
-        <p style="font-size: 17px; line-height: 1.7">No monthly subscription on Freemium, Starter or Standard. No setup fee. Three simple charges — that's it. Tiers unlock automatically as your business grows.</p>
+        <p style="font-size: 17px; line-height: 1.7">No monthly subscription on Starter or Standard — just a flat fee per paid order. No setup fee, no order caps. Move to Power for a flat monthly fee and no per-order charge.</p>
       </div>
       <div style="margin-top: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px">
         <sc-for list="{{ qrFees }}" as="f" hint-placeholder-count="3">
@@ -1471,10 +1473,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="margin-top: 42px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 34px; align-items: start">
         <h2 style="font-size: clamp(28px, 3.6vw, 44px)">Software tiers.</h2>
-        <p style="font-size: 17px; line-height: 1.7">Freemium, Starter and Standard are all $0/month — you only pay the transaction fees above. Power adds unlimited capacity and white-label branding for a flat monthly fee.</p>
+        <p style="font-size: 17px; line-height: 1.7">Starter and Standard are $0/month — you pay $0.10 or $0.25 per paid order. Power is $25 per store per month with unlimited orders, full white-labelling and the Stored Value wallet.</p>
       </div>
-      <div class="yc-grid-4" style="margin-top: 25px; align-items: start">
-        <sc-for list="{{ qrPaidTiers }}" as="t" hint-placeholder-count="4">
+      <div class="yc-grid-3" style="margin-top: 25px; align-items: start">
+        <sc-for list="{{ qrTiers }}" as="t" hint-placeholder-count="3">
           <div style="border: 1px solid {{ t.border }}; background: {{ t.bg }}; border-radius: 18px; padding: 24px 20px; display: flex; flex-direction: column; gap: 13px; box-shadow: {{ t.shadow }}">
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
               <span style="font-size: 16px; font-weight: 700; color: {{ t.ink }}">{{ t.name }}</span>
@@ -1493,19 +1495,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <button onClick="{{ openDemo }}" style="margin-top: 6px; padding: 13px; border-radius: 999px; border: 1px solid {{ t.btnBorder }}; background: {{ t.btnBg }}; color: {{ t.btnColor }}; font-size: 16px; font-weight: 700; cursor: pointer">{{ t.cta }}</button>
           </div>
         </sc-for>
-      </div>
-      <div style="margin-top: 20px; border: 1px solid #F8D9DC; background: linear-gradient(120deg, #FEF6F7 0%, #ffffff 60%); border-radius: 20px; padding: 26px 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; align-items: center">
-        <div>
-          <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">{{ qrEntTier.name }}</div>
-          <div style="margin-top: 8px; font-size: 24px; font-weight: 700; color: #0B1D3A">{{ qrEntTier.price }}</div>
-          <p style="margin-top: 8px; font-size: 15px; color: #4A5878">{{ qrEntTier.limits }}</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
-          <sc-for list="{{ qrEntTier.rows }}" as="r" hint-placeholder-count="6">
-            <div style="display: flex; gap: 10px; font-size: 15px"><span style="color: #F96167">✓</span><span>{{ r }}</span></div>
-          </sc-for>
-        </div>
-        <button onClick="{{ qrEntTier.onClick }}" style="justify-self: start; padding: 14px 26px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap" style-hover="background: #e84f56">{{ qrEntTier.cta }}</button>
       </div>
     </div>
   </section>
@@ -1534,7 +1523,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="yc-eb-dots"></span>FREE TO START · PAY ONLY WHEN YOU SELL
         </div>
         <h2 style="margin-top: 21px; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.2">Stick a QR on every table.<br /><span style="color: #F96167">Start selling today.</span></h2>
-        <p style="margin-top: 20px; font-size: 17px; line-height: 1.65; max-width: 540px">$0 to start. $0.10 flat fee per order. Custom domain, white-label, and Stored Value included from day one.</p>
+        <p style="margin-top: 20px; font-size: 17px; line-height: 1.65; max-width: 540px">$0 a month on Starter. $0.10 flat fee per paid order. Custom domain from Standard; full white-label and Stored Value on Power.</p>
         <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap">
           <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #e84f56">Get my QR</button>
           <button onClick="{{ goPricing }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">See pricing</button>
@@ -1547,7 +1536,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img loading="lazy" decoding="async" src="img/pos-box.jpg" alt="youcloud POS box" style="width: 58%; height: auto; margin-right: -6%; position: relative; z-index: 1" />
         <div class="yc-devicecard" style="position: absolute; left: 4%; right: 46%; top: 22%; z-index: 2; background: #fff; border-radius: 16px; border-bottom: 3px solid #F96167; box-shadow: 0 20px 50px rgba(11,29,58,0.12); padding: 20px 22px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
-            <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">youQR Freemium</span>
+            <span style="font-size: 16px; font-weight: 700; color: #0B1D3A">youQR Starter</span>
             <span style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #EAE6E7; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #8A93A8">≡</span>
           </div>
           <ul style="margin-top: 14px; display: flex; flex-direction: column; gap: 12px">
@@ -1901,7 +1890,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="max-width: 900px; margin: 0 auto; text-align: center">
       <div class="yc-eyebrow"><span class="yc-eb-dots"></span>PRICING · $0 TO START</div>
       <h2 class="yc-pagetitle" style="margin-top: 20px; font-size: clamp(36px, 5.2vw, 64px); line-height: 1.12">Start at zero.<br /><span style="display: inline-block; padding: 2px 18px; border: 1px solid #F2DDE0">Pay as you grow.</span></h2>
-      <p style="margin: 26px auto 0; font-size: 17px; line-height: 1.65; max-width: 660px">Software priced per POS, per month. Payments priced per transaction. Hardware bought once, owned outright. No setup fees, no lock-in, no per-seat charges.</p>
+      <p style="margin: 26px auto 0; font-size: 17px; line-height: 1.65; max-width: 660px">Software priced per store, per month. Payments priced per transaction. Hardware bought once, owned outright. No setup fees, no per-seat charges.</p>
       <div style="margin-top: 21px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
         <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: none; background: #F96167; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease" style-hover="background: #e84f56; transform: translateY(-2px)">Book a demo</button>
         <button onClick="{{ openDemo }}" style="padding: 15px 34px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease" style-hover="background: #FEF3F4; transform: translateY(-2px)">Talk to sales</button>
@@ -1920,7 +1909,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section style="padding: 50px 30px 0">
     <div style="max-width: 1280px; margin: 0 auto">
       <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap">
-        <div class="yc-eyebrow"><span class="yc-eb-dots"></span>SOFTWARE TIERS · PER POS · PER MONTH</div>
+        <div class="yc-eyebrow"><span class="yc-eb-dots"></span>SOFTWARE TIERS · PER STORE · PER MONTH</div>
         <div style="display: inline-flex; padding: 6px; border: 1px solid #F1DFE1; border-radius: 999px; background: #fff; gap: 4px; flex-wrap: wrap">
           <sc-for list="{{ pricingTabs }}" as="t" hint-placeholder-count="4">
             <button onClick="{{ t.onClick }}" style="padding: 10px 20px; border-radius: 999px; border: none; background: {{ t.bg }}; color: {{ t.ink }}; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .2s ease, color .2s ease">
@@ -1930,8 +1919,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 31px; align-items: start">
-        <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Four tiers.<br /><span style="color: #F96167">Each one includes the last.</span></h2>
-        <p style="font-size: 17px; line-height: 1.7">Tiers are cumulative — each plan contains everything in the one before it. Move up when outlet count, user count or module needs change. Downgrade any month.</p>
+        <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Pick a tier.<br /><span style="color: #F96167">Each one includes the last.</span></h2>
+        <p style="font-size: 17px; line-height: 1.7">Tiers are cumulative — each plan contains everything in the one before it. Users are unlimited on every tier; move up when your store count, tills or module needs change.</p>
       </div>
       <div style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; align-items: stretch">
         <sc-for list="{{ pricingTiers }}" as="t" hint-placeholder-count="4">
@@ -1958,6 +1947,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </sc-for>
       </div>
+      <sc-if value="{{ pricingHasEnt }}" hint-placeholder-val="{{ true }}">
       <div style="margin-top: 22px; border: 1px solid #F8D9DC; background: linear-gradient(120deg, #FEF6F7 0%, #ffffff 60%); border-radius: 22px; padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; align-items: center">
         <div>
           <div style="font-size: 13px; letter-spacing: 0.09em; color: #F96167">ENTERPRISE</div>
@@ -1974,6 +1964,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button onClick="{{ openDemo }}" style="padding: 14px 26px; border-radius: 999px; border: 1px solid #F96167; background: #fff; color: #F96167; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #FEF3F4">Request a quote</button>
         </div>
       </div>
+      </sc-if>
     </div>
   </section>
 
@@ -2004,7 +1995,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="yc-eyebrow"><span class="yc-eb-dots"></span>ADD-ONS · ACTIVATE ANY MONTH</div>
       <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 31px; align-items: start">
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Five add-ons.<br /><span style="color: #F96167">Priced per merchant.</span></h2>
-        <p style="font-size: 17px; line-height: 1.7">Every add-on reads the data your POS, KDS and checkout already produce. Turn one on this month, another next quarter. 10% off on annual purchase. No re-integration, ever.</p>
+        <p style="font-size: 17px; line-height: 1.7">Every add-on reads the data your POS, KDS and checkout already produce. Turn one on this month, another next quarter. Activation typically takes 24–48 hours. No re-integration, ever.</p>
       </div>
       <div style="margin-top: 28px; border: 1px solid #EDE9EA; border-radius: 22px; overflow: hidden">
         <sc-for list="{{ addonPricing }}" as="a" hint-placeholder-count="5">
@@ -2018,7 +2009,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </sc-for>
       </div>
-      <p style="margin-top: 16px; font-size: 15px; color: #8A93A8">youAccounts and youHR are included free in Standard and above. youLend is revenue-share — no monthly fee.</p>
+      <p style="margin-top: 16px; font-size: 15px; color: #8A93A8">youAccounts and youHR are bundled in Power on youShop and youResto; Standard includes the basic auto-ledger, attendance and shift scheduling. youLend is revenue-share — no monthly fee.</p>
     </div>
   </section>
 
@@ -2131,7 +2122,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 31px; align-items: start">
         <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Four products.<br /><span style="color: #F96167">Four layers.</span></h2>
-        <p style="font-size: 17px; line-height: 1.7; text-align: justify">Every product stacks the same four layers — Payments · Commerce · Embedded Finance · AI — all wired together under one partner licence. PCI-DSS L1 · 99.999% uptime · unlimited merchants. One licence · Freemium → Starter → Standard → Power → Enterprise — everything under the partner's own brand.</p>
+        <p style="font-size: 17px; line-height: 1.7; text-align: justify">Every product stacks the same four layers — Payments · Commerce · Embedded Finance · AI — all wired together under one partner licence. PCI-DSS L1 · 99.99% uptime · unlimited merchants. One licence · Freemium → Starter → Standard → Power → Enterprise — everything under the partner's own brand.</p>
       </div>
       <div class="yc-grid-2" style="margin-top: 28px; gap: 24px">
         <sc-for list="{{ aboutProducts }}" as="p" hint-placeholder-count="4">
@@ -3378,10 +3369,10 @@ const PAGE_SEO = {
   youpay:          { title: "youPay — Card, Wallet & QR Payment Gateway | youcloud", description: "Accept cards, wallets, EMVCo QR, Pay-by-Link and SoundBox payments on one PCI Level 1 gateway. Sub-200ms auth, same-day settlement." },
   "youshop-ent":   { title: "youShop Enterprise — Multi-Outlet Retail Platform | youcloud", description: "Unlimited outlets, one inventory, central price push, hardware fleet management, SSO and a 1-hour support SLA for retail estates." },
   "youresto-ent":  { title: "youResto Enterprise — Multi-Outlet F&B Platform | youcloud", description: "Central kitchen, menu engineering, aggregator connectors and group-wide prime cost reporting across every outlet." },
-  "youpay-ent":    { title: "youPay Enterprise — Payment Orchestration | youcloud", description: "Multi-acquirer routing, 99.999% uptime, ML fraud engine and full payment orchestration for high-volume merchants." },
+  "youpay-ent":    { title: "youPay Enterprise — Payment Orchestration | youcloud", description: "Multi-acquirer routing, 99.99% uptime, ML fraud engine and full payment orchestration for high-volume merchants." },
   addons:          { title: "AI Add-ons — Lending, Marketing, Insight, Vision | youcloud", description: "Five AI add-ons on one merchant data layer: youLend working capital, youMarketing, youInsight forecasting, youLens computer vision, youWorkflows automation." },
   solutions:       { title: "Solutions by Business Type | youcloud", description: "Purpose-built stacks for cafés, FMCG distribution, taxi fleets, production, micro-merchants, multi-brand chains and cloud kitchens." },
-  pricing:         { title: "Pricing — Start at Zero, Pay as You Grow | youcloud", description: "Freemium forever, paid tiers from $2 per POS per month, hardware owned outright, payments charged only per successful transaction. No lock-in." },
+  pricing:         { title: "Pricing — Start at Zero, Pay as You Grow | youcloud", description: "Freemium forever, paid tiers from $2 per store per month, hardware owned outright, payments charged only per successful transaction." },
   partners:        { title: "ICP Partner Programme — Banks, PSPs & Telcos | youcloud", description: "White-label the platform under your own brand. Fixed platform fees, never a share of merchant revenue. Launch in 90 days." },
   about:           { title: "About youcloud — The Operating Layer for SMB Merchants", description: "DIFC-domiciled platform company founded in 2022, live in 9+ markets across MENA, South Asia, Africa and APAC. Deloitte Technology Fast 50 winner." },
   contact:         { title: "Contact youcloud — Sales, Support & DIFC Office", description: "Talk to our team in DIFC Dubai. Merchant onboarding in under 15 minutes, KYC within 24 hours, enterprise response within one business day." },
@@ -3505,27 +3496,26 @@ const PRICING_TABS = [
 
 const PRICING_TIERS = {
   youShop: [
-    ["Freemium", "$0", "forever", "1 store · 1 user · 100 SKUs · 50 invoices / month", "", ["QR + Pay-by-Link acceptance", "Single counter billing", "youcloud-branded storefront", "Programme-wide loyalty", "Live order feed", "Daily summary analytics"], "Start free", false],
-    ["Starter", "$2", "/ POS · month", "1–2 stores · 2 users · 500 SKUs", "Everything in Freemium, plus:", ["Card & wallet payments", "Inventory and stock counts", "Auto-reconciliation", "1 aggregator connector", "Customer records (50)", "Standard support · 24hr"], "Get starter", false],
-    ["Standard", "$5", "/ POS · month", "3–8 stores · 5 users · 5,000 SKUs", "Everything in Starter, plus:", ["Multi-outlet dashboard", "youAccounts & youHR included", "Supplier & purchasing", "2 aggregator connectors", "Shift scheduling", "Priority support · 4hr"], "Get standard", true],
-    ["Power", "$15", "/ POS · month", "Unlimited stores, users & 10,000 SKUs", "Everything in Standard, plus:", ["All twelve modules", "2 KDS stations included", "Branded merchant app", "3 aggregator connectors", "Central price & menu push", "Named support · 1hr"], "Talk to sales", false]
+    ["Freemium", "$0", "forever", "1 store · 1 till · unlimited users · 100 SKUs · 50 invoices / month", "", ["Checkout, multi-tender & receipts", "Offline billing + sync", "Basic catalog", "Cash + wallet / QR", "Daily sales summary", "Self-service support"], "Start free", false],
+    ["Starter", "$2", "/ store · month", "1–2 stores · 1 till per store · 500 SKUs · 500 invoices / month", "Everything in Freemium, plus:", ["Barcode scanning + variants (size, colour)", "Basic stock count + low-stock alerts", "Card payments + auto-reconciliation", "Basic refunds with cashier override", "Customer capture (50 records)", "Standard support · 24hr"], "Get starter", false],
+    ["Standard", "$5", "/ store · month", "3–8 stores · 1 till per store · 5,000 SKUs + variants · 5,000 invoices / month", "Everything in Starter, plus:", ["Batches, expiry & serial tracking", "Supplier management + auto-reorder", "Multi-counter, queue display + split pay", "Points, rewards & birthday offers (500 records)", "Basic auto-ledger, attendance & shifts", "1 marketplace connector · priority support 4hr"], "Get standard", true],
+    ["Power", "$10", "/ store · month", "9+ / unlimited stores · 2 tills per store · 10,000 SKUs · 10,000 invoices / month", "Everything in Standard, plus:", ["Inter-store transfers + shrinkage tracking", "Gift cards & store credit", "WebShop + Social Selling included", "youAccounts & youHR bundled", "Full CRM · unlimited customer records", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false]
   ],
   youResto: [
-    ["Freemium", "$0", "forever", "1 outlet · 1 POS", "", ["QR + Pay-by-Link acceptance", "Single counter billing", "youcloud-branded storefront", "Programme-wide loyalty", "Live order feed", "Daily summary analytics"], "Start free", false],
-    ["Starter", "$5", "/ POS · month", "1 outlet · 2 POS · full kitchen display", "Everything in Freemium, plus:", ["Card & wallet payments", "Full Kitchen Display System", "Auto-reconciliation", "1 aggregator connector", "Customer records (50)", "Standard support · 24hr"], "Get starter", false],
-    ["Standard", "$10", "/ POS · month", "3–8 outlets · 5 users", "Everything in Starter, plus:", ["Multi-outlet dashboard", "youAccounts & youHR included", "Supplier & purchasing", "2 aggregator connectors", "Shift scheduling", "Priority support · 4hr"], "Get standard", true],
-    ["Power", "$25", "/ POS · month", "Unlimited outlets · full control plane", "Everything in Standard, plus:", ["All twelve modules", "2 KDS stations included", "Branded merchant app", "3 aggregator connectors", "Central price & menu push", "Named support · 1hr"], "Talk to sales", false]
+    ["Freemium", "$0", "forever", "1 outlet · 1 till · unlimited users · unlimited menu items & orders", "", ["Order taking, split bills & receipts", "Offline billing + sync", "Cash + wallet / QR", "Daily sales summary", "Self-service support"], "Start free", false],
+    ["Starter", "$5", "/ store · month", "1 outlet · 1 till · unlimited users", "Everything in Freemium, plus:", ["Basic KDS (1 screen)", "2 aggregators unified", "Card payments + auto-reconciliation", "Basic loyalty + guest capture (50 records)", "Starter Mobile Kit (Bluetooth printer)", "Standard support · 24hr"], "Get starter", false],
+    ["Standard", "$10", "/ store · month", "3–8 outlets · 1 till per store · 500 guest records", "Everything in Starter, plus:", ["Full KDS (1 station) · prep timers · 86-sync", "Floor plan, waitlist & reservations", "3 aggregators unified + menu sync", "Table ordering & pay + guest app loyalty", "Basic stock, auto-ledger, attendance & shifts", "REST API & webhooks · priority support 4hr"], "Get standard", true],
+    ["Power", "$15", "/ store · month", "Unlimited outlets · 2 tills per store · unlimited guest records", "Everything in Standard, plus:", ["2 KDS stations · course firing · expo view", "All aggregators + commission reporting", "Direct delivery app + social ordering included", "youAccounts & youHR bundled", "Recipe costing + supplier management", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false]
   ],
   youQR: [
-    ["Freemium", "$0", "/ mo + $0.10 per order", "Unlimited scans · pay only per completed order", "", ["Scan-to-order & pay", "youcloud-branded menu page", "Programme-wide loyalty", "Live order feed", "Daily summary analytics"], "Start free", false],
-    ["Starter", "$0", "/ mo + $0.08 per order", "Custom branding · tiered loyalty", "Everything in Freemium, plus:", ["Custom branding", "Tiered loyalty programme", "1 aggregator connector", "Customer records (50)", "Standard support · 24hr"], "Get starter", false],
-    ["Standard", "$0", "/ mo + $0.05 per order", "Multi-branch · custom domain", "Everything in Starter, plus:", ["Multi-branch dashboard", "Custom domain", "2 aggregator connectors", "Shift scheduling", "Priority support · 4hr"], "Get standard", true],
-    ["Power", "$25", "/ month · unlimited orders", "Unlimited branches · white-label", "Everything in Standard, plus:", ["White-label guest app", "Custom pricing on request", "3 aggregator connectors", "Central menu push", "Named support · 1hr"], "Talk to sales", false]
+    ["Starter", "$0", "/ mo + $0.10 per paid order", "1 branch · up to 100 menu items · unlimited orders", "", ["QR, Pay-by-Link, wallets & cards", "1 order mode (table, counter or pickup)", "youcloud-branded ordering page", "Points + Silver → Gold loyalty tiers", "Live order feed · 50 customer records", "Standard support · 24hr"], "Get starter", false],
+    ["Standard", "$0", "/ mo + $0.25 per paid order", "Up to 8 branches · up to 250 menu items · unlimited orders", "Everything in Starter, plus:", ["All order modes", "Custom colours, logo & domain", "Platinum loyalty tier", "1 KDS station · multi-branch dashboard", "Shared customers + loyalty with youShop / youResto", "500 records · MFA · priority support 4hr"], "Get standard", true],
+    ["Power", "$25", "/ store · month · unlimited orders", "Unlimited branches & menu items · no per-order fee", "Everything in Standard, plus:", ["Fully white-labelled (your brand only)", "Stored Value wallet, split pay & gift cards", "2 KDS stations + course firing", "REST API + webhooks", "youLend bundled · unlimited records", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false]
   ],
   youPay: [
     ["Freemium", "$0", "/ month", "Hosted checkout · Pay-by-Link · basic dashboard", "", ["Hosted checkout", "Pay-by-Link", "QR + SoundBox acceptance", "Basic merchant dashboard", "Live order feed"], "Start free", false],
     ["Power", "MDR only", "per transaction", "Saved cards · API access · no monthly fee", "Everything in Freemium, plus:", ["1–3% blended card & wallet MDR", "Saved cards · one-click repeat", "Full API access", "T+0 settlement", "Priority support · 4hr"], "Get standard", true],
-    ["Power+", "Custom", "on request", "Full orchestration · 99.999% uptime", "Everything in Power, plus:", ["Full payment orchestration", "99.999% uptime SLA", "Recurring & MIT billing", "Dedicated solutions architect", "Named support · 1hr"], "Talk to sales", false]
+    ["Power+", "Custom", "on request", "Full orchestration · 99.99% uptime", "Everything in Power, plus:", ["Full payment orchestration", "99.99% uptime SLA", "Recurring & MIT billing", "Dedicated solutions architect", "Named support · 1hr"], "Talk to sales", false]
   ]
 };
 
@@ -3547,7 +3537,7 @@ const ADDONS = [
     kicker: "02 · WhatsApp Commerce", icon: "img/icon-marketing.png", tag: "Ordering · alerts · marketing", name: "youMarketing",
     img: "img/youmarketing.jpg", side: "left",
     intro: "Turn WhatsApp into your commerce channel. Customers order, pay, and hear back — all in the app they already use. Segmented from your actual transaction data, not guessed personas.",
-    price: "$9 /mo", priceNote: "+ per-message WABA fees at cost",
+    price: "$5 /mo", priceNote: "per store + per-message WABA fees at cost",
     bullets: [
       ["Order in WhatsApp", "— customers place, confirm and pay for orders without leaving the chat. WABA-compliant."],
       ["Real-time alerts", "— order confirmations, delivery status, payment receipts, restock nudges — pushed automatically."],
@@ -3560,7 +3550,7 @@ const ADDONS = [
     kicker: "03 · Analytics & Forecasting", icon: "img/icon-insight.png", tag: "Live · trained on your data", name: "youInsight",
     img: "img/youinsight.jpg", side: "right",
     intro: "Business intelligence for merchants who don't have a BI team. Every insight is trained on your own sales — not industry benchmarks or someone else's baseline.",
-    price: "$7 /mo", priceNote: "per outlet · unlimited reports",
+    price: "$5 /mo", priceNote: "per store · unlimited reports",
     bullets: [
       ["Top sellers & peak hours", "— what's moving, when, and through which channel. Attach dashboards to your morning WhatsApp."],
       ["Basket-level analysis", "— basket size, attach rates, repeat purchases, loyalty conversion, guest feedback."],
@@ -3574,7 +3564,7 @@ const ADDONS = [
     kicker: "04 · Computer Vision", icon: "img/icon-lens.png", tag: "AI camera · shrinkage · compliance", name: "youLens",
     img: "img/youlens.jpg", side: "left",
     intro: "Turn your existing store cameras into a floor-level analyst. Detects what humans miss — shrinkage, queue build-up, staff coverage gaps, kitchen hygiene lapses.",
-    price: "$17 /mo", priceNote: "+ $7 per camera · works with existing IP cameras",
+    price: "$15 /mo", priceNote: "per store + $5 per camera · works with compatible IP cameras",
     bullets: [
       ["Inventory movement tracking", "— items leaving the billing counter. shelf without a corresponding bill; alerts routed to the manager's phone in seconds."],
       ["Footfall analytics", "— heatmaps of where guests spend time, dwell time by aisle or table, conversion rate (walk-in → bill)."],
@@ -3586,7 +3576,7 @@ const ADDONS = [
     kicker: "05 · No-code Automation", icon: "img/icon-workflows.png", tag: "Auto · without a developer", name: "youWorkflows",
     img: "img/youworkflows.jpg", side: "right",
     intro: "The boring end-of-day work, done automatically. If-this-then-that, but built for retail and F&B. Wire your POS, KDS, payments, marketing and inventory to run themselves.",
-    price: "$12 /mo", priceNote: "unlimited automations · visual builder",
+    price: "$10 /mo", priceNote: "per store · unlimited automations · visual builder",
     bullets: [
       ["Auto-reorder low stock", "— thresholds per SKU, supplier lead-times factored in, PO drafted for approval or auto-fired."],
       ["Auto-86 across channels", "— when a dish or product runs out, hide it on POS, aggregators, WebShop and QR menu — instantly."],
@@ -3602,7 +3592,7 @@ const FOOTER = [
   ["Company", ["About", "Markets", "Pricing", "Partners • ICPs", "Blog", "Contact"]],
   ["Products", ["youShop", "youPay", "youResto", "youQR"]],
   ["Enterprise", ["youPay Enterprise", "youShop Enterprise", "youResto Enterprise", "Book a demo"]],
-  ["Trust", ["PCI L1 Certified", "99.999% Uptime SLA", "EMVCo Compliant", "GDPR & PSD2 Ready"]],
+  ["Trust", ["PCI L1 Certified", "99.99% Uptime SLA", "EMVCo Compliant", "GDPR & PSD2 Ready"]],
   ["Legal", ["Terms of Use", "Privacy Policy", "Cookies"]]
 ];
 
@@ -3624,12 +3614,12 @@ const DEMO_FIELDS = [
 
 const SUPPORT_KB = [
   { q: "What is youcloud?", a: "youcloud is an all-in-one commerce operating system — POS billing, inventory, payments and QR ordering for retail shops, restaurants and QR-first merchants, plus AI add-ons like lending, marketing and analytics." },
-  { q: "How much does it cost? What are your prices?", a: "Every product — youShop, youResto, youQR, youPay — has a free Freemium tier, then paid tiers from $2–$25 per POS per month. See the full breakdown on the Pricing page, or use the toggle there to switch between products." },
-  { q: "Is there a free plan or free trial?", a: "Yes — Freemium is $0 forever, not a time-limited trial. It's a real plan with a working counter, QR + Pay-by-Link acceptance and a branded storefront." },
-  { q: "Is there a contract or lock-in?", a: "No. Software is billed monthly and you can move up, move down, or stop any month. Hardware is bought once and owned outright — there's no lease." },
-  { q: "What does per POS mean?", a: "One POS is one active billing device or till. Two handhelds in one shop count as two POS. Users, outlets, items and bills are governed by tier limits, not billed per seat." },
+  { q: "How much does it cost? What are your prices?", a: "youShop and youResto have a free Freemium tier, then paid tiers from $2–$15 per store per month. youQR is $0 a month plus a flat fee per paid order on Starter and Standard, or $25 per store on Power. See the full breakdown on the Pricing page, or use the toggle there to switch between products." },
+  { q: "Is there a free plan or free trial?", a: "Yes — youShop and youResto Freemium is $0 forever, not a time-limited trial. It's a real plan with a working till, offline billing and cash + wallet / QR acceptance. youQR has no monthly fee on Starter — you pay only per paid order." },
+  { q: "Is there a contract or lock-in?", a: "Freemium has no commitment. Paid tiers are priced per store, per month and billed annually, and you can move up a tier at any time. Hardware is a one-time purchase, owned outright — there's no lease and no bundled software period." },
+  { q: "What does per store mean?", a: "One store licence covers one till (two on Power). Users are unlimited on every tier, and stores, SKUs, invoices and records are governed by the tier limits — never billed per seat." },
   { q: "Do I have to use youPay for payments?", a: "Payments are free to activate on every tier including Freemium, and you're charged only on successful transactions — typically 1–3% blended MDR depending on market and card type." },
-  { q: "How is Enterprise different?", a: "Enterprise is quoted as one custom plan for your whole estate — unlimited outlets, all modules, hardware fleet management, SSO and a 1-hour support SLA, rather than per-POS pricing. Ask me to connect you with sales, or visit the Enterprise pages under each product." },
+  { q: "How is Enterprise different?", a: "Enterprise is quoted as one custom plan for your whole estate — unlimited outlets, all modules, hardware fleet management, SSO and 24/7 support with a 1-hour P1 response, rather than per-store pricing. Ask me to connect you with sales, or visit the Enterprise pages under each product." },
   { q: "How much does hardware cost?", a: "Hardware is one-time and owned outright: a starter kit from $59, the y1000 handheld from $189, and the y10D SoundBox around $35, all shipped pre-configured. See the Hardware section of the Pricing page for the full list." },
   { q: "What add-ons do you offer?", a: "Five AI add-ons plug into the same merchant data: youLend (working capital), youMarketing (WhatsApp/SMS/email campaigns), youInsight (forecasting), youLens (computer vision), and youWorkflows (no-code automation). See the Add-ons page for pricing." },
   { q: "Which countries or markets are you live in?", a: "youcloud is live in 9+ markets across MENA, South Asia, Africa and APAC, including the UAE, India, Sri Lanka, Senegal and more." },
@@ -3647,12 +3637,10 @@ const HW_LIGHT = { border: "#E7E3E4", bg: "#fff", ink: "#0B1D3A", body: "#4A5878
 const HW_HOT = { border: "#F96167", bg: "#F96167", ink: "#fff", body: "#fff", muted: "rgba(255,255,255,0.9)", dot: "#fff", priceColor: "#fff", btnBg: "#fff", btnColor: "#F96167" };
 
 const QR_TIERS = [
-        ["Freemium", "$0", "forever", "1 outlet · 1 user · 25 items · 250 bills/mo", "", ["QR + Pay-by-Link ordering", "1  order mode (Table / Counter / Pickup)", "youcloud-branded page", "Programme-wide loyalty", "Live order feed", "Daily summary analytics"], "Start free", false],
-        ["Starter", "$5", "/ POS · month", "1–2 outlets · 2 users · 50 items · 1,000 bills/mo", "Everything in Freemium, plus:", ["Card payments", "Auto-reconciliation", "1 aggregator connector", "Basic guest capture (50 records)", "Starter Mobile kit", "Standard support (24hr)"], "Get starter", false],
-        ["Standard", "$10", "/POS · mo", "3–8 outlets · 10 users · 250 items · 2,500 bills/mo", "Everything in Starter, plus:", ["Live floor plan & waitlist", "Reservations + guest profiles (500)", "2 aggregator connectors menu sync", "Basic stock tracking", "Shift scheduling", "Priority support (4hr)"], "Get standard", true],
-        ["Power", "$25", "/ POS · month", "Unlimited outlets · unlimited users · unlimited items & bills", "Everything in Standard, plus:", ["VIP flags & course sequencing", "2 KDS stations included", "Branded guest app (youcloud)", "3 aggregator connectors", "Full youAccounts & youHR", "Named support (1hr)"], "Talk to sales", false],
-        ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Full menu engineering", "White-label guest app (your brand)", "SSO (corporate IdP) + API keys", "Franchise / chain governance", "API & webhook access"], "See enterprise", false]
-      ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular }));
+  ["Starter", "$0", "/ mo + $0.10 per paid order", "1 branch · up to 100 menu items · unlimited orders", "", ["QR, Pay-by-Link, wallets & cards", "1 order mode (table, counter or pickup)", "youcloud-branded ordering page", "Points + Silver → Gold loyalty tiers", "Live order feed · 50 customer records", "Standard support · 24hr"], "Get starter", false],
+  ["Standard", "$0", "/ mo + $0.25 per paid order", "Up to 8 branches · up to 250 menu items · unlimited orders", "Everything in Starter, plus:", ["All order modes", "Custom colours, logo & domain", "Platinum loyalty tier", "1 KDS station · multi-branch dashboard", "Shared customers + loyalty with youShop / youResto", "500 records · MFA · priority support 4hr"], "Get standard", true],
+  ["Power", "$25", "/ store · month · unlimited orders", "Unlimited branches & menu items · no per-order fee", "Everything in Standard, plus:", ["Fully white-labelled (your brand only)", "Stored Value wallet, split pay & gift cards", "2 KDS stations + course firing", "REST API + webhooks", "youLend bundled · unlimited records", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false]
+].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular }));
 
 const PRODUCT_PAGES = {
   youshop: {
@@ -3678,22 +3666,22 @@ const PRODUCT_PAGES = {
       ["Starter", "$59", "Mobile + BT printer", "img/shop-hw-starter.jpg", false, ["Runs onYour Android / iOS phone", "Printer 58 mm Bluetooth receipt", "Card reader Bluetooth dongle · optional", "Best for Micro shops · stalls · pop-ups"]],
       ["y1000", "$189", "Handheld POS", "img/shop-hw-y1000.jpg", false, ["Display 6.5\" HD+ touch", "ScannerBuilt-in 2D barcode", "Printer 58 mm built-in receipt", "Card readerBuilt-in · NFC + EMV", "Best for Small shops · floor billing"]],
       ["y5000", "$549", "Counter POS", "img/shop-hw-y5000.png", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best forBusy shops · full counter"]],
-      ["y7000", "$499", "Self-service Kiosk", "img/shop-hw-y7000.png", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes Retail · ticketing · pickup", "Best for Guests check out themselves"]]
+      ["y7000", "$817", "Self-service Kiosk", "img/shop-hw-y7000.png", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes Retail · ticketing · pickup", "Best for Guests check out themselves"]]
     ].map(([name, price, kind, img, popular, specs]) => Object.assign({}, popular ? HW_HOT : HW_LIGHT, { name, price, kind, img, popular, specs })),
     hwTrust: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youShop + youPay natively", "Fleet-managed OTA"],
-    tierIntro: "Freemium is $0 forever. Each paid tier includes everything below it, plus more. Enterprise is a custom plan above Power.",
+    tierIntro: "Freemium is $0 forever. Paid tiers are priced per store, per month, and each includes everything below it. Enterprise is a custom plan above Power.",
     tiers: [
-      ["Freemium", "$0", "forever", "1 store · 1 user · 100 SKUs · 50 invoices/mo", "", ["Basic checkout & billing", "Multi-tender + receipts", "Offline billing + sync", "Cash + wallet / QR", "Daily sales summary"], "Start free", false],
-      ["Starter", "$2", "/ POS · month", "1–2 stores · 2 users · 500 SKUs · 500 invoices/mo", "Everything in Freemium, plus:", ["Barcode scanning", "Variants (size, colour)", "Basic stock count + low-stock alerts", "Card payments", "Auto-reconciliation", "Basic customer capture (50 records)"], "Get starter", false],
-      ["Standard", "$5", "/POS · mo", "3–8 stores · 5 users · 5,000 SKUs · 5,000 invoices/mo", "Everything in Starter, plus:", ["Batches, expiry & serial tracking", "Supplier management + auto-reorder", "Multi-counter + queue display", "Loyalty (points / rewards)", "Customer segments (500 records)", "1 marketplace connector"], "Get standard", true],
-      ["Power", "$15", "/ POS · month", "9+ / Unlimited stores · unlimited users · 10,000 SKUs", "Everything in Standard, plus:", ["Bulk import / export", "Inter-store transfers + shrinkage", "Full stock-count workflow", "Gift cards & store credit", "WebShop + Social Selling (FB/IG)", "Full youAccounts & youHR"], "Talk to sales", false],
-      ["Enterprise", "Custom", "on request", "Unlimited stores · SKUs · staff · customers · franchise governance", "Everything in Power, plus:", ["Franchise / chain management", "White-label branded storefront", "3PL logistics integrations", "SSO (corporate IdP) + API keys", "REST API & webhook access", "24/7 phone support · 1hr SLA"], "See enterprise", false]
+      ["Freemium", "$0", "forever", "1 store · 1 till · unlimited users · 100 SKUs · 50 invoices / month", "", ["Checkout, multi-tender & receipts", "Offline billing + sync", "Basic catalog", "Cash + wallet / QR", "Daily sales summary", "Self-service support"], "Start free", false],
+      ["Starter", "$2", "/ store · month", "1–2 stores · 1 till per store · 500 SKUs · 500 invoices / month", "Everything in Freemium, plus:", ["Barcode scanning + variants (size, colour)", "Basic stock count + low-stock alerts", "Card payments + auto-reconciliation", "Basic refunds with cashier override", "Customer capture (50 records)", "Standard support · 24hr"], "Get starter", false],
+      ["Standard", "$5", "/ store · month", "3–8 stores · 1 till per store · 5,000 SKUs + variants · 5,000 invoices / month", "Everything in Starter, plus:", ["Batches, expiry & serial tracking", "Supplier management + auto-reorder", "Multi-counter, queue display + split pay", "Points, rewards & birthday offers (500 records)", "Basic auto-ledger, attendance & shifts", "1 marketplace connector · priority support 4hr"], "Get standard", true],
+      ["Power", "$10", "/ store · month", "9+ / unlimited stores · 2 tills per store · 10,000 SKUs · 10,000 invoices / month", "Everything in Standard, plus:", ["Inter-store transfers + shrinkage tracking", "Gift cards & store credit", "WebShop + Social Selling included", "youAccounts & youHR bundled", "Full CRM · unlimited customer records", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false],
+      ["Enterprise", "Custom", "on request", "Unlimited stores · SKUs · staff · customers", "Everything in Power, plus:", ["Franchise, chain & multi-brand management", "White-label branded storefront", "3PL logistics integrations", "SSO (SAML / OIDC) + API key rotation", "REST API, webhooks & ERP connectors", "24/7 phone · 1hr P1 · 99.99% uptime SLA"], "See enterprise", false]
     ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular })),
-    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "youAccounts", "youHR", "AI OCR ledger entry (Stocks / Expenses)", "WebShop storefront", "Social Selling (FB / IG)", "Branded consumer app"],
+    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "Inventory Module", "youAccounts", "youAccounts · Lite", "youHR", "youHR · Lite", "WebShop & Social Selling", "Customer Base Pack"],
     ctaKicker: "START FREE · 24HR ACTIVATION", ctaTitleA: "Ready to run your shop", ctaTitleB: "the easy way?",
     ctaBody: "Freemium plan is $0 forever. Pick a kit that fits. Live in your shop in under an hour.",
     ctaBtn2: "For enterprise", ctaBtn2Type: "enterprise", ctaCardTitle: "youShop Freemium",
-    ctaCardRows: ["1 shop · 1 device", "Limited transactions", "Basic billing", "QR payments", "youPay gateway included"]
+    ctaCardRows: ["1 store · 1 till · unlimited users", "100 SKUs · 50 invoices / month", "Offline billing + sync", "Cash + wallet / QR", "youPay gateway included"]
   },
 
   youresto: {
@@ -3718,22 +3706,22 @@ const PRODUCT_PAGES = {
     hardware: [
       ["y4000", "$299", "Handheld POS", "img/resto-hw-y4000.jpg", false, ["Display 10\" HD+ touch", "Card reader Built-in · NFC + EMV", "Barcode Built-in scanner", "Printer 80 mm external", "Best for Table-side ordering"]],
       ["y5000", "$549", "Counter POS", "img/resto-hw-y5000.jpg", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer 80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best for Full-service restaurants"]],
-      ["y7000", "$499", "Self-service Kiosk", "img/resto-hw-y7000.jpg", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes QSR · café · retail · ticketing", "Best for Guests order themselves"]]
+      ["y7000", "$817", "Self-service Kiosk", "img/resto-hw-y7000.jpg", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes QSR · café · retail · ticketing", "Best for Guests order themselves"]]
     ].map(([name, price, kind, img, popular, specs]) => Object.assign({}, popular ? HW_HOT : HW_LIGHT, { name, price, kind, img, popular, specs })),
-    hwTrust: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youShop + youPay natively", "Fleet-managed OTA"],
-    tierIntro: "Freemium is $0 forever. Each paid tier includes everything below it, plus more. Enterprise is a custom plan above Power.",
+    hwTrust: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youResto + youPay natively", "Fleet-managed OTA"],
+    tierIntro: "Freemium is $0 forever. Paid tiers are priced per store, per month, and each includes everything below it. Enterprise is a custom plan above Power.",
     tiers: [
-      ["Freemium", "$0", "forever", "1 outlet · 1 user · 25 items · 250 bills/mo", "", ["Billing & invoicing (basic)", "Offline billing + sync", "Daily sales summary", "Cash + wallet / QR", "Basic attendance"], "Start free", false],
-      ["Starter", "$5", "/ POS · month", "1–2 outlets · 2 users · 50 items · 1,000 bills/mo", "Everything in Freemium, plus:", ["Card payments", "Auto-reconciliation", "1 aggregator connector", "Basic guest capture (50 records)", "Starter Mobile kit", "Standard support (24hr)"], "Get starter", false],
-      ["Standard", "$10", "/POS · mo", "3–8 outlets · 10 users · 250 items · 2,500 bills/mo", "Everything in Starter, plus:", ["Live floor plan & waitlist", "Reservations + guest profiles (500)", "2 aggregator connectors menu sync", "Basic stock tracking", "Shift scheduling", "Priority support (4hr)"], "Get standard", true],
-      ["Power", "$25", "/ POS · month", "Unlimited outlets · unlimited users · unlimited items & bills", "Everything in Standard, plus:", ["VIP flags & course sequencing", "2 KDS stations included", "Branded guest app (youcloud)", "3 aggregator connectors", "Full youAccounts & youHR", "Named support (1hr)"], "Talk to sales", false],
-      ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Full menu engineering", "White-label guest app (your brand)", "SSO (corporate IdP) + API keys", "Franchise / chain governance", "API & webhook access"], "See enterprise", false]
+      ["Freemium", "$0", "forever", "1 outlet · 1 till · unlimited users · unlimited menu items & orders", "", ["Order taking, split bills & receipts", "Offline billing + sync", "Cash + wallet / QR", "Daily sales summary", "Self-service support"], "Start free", false],
+      ["Starter", "$5", "/ store · month", "1 outlet · 1 till · unlimited users", "Everything in Freemium, plus:", ["Basic KDS (1 screen)", "2 aggregators unified", "Card payments + auto-reconciliation", "Basic loyalty + guest capture (50 records)", "Starter Mobile Kit (Bluetooth printer)", "Standard support · 24hr"], "Get starter", false],
+      ["Standard", "$10", "/ store · month", "3–8 outlets · 1 till per store · 500 guest records", "Everything in Starter, plus:", ["Full KDS (1 station) · prep timers · 86-sync", "Floor plan, waitlist & reservations", "3 aggregators unified + menu sync", "Table ordering & pay + guest app loyalty", "Basic stock, auto-ledger, attendance & shifts", "REST API & webhooks · priority support 4hr"], "Get standard", true],
+      ["Power", "$15", "/ store · month", "Unlimited outlets · 2 tills per store · unlimited guest records", "Everything in Standard, plus:", ["2 KDS stations · course firing · expo view", "All aggregators + commission reporting", "Direct delivery app + social ordering included", "youAccounts & youHR bundled", "Recipe costing + supplier management", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false],
+      ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Menu engineering", "White-label guest app (your brand)", "SSO (SAML / OIDC) + API key rotation", "Multi-brand / franchise + ERP connectors", "24/7 phone · 1hr P1 · 99.99% uptime SLA"], "See enterprise", false]
     ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular })),
-    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "youAccounts", "QR Guest Ordering", "Extra KDS stations", "Branded delivery app", "Social ordering"],
+    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "Inventory Module", "Recipe Module", "youAccounts", "youHR", "Branded Guest App", "Extra KDS stations", "Direct delivery app", "3rd-party delivery fleets", "Social ordering", "Guest Base Pack"],
     ctaKicker: "START FREE · 24HR ACTIVATION", ctaTitleA: "Ready to run your kitchen", ctaTitleB: "the smart way?",
     ctaBody: "Freemium plan is $0 forever. Pick a kit that fits. Live in your restaurant in under an hour.",
     ctaBtn2: "Book demo", ctaCardTitle: "youResto Freemium",
-    ctaCardRows: ["1 outlet · 1 POS", "Unlimited orders", "Full POS + KDS + menu", "1 aggregator sync included", "$0 forever"]
+    ctaCardRows: ["1 outlet · 1 till · unlimited users", "Unlimited menu items & orders", "Order taking + split bills", "Offline billing + sync", "$0 forever"]
   }
 };
 
@@ -3899,7 +3887,7 @@ class Component extends DCLogic {
 
   // cards inside these grids come in one after another rather than all at once
   stagger = (section) => {
-    const GRIDS = ".yc-grid-2, .yc-grid-4, .yc-grid-5, .yc-feat-grid, .yc-addon-grid";
+    const GRIDS = ".yc-grid-2, .yc-grid-3, .yc-grid-4, .yc-grid-5, .yc-feat-grid, .yc-addon-grid";
     section.querySelectorAll(GRIDS).forEach((grid) => {
       if (grid.closest(".yc-marquee")) return;
       Array.prototype.forEach.call(grid.children, (child, i) => {
@@ -4109,7 +4097,7 @@ class Component extends DCLogic {
       ],
       homeTrust: [
         ["01", "PCI DSS Level 1", "Certified card data environment, audited annually."],
-        ["02", "99.999% uptime", "Redundant, multi-region processing infrastructure."],
+        ["02", "99.99% uptime", "Redundant, multi-region processing infrastructure."],
         ["03", "Sub-200ms authorisation", "Measured at the switch across live markets."],
         ["04", "ML fraud scoring", "Inline scoring in under 50ms on every transaction."],
         ["05", "Local payment rails", "Domestic schemes, wallets and bank rails per market."]
@@ -4117,13 +4105,12 @@ class Component extends DCLogic {
       homeEnterprise: [
         { name: "youPay Ent.", desc: "Payment orchestration", onClick: this.go("youpay-ent") },
         { name: "youResto Ent.", desc: "Multi-Outlet F&B", onClick: this.go("youresto-ent") },
-        { name: "youShop Ent.", desc: "Multi-Outlet retail", onClick: this.go("youshop-ent") },
-        { name: "youQR Ent.", desc: "Scan. Order. Pay. Loyalty.", onClick: this.go("youqr") }
+        { name: "youShop Ent.", desc: "Multi-Outlet retail", onClick: this.go("youshop-ent") }
       ],
       homeWhy: [
         ["01", "Built for emerging markets", "Nine live markets across MENA, South Asia and Africa. Local wallets, domestic QR rails, local settlement banks — pre-integrated. No 12-month engineering project."],
         ["02", "Live in under an hour", "Buy the kit. Open the app. Start selling. $0 to start on Freemium. No long contracts, no setup fees, no integration headaches. Grow into paid tiers when you're ready."],
-        ["03", "Enterprise-grade, SMB-priced", "Same PCI L1 gateway, same 99.999% uptime, same ML fraud engine that runs enterprise orchestration — priced for a single till, ready to scale to ninety."]
+        ["03", "Enterprise-grade, SMB-priced", "Same PCI L1 gateway, same 99.99% uptime, same ML fraud engine that runs enterprise orchestration — priced for a single till, ready to scale to ninety."]
       ].map(([num, title, body]) => ({ num, title, body })),
       homeLendStats: [{ value: "24hr", label: "approval" }, { value: "$1k–$50k", label: "merchant loans" }, { value: "0", label: "paperwork" }],
       homeAddons: [
@@ -4151,12 +4138,12 @@ class Component extends DCLogic {
         ["02", "Same-day settlement", "T+0 net settlement into your existing bank. No new bank account, no acquiring paperwork.", "T+0 · existing bank"],
         ["03", "Auto-reconciliation", "Processor and scheme ledgers matched every day. Above 98% auto-match. Manual matches on your dashboard.", "4-way match · daily"],
         ["04", "3DS2 + tokenisation", "Frictionless SCA. Network tokens via VTS & MDES for saved cards, MITs, and portability.", "3DS2 · VTS · MDES"],
-        ["05", "Sub-200ms auth", "Sub-200ms authorisation latency at p99. 99.999% uptime SLA. Active-active across availability zones.", "99.999% uptime · <200ms"],
+        ["05", "Sub-200ms auth", "Sub-200ms authorisation latency at p99. 99.99% uptime SLA. Active-active across availability zones.", "99.99% uptime · <200ms"],
         ["06", "QR + SoundBox", "Standalone wallet acceptance. One EMVCo QR, every wallet. 105dB audio confirmation in < 3 seconds.", "y10 / y10D · 105dB"]
       ].map(([num, title, body, tag]) => ({ num, title, body, tag })),
       payDeploy: [
-        { price: "$189", per: "one-time", name: "Y1000 HANDHELD", mode: "IN-STORE", body: "Includes 12 months Power software free" },
-        { price: "$0", per: "activation", name: "PAYMENT GATEWAY", mode: "ONLINE", body: "Includes 12 months Power software free" },
+        { price: "$189", per: "one-time", name: "Y1000 HANDHELD", mode: "IN-STORE", body: "Owned outright · software licensed per store" },
+        { price: "$0", per: "activation", name: "PAYMENT GATEWAY", mode: "ONLINE", body: "Free to activate · charged per transaction only" },
         { price: "$35", per: "one-time", name: "Y10D SOUNDBOX", mode: "QR + SOUNDBOX", body: "Includes Freemium software forever" }
       ],
       payTiers: [
@@ -4167,18 +4154,18 @@ class Component extends DCLogic {
         { name: "Power +", price: "Custom", per: "enterprise", limits: "Multi-outlet retail · omnichannel · high-volume", inherits: "Everything in Power, plus:", cta: "See enterprise",
           rows: ["Volume MDR (tiered)", "Intelligent routing (BIN / MCC / cost / performance)", "Multi-outlet reconciliation", "Multi-scheme, multi-currency", "4-way reconciliation ledger", "Dedicated CSM · priority SLA", "Right-to-audit clauses"] }
       ],
-      payChips: ["youInsight · $7/mo", "youMarketing · $9/mo + per-msg", "youWorkflows · $12/mo", "youAccounts · $8/mo", "youLend · rev-share *", "3DS2 + tokenisation · per-auth *", "Extra Merchant IDs *", "Chargeback specialist support *"],
+      payChips: ["youInsight · $5/mo", "youMarketing · $5/mo + per-msg", "youWorkflows · $10/mo", "youAccounts · $5/mo", "youLend · rev-share *", "3DS2 + tokenisation · per-auth *", "Extra Merchant IDs *", "Chargeback specialist support *"],
       payCtaRows: ["Hosted checkout + Pay-by-Link", "POS + SoftPOS + SoundBox", "Merchant QR + local wallets", "Recurring & saved cards", "MDR only — no setup fees"],
       qrStrip: [1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".jpg"),
       qrStripLoop: [1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".jpg").concat([1,2,3,4,5,6].map(n => "img/qr-strip-" + n + ".jpg")),
       qrStats: [{ value: "<60s", label: "Scan to paid" }, { value: "0", label: "App downloads" }, { value: "24h", label: "Activation" }],
       qrFeatures: [
         ["01", "Sell from day one", "Your customer scans and pays without downloads. You start collecting orders in minutes, not weeks. No engineering project.", "Browser-native · zero install"],
-        ["02", "Accept every payment", "Cards, mobile wallets, domestic QR rails, and Pay-by-Link — all in one checkout. Plus a Stored Value wallet.", "Cards · wallets · QR · SVA"],
-        ["03", "Build a loyal customer base", "Native points, tiered rewards (Silver, Gold, Platinum), birthday campaigns, and gamified streaks — built in.", "Loyalty · tiers · streaks"],
+        ["02", "Accept every payment", "Cards, mobile wallets, domestic QR rails, and Pay-by-Link — all in one checkout. Plus a Stored Value wallet on Power.", "Cards · wallets · QR · SVA"],
+        ["03", "Build a loyal customer base", "Native points and tiered rewards (Silver, Gold, Platinum) on every paid order. Birthday campaigns with youMarketing; gamified streaks coming soon.", "Loyalty · points · tiers"],
         ["04", "Get credit you've earned", "Every transaction builds a clean profile of your business. Pre-approved working capital appears in your dashboard.", "youLend · pre-approved"],
-        ["05", "Live merchant dashboard", "Order feed, sales analytics, KDS, multi-branch view. See every scan, every payment, every guest and every aggregator order landing.", "Real-time · every branch · every aggregator"],
-        ["06", "Custom branding", "Your logo, your colors, your domain. White-label option available. It's your storefront — we're the infrastructure.", "White-label · custom domains"]
+        ["05", "Live merchant dashboard", "Order feed, sales analytics, KDS, multi-branch view. See every scan, every payment and every guest, across every branch.", "Real-time · every branch"],
+        ["06", "Custom branding", "Your colours, logo and domain from Standard. Fully white-labelled on Power. It's your storefront — we're the infrastructure.", "Custom domains · white-label on Power"]
       ].map(([num, title, body, tag]) => ({ num, title, body, tag })),
       qrScenes: [
         { img: "img/qr-step-table.jpg", title: "At the table", body: "Guest scans. Menu loads on their own phone." },
@@ -4189,33 +4176,31 @@ class Component extends DCLogic {
         ["02", "View Menu", "Live menu with prices, images, modifiers. Out-of-stock items hidden automatically."],
         ["03", "Add to Cart", "Cart is saved to their device. They can leave and come back — no login required."],
         ["04", "Pay", "Cards, wallets, domestic QR rails, or Stored Value. PCI L1, sub-200ms auth."],
-        ["05", "Earn", "Loyalty credit instantly. Points, tier progress, streak intact. They walk away happier."]
+        ["05", "Earn", "Loyalty credit instantly. Points and tier progress update on the spot. They walk away happier."]
       ].map(([num, title, body]) => ({ num, title, body })),
       qrChannels: [
         ["img/ch-kiosk.png", "Self-service kiosk", "y7000 · order + pay"],
-        ["img/ch-tableqr.png", "Table QR", "Scan, order, split-pay"],
-        ["img/ch-online.png", "Online storefront", "Website + branded app"],
-        ["img/ch-social.png", "Social ordering", "WhatsApp · IG · FB · TikTok"],
-        ["img/ch-aggregators.png", "Aggregators", "Zomato · Uber Eats · Talabat"],
+        ["img/ch-tableqr.png", "Table QR", "Scan, order, pay"],
+        ["img/ch-online.png", "Your own domain", "your.brand ordering page"],
+        ["img/ch-social.png", "Social Selling", "FB · Instagram · WhatsApp Catalog"],
+        ["img/ch-aggregators.png", "Pickup", "Order ahead · collect at the counter"],
         ["img/ch-staffpos.png", "Staff-assisted POS", "y1000 handheld · when needed"]
       ].map(([icon, title, body]) => ({ icon, title, body })),
       qrRails: ["Card + NFC", "Wallets", "Domestic QR", "Pay-by-Link", "Stored Value", "Split-pay"],
       qrMetrics: [
         ["1", "KITCHEN", "Every order fires to the same KDS/KP. No shouted tickets."],
-        ["1", "GUEST PROFILE", "Same points, same tier, same streak — whichever channel they use."],
+        ["1", "GUEST PROFILE", "Same points, same tier — whichever channel they use."],
         ["0", "CASHIERS WAITING", "Guests order themselves. Staff run food, expo, or hospitality."],
         ["30%", "FASTER TABLES", "Peak-hour throughput measured across youResto + youQR merchants."]
       ].map(([value, label, body]) => ({ value, label, body })),
       qrFees: [
-        { value: "$0.10", unit: "", label: "PER ORDER", body: "Flat fee on every completed order, regardless of basket size.", optional: false },
+        { value: "$0.10", unit: "", label: "PER PAID ORDER", body: "Flat fee on Starter ($0.25 on Standard), regardless of basket size. None on Power.", optional: false },
         { value: "1–3%", unit: "", label: "PAYMENT PROCESSING", body: "Blended MDR on card & wallet. Indicative — varies by card type & market.", optional: false },
-        { value: "$5", unit: "/mo", label: "MERCHANT LOYALTY", body: "Add your own branded loyalty programme. Programme-wide loyalty is always free.", optional: true }
+        { value: "$5", unit: "/mo", label: "MERCHANT LOYALTY", body: "Your own branded loyalty programme, on Power. Programme-wide loyalty is included on every tier.", optional: true }
       ],
       qrTiers: QR_TIERS,
-      qrPaidTiers: QR_TIERS.filter(t => t.name !== "Enterprise"),
-      qrEntTier: Object.assign({}, QR_TIERS.find(t => t.name === "Enterprise"), { onClick: () => this.setState({ demoOpen: true }) }),
-      qrChips: ["Extra KDS station · $2/mo", "Merchant-specific loyalty · $5/mo", "youMarketing (WABA)", "youInsight AI reports", "youLend merchant finance", "youWorkflows", "youLens AI camera", "Self-ordering kiosk mode", "Order-volume packs", "Customer-base packs"],
-      qrCtaRows: ["1 branded merchant page", "Unlimited menu items", "All payment methods", "Loyalty + streaks included", "$0 to start · $0.10 / order"],
+      qrChips: ["youMarketing (WABA) · $5/mo", "youInsight · $5/mo", "youWorkflows · $10/mo", "youLens · $15/mo + $5/camera", "youLend · rev-share", "Inventory Module · $2/mo", "Recipe Module · $2/mo", "youAccounts · Lite · $2/mo", "youHR · Lite · $0.50/user", "Social Selling · $5/mo", "Self-ordering kiosk mode · $9/mo", "Extra KDS station · $2/mo", "Merchant-specific loyalty · $5/mo (Power)", "Customer Base Pack", "QR Print Pack · $29 one-time"],
+      qrCtaRows: ["1 branch · up to 100 menu items", "Unlimited orders", "QR, Pay-by-Link, wallets & cards", "Points + Silver → Gold tiers", "$0 / month · $0.10 per paid order"],
       isPartners: page === "partners",
       isPayEnt: page === "youpay-ent",
       isEnt: !!ENT_PAGES[page],
@@ -4250,33 +4235,34 @@ class Component extends DCLogic {
         const entPage = tab && ENT_FOR[tab.page];
         return entPage ? this.go(entPage) : () => this.setState({ demoOpen: true });
       })(),
-      entPriceRows: ["Unlimited outlets, SKUs and staff", "All twelve modules switched on", "SSO, RBAC and right-to-audit", "1-hour support SLA · 99.999% uptime"],
+      pricingHasEnt: this.state.pricingProduct !== "youQR",
+      entPriceRows: ["Unlimited outlets, SKUs and staff", "All twelve modules switched on", "SSO, RBAC and right-to-audit", "24/7 phone · 1hr P1 · 99.99% uptime SLA"],
       payPricing: [
         { label: "CARDS & WALLETS", value: "1–3%", unit: "MDR", body: "Blended rate on card and wallet acceptance. Indicative — varies by card type, market and monthly volume." },
         { label: "QR & SOUNDBOX", value: "$0", unit: "activation", body: "EMVCo QR accepting every domestic wallet and bank app. T+0 settlement into your existing bank account." },
         { label: "PER ORDER", value: "$0.10", unit: "flat", body: "Charged on completed youQR orders regardless of basket size. No gateway fee, no monthly minimum." }
       ],
       addonPricing: [
-        { name: "youInsight", desc: "Demand forecasting, price elasticity and menu engineering on your own sales data.", price: "$7 / mo", icon: "img/icon-insight.png" },
-        { name: "youAccounts", desc: "Bookkeeping, tax reporting and reconciliation. Free on Standard and above.", price: "$8 / mo", icon: "img/icon-workflows.png" },
-        { name: "youMarketing", desc: "WhatsApp Business API, SMS and email campaigns segmented from transaction data.", price: "$9 / mo + per-msg", icon: "img/icon-marketing.png" },
-        { name: "youWorkflows", desc: "No-code automation — auto-reorder, approvals routing and auto-86 across channels.", price: "$12 / mo", icon: "img/icon-workflows.png" },
+        { name: "youInsight", desc: "Demand forecasting, price elasticity and menu engineering on your own sales data.", price: "$5 / mo", icon: "img/icon-insight.png" },
+        { name: "youAccounts", desc: "Bank reconciliation, P&L, balance sheet and e-invoicing. Bundled in Power; Lite ledger from $2 / mo.", price: "$5 / mo", icon: "img/icon-workflows.png" },
+        { name: "youMarketing", desc: "WhatsApp Business API, SMS and email campaigns segmented from transaction data.", price: "$5 / mo + per-msg", icon: "img/icon-marketing.png" },
+        { name: "youWorkflows", desc: "No-code automation — auto-reorder, approvals routing and auto-86 across channels.", price: "$10 / mo", icon: "img/icon-workflows.png" },
         { name: "youLend", desc: "Pre-approved working capital sized from live transaction history. No monthly fee.", price: "Revenue share", icon: "img/icon-lend.png" }
       ].map((a, i) => Object.assign({}, a, { rule: i === 0 ? "transparent" : "#EDE9EA" })),
       hwPricing: [
         { name: "Starter kit", price: "$59", img: "img/shop-hw-starter.jpg", body: "Your own Android or iOS phone plus a 58mm Bluetooth receipt printer. Card reader dongle optional.", tag: "Micro shops · stalls · pop-ups" },
-        { name: "y1000 handheld", price: "$189", img: "img/shop-hw-y1000.jpg", body: "6.5\" HD+ touchscreen, built-in 2D scanner, 58mm printer, NFC and EMV card reader. Includes 12 months Power software.", tag: "Small shops · floor billing" },
+        { name: "y1000 handheld", price: "$189", img: "img/shop-hw-y1000.jpg", body: "6.5\" HD+ touchscreen, built-in 2D scanner, 58mm printer, NFC and EMV card reader. Owned outright; software licensed per store.", tag: "Small shops · floor billing" },
         { name: "y10D SoundBox", price: "$35", img: "img/hw-soundbox.jpg", body: "Standalone QR acceptance with 105dB audio confirmation in under 3 seconds. Includes Freemium software forever.", tag: "QR-first merchants" }
       ],
       priceFaq: [
-        { q: "Is there a contract or lock-in?", a: "No. Software is billed monthly and you can move up, move down or stop any month. Hardware is bought once and owned outright — there is no lease." },
-        { q: "What does 'per POS' mean?", a: "One POS is one active billing device or till. Two handhelds in one shop are two POS. Users, outlets, items and bills are governed by the tier limits, not billed per seat." },
+        { q: "Is there a contract or lock-in?", a: "Freemium has no commitment. Paid tiers are priced per store, per month and billed annually, and you can move up a tier at any time. Hardware is a one-time purchase, owned outright — there is no lease and no bundled software period." },
+        { q: "What does 'per store' mean?", a: "One store licence covers one till (two on Power). Users are unlimited on every tier, and stores, SKUs, invoices and records are governed by the tier limits — never billed per seat." },
         { q: "Do I have to use youPay?", a: "Payments are free to activate on every tier including Freemium, and you are charged only on successful transactions. Existing acquirer relationships can be kept where the market allows." },
-        { q: "How is Enterprise different?", a: "Enterprise is quoted as one plan for the whole estate — unlimited outlets, all modules, hardware fleet management, SSO and a 1-hour support SLA rather than per-POS pricing." }
+        { q: "How is Enterprise different?", a: "Enterprise is quoted as one plan for the whole estate — unlimited outlets, all modules, hardware fleet management, SSO and 24/7 support with a 1-hour P1 response rather than per-store pricing." }
       ],
       aboutFacts: [
         { value: "9+", label: "Active markets" }, { value: "4", label: "Products" },
-        { value: "5", label: "AI add-ons" }, { value: "99.999%", label: "Uptime SLA" }
+        { value: "5", label: "AI add-ons" }, { value: "99.99%", label: "Uptime SLA" }
       ],
       aboutProducts: [
         { n: "01", title: "youPay", body: "Payment orchestration — CP, CNP, Wallet, QR, Pay-by-Link, SVA. One rail under every product.", chip: "Payments" },
@@ -4303,13 +4289,13 @@ class Component extends DCLogic {
       e: ENT_PAGES[page] || ENT_PAGES["youshop-ent"],
       entStats: [
         { value: "∞", unit: "", label: "OUTLETS · SKUS · STAFF", note: "Unlimited outlets, stores, SKUs, staff & customers. No per-seat pricing." },
-        { value: "99.999", unit: "%", label: "UPTIME SLA", note: "Active-active infrastructure. Offline-first POS. Never miss a sale." },
+        { value: "99.99", unit: "%", label: "UPTIME SLA", note: "Active-active infrastructure. Offline-first POS. Never miss a sale." },
         { value: "12", unit: "", label: "MODULES · ONE PLATFORM", note: "POS to central kitchen to accounting. Everything included, no tiers." },
         { value: "1", unit: "hr", label: "SUPPORT SLA", note: "24/7 phone support with a 1-hour response SLA for critical incidents." }
       ],
       entCerts: ["PCI DSS L1", "ISO 27001", "SOC 2 Type II", "GDPR ready", "Right-to-audit", "Data residency"],
       peStats: [
-        { value: "99.999", unit: "%", label: "UPTIME SLA", note: "Active-active across availability zones. RPO < 1 min. RTO < 5 min." },
+        { value: "99.99", unit: "%", label: "UPTIME SLA", note: "Active-active across availability zones. RPO < 1 min. RTO < 5 min." },
         { value: "<200", unit: "ms", label: "AUTH LATENCY (P99)", note: "Sub-200ms authorisation. ML fraud scoring under 50ms. Routing under 5ms." },
         { value: ">98", unit: "%", label: "AUTO-MATCH RATE", note: "4-way reconciliation across transaction, processor, scheme, and bank ledgers." },
         { value: "9", unit: "%", label: "LIVE MARKETS", note: "Multi-currency, multi-scheme settlement across MENA, South Asia, Africa." }
@@ -4334,7 +4320,7 @@ class Component extends DCLogic {
         { code: "FR", title: "Fraud & risk", body: "ML fraud scoring under 50ms. XGBoost / GBDT models. Velocity, device, behavioural, network-token signals.", bullets: ["Inline ML scoring", "Rule + score hybrid", "Velocity & device profiling", "Case management console"] },
         { code: "DP", title: "Dispute automation", body: "End-to-end chargeback automation. Evidence assembly. Representment for Visa CE3.0 & MC ADC.", bullets: ["Auto evidence pack", "Representment workflow", "Analytics on win rate", "API + dashboard"] },
         { code: "TX", title: "Tokenisation", body: "PCI-scoped vault. VTS & MDES network tokens. Card-on-file, MITs, and token portability across processors.", bullets: ["Network tokens", "MIT flows", "One-click repeat", "Portability across PSPs"] },
-        { code: "RS", title: "Resilience", body: "99.999% uptime SLA. Active-active across availability zones. RPO under 1 min. RTO under 5 min.", bullets: ["Active-active multi-AZ", "RPO < 1 min · RTO < 5 min", "Blue/green deploys", "Chaos engineering"] },
+        { code: "RS", title: "Resilience", body: "99.99% uptime SLA. Active-active across availability zones. RPO under 1 min. RTO under 5 min.", bullets: ["Active-active multi-AZ", "RPO < 1 min · RTO < 5 min", "Blue/green deploys", "Chaos engineering"] },
         { code: "RC", title: "4-Way reconciliation", body: "Auto-match across transaction, processor, scheme, and bank ledgers. Above 98% auto-match. Warehouse export.", bullets: ["Daily matching runs", "Manual queue for exceptions", "Warehouse + BI export", "Custom rule engine"] }
       ],
       peCerts: ["PCI DSS L1", "EMVCo", "PSD2 · SCA", "GDPR ready", "ISO 27001", "SOC 2 Type II"],
@@ -4429,12 +4415,12 @@ class Component extends DCLogic {
       ptTiers: [
         { tier: "FREEMIUM", range: "$0.5 – $2", body: "Acquisition tier. Zero subscription. Only MDR + micro add-on revenue as merchants begin to transact" },
         { tier: "STARTER", range: "$5 – $17", body: "First paid tier. Subscription plus MDR as transaction volume builds through the first quarter" },
-        { tier: "STANDARD", range: "$17 – $51", body: "Multi-outlet subscription. Higher MDR volume. youAccounts & youHR included." },
+        { tier: "STANDARD", range: "$17 – $51", body: "Multi-outlet subscription. Higher MDR volume. Basic auto-ledger & attendance included." },
         { tier: "POWER + ADD-ONS", range: "$44 – $128", body: "Full stack + AI add-ons + youLend revenue. Peak ARPU for high-engagement merchants." }
       ],
       ptStages: [
         { stage: "STAGE 01", title: "Freemium", body: "Zero / low-cost onboarding. ICP-led acquisition at scale. Platform embeds; data builds. ICP builds ecosystem · youcloud builds data. No subscription revenue yet.", chip: "Acquisition" },
-        { stage: "STAGE 02", title: "Premium", body: "Starter → Standard → Power tiers. Standard adds youAccounts + youHR; Power adds youMarketing + youInsight. ICP prices and bills directly. 100% of subscription revenue to ICP.", chip: "Subscription revenue" },
+        { stage: "STAGE 02", title: "Premium", body: "Starter → Standard → Power tiers. Standard adds the basic ledger, attendance and MFA; Power bundles youAccounts + youHR. ICP prices and bills directly. 100% of subscription revenue to ICP.", chip: "Subscription revenue" },
         { stage: "STAGE 03", title: "Add-on activation", body: "Merchants activate youMarketing, youLens, youLend, youInsight or youWorkflows. ICP retains 100% of add-on revenue. youcloud charges the ICP a fixed module fee.", chip: "ARPU expansion" },
         { stage: "STAGE 04", title: "Scale", body: "Platform record volume grows. Margin expansion accrues to the ICP as the merchant network scales. Because our fee is band-based, ICP earns more per merchant as volumes grow.", chip: "Margin expansion" }
       ],
