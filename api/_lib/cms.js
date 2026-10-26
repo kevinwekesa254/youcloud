@@ -1,7 +1,8 @@
 // Blog storage, admin sessions and HTML sanitising shared by the api/ functions.
 //
-// Posts live in Vercel Blob when BLOB_READ_WRITE_TOKEN is set (connect a Blob
-// store to the project in Vercel). Without it, e.g. on a laptop running
+// Posts live in Vercel Blob once a store is connected to the project: newer
+// connections set BLOB_STORE_ID and authenticate through Vercel's OIDC token,
+// older ones set BLOB_READ_WRITE_TOKEN. Without either, e.g. on a laptop running
 // tools/dev-server.js, everything is kept in .cms-data/ instead.
 //
 // Two files are written on every save:
@@ -19,7 +20,8 @@ const SITE_URL = (process.env.SITE_URL || "https://www.youcloudpay.com").replace
 const TOKEN_ENV = Object.keys(process.env).find(k => k === "BLOB_READ_WRITE_TOKEN") ||
   Object.keys(process.env).find(k => /BLOB_READ_WRITE_TOKEN$/.test(k));
 const TOKEN = TOKEN_ENV ? process.env[TOKEN_ENV] : "";
-const USE_BLOB = !!TOKEN;
+const STORE_ID = process.env.BLOB_STORE_ID || "";
+const USE_BLOB = !!(TOKEN || STORE_ID);
 const LOCAL_DIR = path.join(__dirname, "..", "..", ".cms-data");
 const PUBLIC_PATH = "cms/public/posts.json";
 const PRIVATE_PREFIX = "cms/posts-";
@@ -28,12 +30,19 @@ function blob() {
   return require("@vercel/blob");
 }
 
-// The public URL of a fixed pathname in the connected store. Tokens look like
-// vercel_blob_rw_<storeId>_<secret>, and public blobs are served from
-// https://<storeId>.public.blob.vercel-storage.com/<pathname>.
+// The public URL of a fixed pathname in the connected store. Public blobs are
+// served from https://<storeId>.public.blob.vercel-storage.com/<pathname>; the
+// id comes from BLOB_STORE_ID (store_<id>) or the token (vercel_blob_rw_<id>_...).
 function publicBlobUrl(pathname) {
   const m = /^vercel_blob_rw_([^_]+)_/.exec(TOKEN);
-  return m ? `https://${m[1].toLowerCase()}.public.blob.vercel-storage.com/${pathname}` : null;
+  const id = m ? m[1] : STORE_ID.replace(/^store_/, "");
+  return id ? `https://${id.toLowerCase()}.public.blob.vercel-storage.com/${pathname}` : null;
+}
+
+// Passed to every Blob call: the token when there is one, otherwise nothing, so
+// the library falls back to OIDC with BLOB_STORE_ID.
+function auth(extra) {
+  return TOKEN ? { ...extra, token: TOKEN } : extra;
 }
 
 function readLocal(name, fallback) {
@@ -54,7 +63,7 @@ function writeLocal(name, data) {
 async function getAllPosts() {
   if (!USE_BLOB) return readLocal("posts.json", []);
   const { list } = blob();
-  const { blobs } = await list({ prefix: PRIVATE_PREFIX, token: TOKEN });
+  const { blobs } = await list(auth({ prefix: PRIVATE_PREFIX }));
   if (!blobs.length) return [];
   blobs.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
   const r = await fetch(blobs[0].url, { cache: "no-store" });
@@ -80,16 +89,16 @@ async function savePosts(posts) {
     return;
   }
   const { put, list, del } = blob();
-  const saved = await put(PRIVATE_PREFIX.replace(/-$/, "") + ".json", JSON.stringify(posts), {
-    access: "public", addRandomSuffix: true, contentType: "application/json", cacheControlMaxAge: 60, token: TOKEN
-  });
-  await put(PUBLIC_PATH, JSON.stringify(pub), {
+  const saved = await put(PRIVATE_PREFIX.replace(/-$/, "") + ".json", JSON.stringify(posts), auth({
+    access: "public", addRandomSuffix: true, contentType: "application/json", cacheControlMaxAge: 60
+  }));
+  await put(PUBLIC_PATH, JSON.stringify(pub), auth({
     access: "public", addRandomSuffix: false, allowOverwrite: true,
-    contentType: "application/json", cacheControlMaxAge: 60, token: TOKEN
-  });
-  const { blobs } = await list({ prefix: PRIVATE_PREFIX, token: TOKEN });
+    contentType: "application/json", cacheControlMaxAge: 60
+  }));
+  const { blobs } = await list(auth({ prefix: PRIVATE_PREFIX }));
   const old = blobs.filter(b => b.url !== saved.url).map(b => b.url);
-  if (old.length) await del(old, { token: TOKEN });
+  if (old.length) await del(old, auth({}));
   cache = null;
 }
 
@@ -106,7 +115,7 @@ async function getPublishedPosts() {
     if (!r || !r.ok) {
       // Fall back to looking the file up if the URL could not be derived.
       const { list } = blob();
-      const { blobs } = await list({ prefix: PUBLIC_PATH, token: TOKEN });
+      const { blobs } = await list(auth({ prefix: PUBLIC_PATH }));
       if (!blobs.length) return [];
       r = await fetch(blobs[0].url);
       if (!r.ok) return [];
@@ -115,6 +124,19 @@ async function getPublishedPosts() {
   }
   cache = { at: Date.now(), posts };
   return publishedOnly(posts);
+}
+
+// Writes and lists one small file to prove the store accepts uploads.
+async function blobSelfTest() {
+  if (!USE_BLOB) return { ok: false, error: "No Blob store connected" };
+  try {
+    const { put, list } = blob();
+    const r = await put("cms/healthcheck.txt", "ok " + new Date().toISOString(), auth({ access: "public", addRandomSuffix: false, allowOverwrite: true, contentType: "text/plain" }));
+    const l = await list(auth({ prefix: "cms/", limit: 5 }));
+    return { ok: true, url: r.url, derived: publicBlobUrl("cms/healthcheck.txt"), files: l.blobs.length };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
 }
 
 // ── Images ──────────────────────────────────────────────────────────────
@@ -132,7 +154,7 @@ async function saveImage(filename, contentType, buffer) {
     return "/cms-uploads/" + name;
   }
   const { put } = blob();
-  const r = await put(`blog/${base}.${ext}`, buffer, { access: "public", addRandomSuffix: true, contentType, token: TOKEN });
+  const r = await put(`blog/${base}.${ext}`, buffer, auth({ access: "public", addRandomSuffix: true, contentType }));
   return r.url;
 }
 
@@ -287,7 +309,7 @@ function stripTags(html) {
 }
 
 module.exports = {
-  SITE_URL, USE_BLOB, TOKEN_ENV,
+  SITE_URL, USE_BLOB, TOKEN_ENV, blobSelfTest,
   getAllPosts, getPublishedPosts, savePosts, saveImage,
   checkPassword, sessionCookie, clearCookie, isAdmin, requireAdmin, sameOrigin,
   slugify, sanitizeHtml, escapeHtml, stripTags
