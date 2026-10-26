@@ -126,19 +126,6 @@ async function getPublishedPosts() {
   return publishedOnly(posts);
 }
 
-// Writes and lists one small file to prove the store accepts uploads.
-async function blobSelfTest() {
-  if (!USE_BLOB) return { ok: false, error: "No Blob store connected" };
-  try {
-    const { put, list } = blob();
-    const r = await put("cms/healthcheck.txt", "ok " + new Date().toISOString(), auth({ access: "public", addRandomSuffix: false, allowOverwrite: true, contentType: "text/plain" }));
-    const l = await list(auth({ prefix: "cms/", limit: 5 }));
-    return { ok: true, url: r.url, derived: publicBlobUrl("cms/healthcheck.txt"), files: l.blobs.length };
-  } catch (e) {
-    return { ok: false, error: e.message };
-  }
-}
-
 // ── Images ──────────────────────────────────────────────────────────────
 
 const IMAGE_TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
@@ -309,7 +296,7 @@ function stripTags(html) {
 }
 
 module.exports = {
-  SITE_URL, USE_BLOB, TOKEN_ENV, blobSelfTest,
+  SITE_URL, USE_BLOB,
   getAllPosts, getPublishedPosts, savePosts, saveImage,
   checkPassword, sessionCookie, clearCookie, isAdmin, requireAdmin, sameOrigin,
   slugify, sanitizeHtml, escapeHtml, stripTags
