@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Blog Admin | youcloud</title>
+<link rel="icon" href="/img/logomark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" integrity="sha384-ecIckRi4QlKYya/FQUbBUjS4qp65jF/J87Guw5uzTbO1C1Jfa/6kYmd6dXUF6D7i" crossorigin="anonymous">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--coral:#F96167;--coral-d:#e84f56;--navy:#0B1D3A;--ink:#3D4759;--muted:#6C7689;--line:#ECE7E8;--bg:#F7F5F6;--soft:#FEF3F4;--good:#1E9E6A;--ok:#E8A317;--bad:#E04848}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Carlito,Calibri,"Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+[hidden]{display:none!important}
+h1,h2,h3{color:var(--navy);margin:0;line-height:1.2}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 20px;border-radius:999px;border:1px solid transparent;background:var(--coral);color:#fff;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;text-decoration:none;transition:background .15s,border-color .15s,color .15s}
+.btn:hover{background:var(--coral-d)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--navy)}
+.btn-ghost:hover{background:#fff;border-color:var(--coral);color:var(--coral)}
+.btn-navy{background:var(--navy)}
+.btn-navy:hover{background:#13294f}
+.btn-sm{padding:6px 13px;font-size:14px}
+.link{background:none;border:none;padding:0;color:var(--coral);font-weight:700;cursor:pointer}
+.danger{color:var(--bad)}
+
+/* login */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(700px 400px at 80% 0%,rgba(249,97,103,.16),transparent 70%),var(--bg)}
+.login-card{width:100%;max-width:400px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px 30px;box-shadow:0 30px 60px -30px rgba(11,29,58,.25)}
+.login-card img{height:32px;margin-bottom:22px}
+.login-card h1{font-size:26px}
+.login-card p{margin:6px 0 22px;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label,.lbl{font-size:13px;font-weight:700;color:var(--navy);letter-spacing:.02em}
+.input{width:100%;padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
+.input:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(249,97,103,.15)}
+textarea.input{resize:vertical;min-height:80px}
+.err{color:var(--bad);font-size:14px;min-height:20px;margin:4px 0 10px}
+.hint{font-size:13px;color:var(--muted)}
+
+/* shell */
+.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1320px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:14px}
+.top-in img{height:26px}
+.badge-admin{padding:3px 10px;border-radius:999px;background:var(--soft);color:#C9343E;font-size:12px;font-weight:700;letter-spacing:.06em}
+.top-in .sp{flex:1}
+.main{max-width:1320px;margin:0 auto;padding:24px}
+
+/* list */
+.list-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.list-head h1{font-size:28px;flex:1}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:14px}
+.tab.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.toolbar .input{max-width:300px}
+.table{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.row{display:grid;grid-template-columns:72px minmax(0,1fr) 130px 110px 120px 90px 170px;gap:14px;align-items:center;padding:12px 16px;border-top:1px solid var(--line)}
+.row:first-child{border-top:none}
+.row.head{background:#FBFAFA;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding-top:10px;padding-bottom:10px}
+.thumb{width:72px;height:46px;border-radius:9px;background:var(--soft) center/cover no-repeat}
+.row .t{font-weight:700;color:var(--navy);cursor:pointer}
+.row .t:hover{color:var(--coral)}
+.row .s{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.status{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:700}
+.status.published{background:#E5F6EE;color:#13734C}
+.status.draft{background:#F1EFF0;color:#5F6675}
+.status.scheduled{background:#FFF4D6;color:#8A5D00}
+.dots{display:flex;gap:6px;align-items:center}
+.dot{width:12px;height:12px;border-radius:50%;background:#C9CED6;display:inline-block;flex-shrink:0}
+.dot.good{background:var(--good)}.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
+.acts{display:flex;gap:6px;justify-content:flex-end}
+.empty{padding:46px 20px;text-align:center;color:var(--muted)}
+.empty h2{font-size:22px;margin-bottom:6px}
+
+/* editor */
+.ed-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.ed-bar .sp{flex:1}
+.saved{font-size:14px;color:var(--muted)}
+.saved.dirty{color:#A86A00}
+.ed{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.card+.card{margin-top:16px}
+.card h3{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.title-in{width:100%;border:none;outline:none;font-size:34px;font-weight:700;color:var(--navy);padding:4px 0;background:transparent}
+.title-in::placeholder{color:#B8BEC8}
+.permalink{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--muted);margin:2px 0 14px;flex-wrap:wrap}
+.permalink input{border:1px dashed transparent;border-radius:6px;padding:2px 6px;min-width:120px;color:var(--navy);background:var(--bg);outline:none}
+.permalink input:focus{border-color:var(--coral)}
+.restore{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:#FFF4D6;color:#7A5300;font-size:14.5px;margin-bottom:14px}
+#editor-wrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+#editor-wrap .ql-toolbar.ql-snow{position:sticky;top:51px;z-index:5;background:#FBFAFA;border:none;border-bottom:1px solid var(--line);padding:8px 10px}
+#editor-wrap .ql-container.ql-snow{border:none;font-family:inherit;font-size:18px}
+#editor .ql-editor{min-height:440px;padding:22px 24px;line-height:1.7;color:#2E3748}
+#editor .ql-editor h2{font-size:28px;color:var(--navy);margin:1.1em 0 .4em}
+#editor .ql-editor h3{font-size:22px;color:var(--navy);margin:1em 0 .4em}
+#editor .ql-editor h4{font-size:19px;color:var(--navy)}
+#editor .ql-editor p{margin-bottom:.8em}
+#editor .ql-editor img{border-radius:10px;cursor:pointer;max-width:100%}
+#editor .ql-editor img:hover{outline:3px solid rgba(249,97,103,.4)}
+#editor .ql-editor blockquote{border-left:4px solid var(--coral);color:var(--navy);font-style:italic}
+#editor .ql-editor.ql-blank::before{font-style:normal;color:#B8BEC8;left:24px}
+.ql-snow .ql-tooltip{z-index:10;border-radius:10px}
+.wc{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);padding:8px 2px 0}
+
+.seo-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:-4px -18px 14px;padding:0 14px}
+.seo-tab{padding:10px 12px;border:none;background:none;cursor:pointer;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;display:flex;align-items:center;gap:7px}
+.seo-tab.on{color:var(--navy);border-bottom-color:var(--coral)}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.checks li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.checks li .dot{margin-top:4px}
+.checks li b{color:var(--navy)}
+.group-t{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 8px}
+.group-t:first-child{margin-top:0}
+
+.snippet{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff;font-family:arial,sans-serif;max-width:640px}
+.sn-site{display:flex;align-items:center;gap:10px}
+.sn-fav{width:28px;height:28px;border-radius:50%;background:#F1F3F4;display:flex;align-items:center;justify-content:center}
+.sn-fav img{width:18px;height:18px}
+.sn-name{font-size:14px;color:#202124;line-height:1.2}
+.sn-url{font-size:12px;color:#4D5156}
+.sn-title{margin-top:8px;font-size:20px;line-height:1.3;color:#1A0DAB;overflow-wrap:anywhere}
+.sn-desc{margin-top:4px;font-size:14px;line-height:1.58;color:#4D5156;overflow-wrap:anywhere}
+.sn-desc span{color:#70757A}
+.meter{height:5px;border-radius:9px;background:#EEE;margin-top:6px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:9px;transition:width .2s,background .2s}
+
+.score-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);cursor:pointer}
+.score-row:first-of-type{border-top:none}
+.score-row .n{flex:1;font-weight:700;color:var(--navy)}
+.score-row .v{font-size:14px;color:var(--muted)}
+.feat{border:2px dashed var(--line);border-radius:14px;min-height:150px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:var(--muted);cursor:pointer;background:var(--bg) center/cover no-repeat;text-align:center;padding:14px;transition:border-color .15s}
+.feat:hover{border-color:var(--coral)}
+.feat.has{border-style:solid;min-height:170px}
+.feat.has>*{display:none}
+.feat-acts{display:flex;gap:10px;margin-top:8px}
+
+.modal-bg{position:fixed;inset:0;background:rgba(11,29,58,.45);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{width:100%;max-width:440px;background:#fff;border-radius:20px;padding:24px}
+.modal h3{font-size:20px;margin-bottom:6px}
+.modal p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.modal .acts{margin-top:16px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 20px;border-radius:999px;font-size:15px;z-index:120;box-shadow:0 14px 30px rgba(11,29,58,.3)}
+.toast.bad{background:var(--bad)}
+.busy{position:fixed;inset:0;z-index:110;background:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy)}
+
+@media (max-width:1100px){.ed{grid-template-columns:1fr}.row{grid-template-columns:60px minmax(0,1fr) 110px 150px}.row .c-cat,.row .c-date,.row .c-seo{display:none}.thumb{width:60px}}
+@media (max-width:640px){.main{padding:16px}.row{grid-template-columns:minmax(0,1fr) auto}.row .thumb,.row .c-status{display:none}.title-in{font-size:26px}.top-in{padding:10px 16px}.top-in .hide-sm{display:none}#editor .ql-editor{padding:16px}}
+</style>
+</head>
+<body>
+
+<!-- Sign in -->
+<section class="login" id="v-login" hidden>
+  <form class="login-card" id="login-form">
+    <img src="/img/logo.png?v=2" alt="youcloud">
+    <h1>Blog admin</h1>
+    <p>Sign in to write and publish articles.</p>
+    <div class="field">
+      <label for="pw">Password</label>
+      <input class="input" id="pw" type="password" autocomplete="current-password" required autofocus>
+    </div>
+    <div class="err" id="login-err"></div>
+    <button class="btn" style="width:100%" id="login-btn">Sign in</button>
+  </form>
+</section>
+
+<!-- Signed in -->
+<div id="v-app" hidden>
+  <header class="top">
+    <div class="top-in">
+      <a href="/admin"><img src="/img/logo.png?v=2" alt="youcloud"></a>
+      <span class="badge-admin">BLOG ADMIN</span>
+      <span class="sp"></span>
+      <a class="btn btn-ghost btn-sm hide-sm" href="/blog" target="_blank" rel="noopener">View blog ↗</a>
+      <button class="btn btn-ghost btn-sm" id="logout">Sign out</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Posts list -->
+    <section id="v-list">
+      <div class="list-head">
+        <h1>Articles</h1>
+        <button class="btn" id="new-post">+ New article</button>
+      </div>
+      <div class="toolbar">
+        <div class="tabs" id="filters"></div>
+        <input class="input" id="search" type="search" placeholder="Search titles…">
+      </div>
+      <div class="table" id="post-table"></div>
+      <p class="hint" id="storage-note" style="margin-top:12px"></p>
+    </section>
+
+    <!-- Editor -->
+    <section id="v-edit" hidden>
+      <div class="ed-bar">
+        <button class="btn btn-ghost btn-sm" id="back">← All articles</button>
+        <span class="saved" id="saved-state"></span>
+        <span class="sp"></span>
+        <button class="btn btn-ghost btn-sm" id="preview">Preview</button>
+        <button class="btn btn-ghost btn-sm" id="save-draft">Save draft</button>
+        <button class="btn btn-sm" id="publish">Publish</button>
+      </div>
+
+      <div class="ed">
+        <div>
+          <div class="restore" id="restore" hidden>
+            <span style="flex:1">You have unsaved changes from an earlier session on this device.</span>
+            <button class="link" id="restore-yes">Restore</button>
+            <button class="link" style="color:#7A5300" id="restore-no">Discard</button>
+          </div>
+          <div class="card">
+            <input class="title-in" id="f-title" placeholder="Add a title" maxlength="200">
+            <div class="permalink">
+              <span>Link:</span><span>youcloudpay.com/blog/</span><input id="f-slug" placeholder="your-article-link" maxlength="80" aria-label="Link">
+            </div>
+            <div id="editor-wrap"><div id="editor"></div></div>
+            <div class="wc"><span id="wc">0 words</span><span>Tip: click an image in the text to change its description (alt text).</span></div>
+          </div>
+
+          <div class="card">
+            <h3>Excerpt</h3>
+            <textarea class="input" id="f-excerpt" maxlength="400" placeholder="A one or two sentence summary shown on the blog page and in previews."></textarea>
+          </div>
+
+          <div class="card" id="seo-card">
+            <div class="seo-tabs">
+              <button class="seo-tab on" data-tab="seo"><span class="dot" id="tab-dot-seo"></span>SEO</button>
+              <button class="seo-tab" data-tab="read"><span class="dot" id="tab-dot-read"></span>Readability</button>
+              <button class="seo-tab" data-tab="google">Google preview</button>
+            </div>
+
+            <div data-pane="seo">
+              <div class="field">
+                <label for="f-kp">Focus keyphrase</label>
+                <input class="input" id="f-kp" maxlength="120" placeholder="The search phrase this article should rank for, e.g. restaurant POS system">
+                <span class="hint">Pick one phrase people actually search for. It should appear in the title, link, first paragraph and a subheading.</span>
+              </div>
+              <div class="group-t" id="seo-problems-t">Problems</div>
+              <ul class="checks" id="seo-problems"></ul>
+              <div class="group-t" id="seo-improve-t">Improvements</div>
+              <ul class="checks" id="seo-improve"></ul>
+              <div class="group-t" id="seo-good-t">Good results</div>
+              <ul class="checks" id="seo-good"></ul>
+            </div>
+
+            <div data-pane="read" hidden>
+              <div class="group-t" id="read-problems-t">Problems</div>
+              <ul class="checks" id="read-problems"></ul>
+              <div class="group-t" id="read-improve-t">Improvements</div>
+              <ul class="checks" id="read-improve"></ul>
+              <div class="group-t" id="read-good-t">Good results</div>
+              <ul class="checks" id="read-good"></ul>
+            </div>
+
+            <div data-pane="google" hidden>
+              <div class="snippet">
+                <div class="sn-site">
+                  <span class="sn-fav"><img src="/img/logomark.png" alt=""></span>
+                  <div><div class="sn-name">youcloud</div><div class="sn-url" id="sn-url"></div></div>
+                </div>
+                <div class="sn-title" id="sn-title"></div>
+                <div class="sn-desc" id="sn-desc"></div>
+              </div>
+              <div class="field" style="margin-top:18px">
+                <label for="f-seotitle">SEO title</label>
+                <input class="input" id="f-seotitle" maxlength="120" placeholder="Leave empty to use: Article title | youcloud Blog">
+                <div class="meter"><i id="m-title"></i></div>
+                <span class="hint" id="h-title"></span>
+              </div>
+              <div class="field">
+                <label for="f-meta">Meta description</label>
+                <textarea class="input" id="f-meta" maxlength="320" placeholder="What Google shows under the title. Mention the keyphrase and why someone should click."></textarea>
+                <div class="meter"><i id="m-meta"></i></div>
+                <span class="hint" id="h-meta"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h3>Publish</h3>
+            <div class="field">
+              <label for="f-status">Status</label>
+              <select class="input" id="f-status">
+                <option value="draft">Draft (only visible here)</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-date">Publish date</label>
+              <input class="input" id="f-date" type="datetime-local">
+              <span class="hint">A future date schedules the article: it goes live then.</span>
+            </div>
+            <button class="link danger" id="delete" hidden>Delete article</button>
+          </div>
+
+          <div class="card">
+            <h3>Scores</h3>
+            <div class="score-row" data-go="seo"><span class="dot" id="side-dot-seo"></span><span class="n">SEO</span><span class="v" id="side-seo"></span></div>
+            <div class="score-row" data-go="read"><span class="dot" id="side-dot-read"></span><span class="n">Readability</span><span class="v" id="side-read"></span></div>
+          </div>
+
+          <div class="card">
+            <h3>Featured image</h3>
+            <div class="feat" id="feat" tabindex="0" role="button" aria-label="Upload featured image"><strong>Upload image</strong><span class="hint">Shown at the top of the article and on the blog page. Wide images (16:9) work best.</span></div>
+            <div class="feat-acts" id="feat-acts" hidden>
+              <button class="link" id="feat-change">Replace</button>
+              <button class="link danger" id="feat-remove">Remove</button>
+            </div>
+            <div class="field" style="margin-top:12px">
+              <label for="f-alt">Image description (alt text)</label>
+              <input class="input" id="f-alt" maxlength="200" placeholder="Describe the image for Google and screen readers">
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Details</h3>
+            <div class="field">
+              <label for="f-cat">Category</label>
+              <input class="input" id="f-cat" list="cats" maxlength="60" placeholder="e.g. Retail, Restaurants, Product news">
+              <datalist id="cats"></datalist>
+            </div>
+            <div class="field">
+              <label for="f-author">Author</label>
+              <input class="input" id="f-author" maxlength="80" placeholder="Name shown on the article">
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+</div>
+
+<input type="file" id="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+
+<div class="modal-bg" id="alt-modal" hidden>
+  <form class="modal" id="alt-form">
+    <h3>Describe this image</h3>
+    <p>Alt text tells Google and screen readers what the image shows. Use the focus keyphrase if it fits naturally.</p>
+    <input class="input" id="alt-input" maxlength="200" placeholder="e.g. Cashier using a youcloud POS at a busy café counter">
+    <div class="acts" style="display:flex;gap:8px;justify-content:flex-end">
+      <button type="button" class="btn btn-ghost btn-sm" id="alt-skip">Skip</button>
+      <button class="btn btn-sm">Save</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-bg" id="video-modal" hidden>
+  <form class="modal" id="video-form">
+    <h3>Embed a video</h3>
+    <p>Paste a YouTube or Vimeo link.</p>
+    <input class="input" id="video-input" placeholder="https://www.youtube.com/watch?v=…">
+    <div class="acts" style="display:flex;gap:8px;justify-content:flex-end">
+      <button type="button" class="btn btn-ghost btn-sm" id="video-cancel">Cancel</button>
+      <button class="btn btn-sm">Embed</button>
+    </div>
+  </form>
+</div>
+
+<div class="busy" id="busy" hidden>Working…</div>
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js" integrity="sha384-utBUCeG4SYaCm4m7GQZYr8Hy8Fpy3V4KGjBZaf4WTKOcwhCYpt/0PfeEe3HNlwx8" crossorigin="anonymous"></script>
+<script src="/admin/seo.js?v=2"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { posts: [], filter: "all", search: "", post: null, dirty: false, slugTouched: false, storage: "" };
+  var quill = null;
+
+  // ── API ──────────────────────────────────────────────────────────────
+  function api(path, opts) {
+    opts = opts || {};
+    var init = { method: opts.method || "GET", headers: {}, credentials: "same-origin" };
+    if (opts.body) { init.headers["Content-Type"] = "application/json"; init.body = JSON.stringify(opts.body); }
+    return fetch(path, init).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (data) {
+        if (r.status === 401 && path.indexOf("login") < 0) { showLogin(); throw new Error(data.error || "Please sign in again."); }
+        if (!r.ok) throw new Error(data.error || ("Request failed (" + r.status + ")"));
+        return data;
+      });
+    });
+  }
+
+  function toast(msg, bad) {
+    var t = document.createElement("div");
+    t.className = "toast" + (bad ? " bad" : "");
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, bad ? 5000 : 2600);
+  }
+
+  function busy(on) { $("busy").hidden = !on; }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; });
+  }
+
+  // ── Sign in ──────────────────────────────────────────────────────────
+  function showLogin() {
+    $("v-app").hidden = true;
+    $("v-login").hidden = false;
+    $("pw").focus();
+  }
+
+  $("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("login-err").textContent = "";
+    $("login-btn").disabled = true;
+    api("/api/admin/login", { method: "POST", body: { password: $("pw").value } })
+      .then(function () { $("pw").value = ""; start(); })
+      .catch(function (err) { $("login-err").textContent = err.message; })
+      .then(function () { $("login-btn").disabled = false; });
+  });
+
+  $("logout").addEventListener("click", function () {
+    if (state.dirty && !confirm("You have unsaved changes. Sign out anyway?")) return;
+    state.dirty = false;
+    api("/api/admin/logout", { method: "POST" }).then(showLogin);
+  });
+
+  function start() {
+    $("v-login").hidden = true;
+    $("v-app").hidden = false;
+    loadPosts().then(function () { route(); });
+  }
+
+  // ── Routing: #/ list, #/new, #/edit/<id> ──────────────────────────────
+  function route() {
+    var h = location.hash.replace(/^#\/?/, "");
+    if (h === "new") return openEditor(null);
+    if (h.indexOf("edit/") === 0) {
+      var p = state.posts.filter(function (x) { return x.id === h.slice(5); })[0];
+      if (p) return openEditor(p);
+    }
+    showList();
+  }
+
+  window.addEventListener("hashchange", function () {
+    if ($("v-app").hidden) return;
+    route();
+  });
+
+  window.addEventListener("beforeunload", function (e) {
+    if (state.dirty) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  // ── List ─────────────────────────────────────────────────────────────
+  function loadPosts() {
+    return api("/api/admin/posts").then(function (d) { state.posts = d.posts || []; });
+  }
+
+  function statusOf(p) {
+    if (p.status !== "published") return "draft";
+    return new Date(p.publishedAt) > new Date() ? "scheduled" : "published";
+  }
+
+  function rating(score) { return !score ? "" : score >= 75 ? "good" : score >= 45 ? "ok" : "bad"; }
+
+  function showList() {
+    $("v-edit").hidden = true;
+    $("v-list").hidden = false;
+    document.title = "Articles | youcloud Blog Admin";
+    var counts = { all: state.posts.length, published: 0, draft: 0, scheduled: 0 };
+    state.posts.forEach(function (p) { counts[statusOf(p)]++; });
+    var names = { all: "All", published: "Published", scheduled: "Scheduled", draft: "Drafts" };
+    $("filters").innerHTML = Object.keys(names).filter(function (k) { return k === "all" || counts[k]; }).map(function (k) {
+      return '<button class="tab' + (state.filter === k ? " on" : "") + '" data-f="' + k + '">' + names[k] + " (" + counts[k] + ")</button>";
+    }).join("");
+
+    var q = state.search.toLowerCase();
+    var rows = state.posts
+      .filter(function (p) { return state.filter === "all" || statusOf(p) === state.filter; })
+      .filter(function (p) { return !q || p.title.toLowerCase().indexOf(q) >= 0; })
+      .sort(function (a, b) { return new Date(b.updatedAt) - new Date(a.updatedAt); });
+
+    if (!state.posts.length) {
+      $("post-table").innerHTML = '<div class="empty"><h2>No articles yet</h2><p>Write your first article. It stays a draft until you publish it.</p><p><button class="btn" data-new>+ New article</button></p></div>';
+    } else if (!rows.length) {
+      $("post-table").innerHTML = '<div class="empty">No articles match.</div>';
+    } else {
+      $("post-table").innerHTML = '<div class="row head"><span></span><span>Title</span><span class="c-cat">Category</span><span class="c-status">Status</span><span class="c-date">Date</span><span class="c-seo">Scores</span><span></span></div>' +
+        rows.map(function (p) {
+          var st = statusOf(p);
+          var d = new Date(p.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+          return '<div class="row">' +
+            '<span class="thumb" style="' + (p.featuredImage ? "background-image:url('" + esc(p.featuredImage) + "')" : "") + '"></span>' +
+            '<div style="min-width:0"><div class="t" data-edit="' + p.id + '">' + esc(p.title) + '</div><div class="s">/blog/' + esc(p.slug) + "</div></div>" +
+            '<span class="s c-cat">' + esc(p.category || "—") + "</span>" +
+            '<span class="c-status"><span class="status ' + st + '">' + st.charAt(0).toUpperCase() + st.slice(1) + "</span></span>" +
+            '<span class="s c-date">' + d + "</span>" +
+            '<span class="dots c-seo" title="SEO and readability"><span class="dot ' + rating(p.seoScore) + '"></span><span class="dot ' + rating(p.readabilityScore) + '"></span></span>' +
+            '<span class="acts"><button class="btn btn-ghost btn-sm" data-edit="' + p.id + '">Edit</button>' +
+            (st === "published" ? '<a class="btn btn-ghost btn-sm" href="/blog/' + esc(p.slug) + '" target="_blank" rel="noopener">View</a>' : '<a class="btn btn-ghost btn-sm" href="/api/blog?preview=' + p.id + '" target="_blank" rel="noopener">Preview</a>') +
+            "</span></div>";
+        }).join("");
+    }
+    $("storage-note").textContent = state.storage === "local" ? "Saving to this computer (.cms-data). Connect a Vercel Blob store to save online." : "";
+  }
+
+  $("filters").addEventListener("click", function (e) {
+    var f = e.target.getAttribute("data-f");
+    if (f) { state.filter = f; showList(); }
+  });
+  $("search").addEventListener("input", function (e) { state.search = e.target.value; showList(); });
+  $("post-table").addEventListener("click", function (e) {
+    var id = e.target.getAttribute("data-edit");
+    if (id) location.hash = "#/edit/" + id;
+    if (e.target.hasAttribute("data-new")) location.hash = "#/new";
+  });
+  $("new-post").addEventListener("click", function () { location.hash = "#/new"; });
+
+  // ── Editor ───────────────────────────────────────────────────────────
+  function initQuill() {
+    if (quill) return;
+    quill = new Quill("#editor", {
+      theme: "snow",
+      placeholder: "Start writing… Use Heading 2 for main sections and Heading 3 inside them.",
+      modules: {
+        toolbar: {
+          container: [
+            [{ header: [2, 3, 4, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: [] }, { background: [] }],
+            [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+            [{ align: [] }],
+            ["blockquote", "code-block", "link"],
+            ["image", "video"],
+            ["clean"]
+          ],
+          handlers: { image: function () { pickImage("content"); }, video: openVideo }
+        }
+      }
+    });
+    quill.on("text-change", function (d, o, source) { if (source === "user") markDirty(); else analyse(); });
+    quill.root.addEventListener("click", function (e) {
+      if (e.target.tagName === "IMG") askAlt(e.target.getAttribute("alt") || "", function (alt) { setImgAlt(e.target, alt); });
+    });
+    // Friendly names for the toolbar buttons.
+    var tips = { "ql-bold": "Bold", "ql-italic": "Italic", "ql-underline": "Underline", "ql-strike": "Strikethrough", "ql-blockquote": "Quote", "ql-code-block": "Code", "ql-link": "Link", "ql-image": "Insert image", "ql-video": "Embed video", "ql-clean": "Clear formatting" };
+    Object.keys(tips).forEach(function (c) { document.querySelectorAll(".ql-toolbar ." + c).forEach(function (b) { b.title = tips[c]; }); });
+    document.querySelectorAll('.ql-toolbar .ql-list[value="ordered"]').forEach(function (b) { b.title = "Numbered list"; });
+    document.querySelectorAll('.ql-toolbar .ql-list[value="bullet"]').forEach(function (b) { b.title = "Bulleted list"; });
+  }
+
+  var FIELDS = { title: "f-title", slug: "f-slug", excerpt: "f-excerpt", focusKeyphrase: "f-kp", seoTitle: "f-seotitle", metaDescription: "f-meta", featuredAlt: "f-alt", category: "f-cat", author: "f-author", status: "f-status" };
+
+  function blankPost() {
+    var last = state.posts[0];
+    return { id: "", title: "", slug: "", excerpt: "", content: "", focusKeyphrase: "", seoTitle: "", metaDescription: "", featuredImage: "", featuredAlt: "", category: "", author: last ? last.author : "", status: "draft", publishedAt: new Date().toISOString() };
+  }
+
+  function toLocalInput(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) d = new Date();
+    var off = d.getTimezoneOffset() * 60000;
+    return new Date(d - off).toISOString().slice(0, 16);
+  }
+
+  function openEditor(post) {
+    initQuill();
+    state.post = post ? JSON.parse(JSON.stringify(post)) : blankPost();
+    var p = state.post;
+    Object.keys(FIELDS).forEach(function (k) { $(FIELDS[k]).value = p[k] || ""; });
+    $("f-date").value = toLocalInput(p.publishedAt);
+    quill.setContents(quill.clipboard.convert({ html: p.content || "" }), "silent");
+    quill.history.clear();
+    setFeatured(p.featuredImage);
+    state.slugTouched = !!p.id;
+    $("delete").hidden = !p.id;
+    $("cats").innerHTML = Array.from(new Set(state.posts.map(function (x) { return x.category; }).filter(Boolean))).map(function (c) { return '<option value="' + esc(c) + '">'; }).join("");
+    $("v-list").hidden = true;
+    $("v-edit").hidden = false;
+    document.title = (p.title || "New article") + " | youcloud Blog Admin";
+    setDirty(false);
+    checkBackup();
+    updateButtons();
+    analyse();
+    window.scrollTo(0, 0);
+    if (!p.id) $("f-title").focus();
+  }
+
+  function collect() {
+    var p = state.post;
+    Object.keys(FIELDS).forEach(function (k) { p[k] = $(FIELDS[k]).value.trim(); });
+    var html = quill.getSemanticHTML().replace(/&nbsp;/g, " ");
+    p.content = quill.getText().trim() || quill.root.querySelector("img,iframe") ? html : "";
+    var d = new Date($("f-date").value);
+    p.publishedAt = isNaN(d) ? new Date().toISOString() : d.toISOString();
+    return p;
+  }
+
+  function setDirty(on) {
+    state.dirty = on;
+    var el = $("saved-state");
+    el.className = "saved" + (on ? " dirty" : "");
+    el.textContent = on ? "Unsaved changes" : state.post && state.post.updatedAt ? "Saved " + new Date(state.post.updatedAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
+  }
+
+  var backupTimer = null;
+  function markDirty() {
+    setDirty(true);
+    analyse();
+    clearTimeout(backupTimer);
+    backupTimer = setTimeout(saveBackup, 800);
+  }
+
+  // Unsaved work is mirrored to this browser so a closed tab doesn't lose it.
+  function backupKey() { return "yc-cms-backup:" + (state.post.id || "new"); }
+  function saveBackup() {
+    try { localStorage.setItem(backupKey(), JSON.stringify({ at: Date.now(), post: collect() })); } catch (e) {}
+  }
+  function clearBackup() { try { localStorage.removeItem(backupKey()); } catch (e) {} }
+  function checkBackup() {
+    $("restore").hidden = true;
+    var b = null;
+    try { b = JSON.parse(localStorage.getItem(backupKey()) || "null"); } catch (e) {}
+    if (!b || !b.post) return;
+    var saved = state.post.updatedAt ? new Date(state.post.updatedAt).getTime() : 0;
+    if (b.at <= saved) return clearBackup();
+    $("restore").hidden = false;
+    $("restore-yes").onclick = function () {
+      var keep = { id: state.post.id, updatedAt: state.post.updatedAt, createdAt: state.post.createdAt };
+      var p = Object.assign({}, b.post, keep);
+      Object.keys(FIELDS).forEach(function (k) { $(FIELDS[k]).value = p[k] || ""; });
+      $("f-date").value = toLocalInput(p.publishedAt);
+      quill.setContents(quill.clipboard.convert({ html: p.content || "" }), "silent");
+      state.post.featuredImage = p.featuredImage;
+      setFeatured(p.featuredImage);
+      $("restore").hidden = true;
+      markDirty();
+    };
+    $("restore-no").onclick = function () { clearBackup(); $("restore").hidden = true; };
+  }
+
+  ["f-title", "f-slug", "f-excerpt", "f-kp", "f-seotitle", "f-meta", "f-alt", "f-cat", "f-author", "f-date"].forEach(function (id) {
+    $(id).addEventListener("input", function () {
+      if (id === "f-title" && !state.slugTouched) $("f-slug").value = SEO.slugify($("f-title").value);
+      if (id === "f-slug") state.slugTouched = true;
+      markDirty();
+    });
+  });
+  $("f-slug").addEventListener("blur", function () { this.value = SEO.slugify(this.value); markDirty(); });
+  $("f-status").addEventListener("change", function () { updateButtons(); markDirty(); });
+
+  function updateButtons() {
+    var published = state.post && state.post.id && state.post.status === "published";
+    $("publish").textContent = published ? "Update" : "Publish";
+    $("save-draft").textContent = published ? "Switch to draft" : "Save draft";
+  }
+
+  function save(status) {
+    var p = collect();
+    if (!p.title) { toast("Add a title first.", true); $("f-title").focus(); return Promise.reject(); }
+    if (status) p.status = status;
+    var r = SEO.analyse(p, otherKeyphrases());
+    // The list shows dots from the stored score, so keep it under "good" when a red check remains.
+    p.seoScore = r.seo.rating === "good" ? r.seo.score : Math.min(r.seo.score, 74);
+    p.readabilityScore = r.read.rating === "good" ? r.read.score : Math.min(r.read.score, 74);
+    busy(true);
+    return api("/api/admin/posts", { method: "POST", body: { post: p } }).then(function (d) {
+      clearBackup();
+      state.posts = d.posts;
+      state.post = JSON.parse(JSON.stringify(d.post));
+      $("f-slug").value = d.post.slug;
+      $("f-status").value = d.post.status;
+      state.slugTouched = true;
+      $("delete").hidden = false;
+      if (location.hash !== "#/edit/" + d.post.id) history.replaceState(null, "", "#/edit/" + d.post.id);
+      setDirty(false);
+      updateButtons();
+      toast(d.post.status === "published" ? (new Date(d.post.publishedAt) > new Date() ? "Scheduled" : "Published") : "Draft saved");
+      return d.post;
+    }).catch(function (err) { if (err) toast(err.message, true); throw err; })
+      .finally(function () { busy(false); });
+  }
+
+  $("publish").addEventListener("click", function () {
+    var r = SEO.analyse(collect(), otherKeyphrases());
+    var go = function () { save("published"); };
+    if (r.seo.rating === "bad" && state.post.status !== "published") {
+      if (!confirm("The SEO score still needs work. Publish anyway?")) return;
+    }
+    go();
+  });
+  $("save-draft").addEventListener("click", function () { save("draft"); });
+  $("preview").addEventListener("click", function () {
+    // Previews need the saved version, so save first (keeping the current status).
+    var w = window.open("about:blank", "_blank");
+    save().then(function (p) { w.location = "/api/blog?preview=" + p.id; }).catch(function () { w.close(); });
+  });
+  $("back").addEventListener("click", function () {
+    if (state.dirty && !confirm("Leave without saving your changes?")) return;
+    state.dirty = false;
+    location.hash = "#/";
+  });
+  $("delete").addEventListener("click", function () {
+    if (!confirm("Delete “" + (state.post.title || "this article") + "”? This cannot be undone.")) return;
+    busy(true);
+    api("/api/admin/posts?id=" + encodeURIComponent(state.post.id), { method: "DELETE" }).then(function (d) {
+      clearBackup();
+      state.posts = d.posts;
+      state.dirty = false;
+      toast("Article deleted");
+      location.hash = "#/";
+    }).catch(function (e) { toast(e.message, true); }).finally(function () { busy(false); });
+  });
+
+  // ── Images ───────────────────────────────────────────────────────────
+  var pickTarget = "content";
+  function pickImage(target) { pickTarget = target; $("file").value = ""; $("file").click(); }
+
+  $("file").addEventListener("change", function () {
+    var f = this.files[0];
+    if (!f) return;
+    busy(true);
+    resizeImage(f).then(function (img) {
+      return api("/api/admin/upload", { method: "POST", body: { filename: f.name, contentType: img.type, data: img.data } });
+    }).then(function (d) {
+      busy(false);
+      if (pickTarget === "featured") {
+        state.post.featuredImage = d.url;
+        setFeatured(d.url);
+        if (!$("f-alt").value) $("f-alt").focus();
+        markDirty();
+      } else {
+        var range = quill.getSelection(true);
+        var at = range ? range.index : quill.getLength();
+        askAlt("", function (alt) {
+          quill.insertEmbed(at, "image", d.url, "user");
+          if (alt) quill.formatText(at, 1, { alt: alt }, "user");
+          quill.setSelection(at + 1, 0, "silent");
+          var el = quill.root.querySelector('img[src="' + d.url + '"]');
+          if (el && alt && el.getAttribute("alt") !== alt) el.setAttribute("alt", alt);
+          markDirty();
+        });
+      }
+    }).catch(function (e) { busy(false); toast(e.message || "Upload failed", true); });
+  });
+
+  // Shrinks photos to at most 1600px wide in the browser before upload.
+  function resizeImage(file) {
+    return new Promise(function (resolve, reject) {
+      if (file.size > 25 * 1024 * 1024) return reject(new Error("That image is over 25 MB."));
+      var reader = new FileReader();
+      reader.onerror = function () { reject(new Error("Could not read the image.")); };
+      reader.onload = function () {
+        if (file.type === "image/gif") {
+          if (file.size > 3.5 * 1024 * 1024) return reject(new Error("GIFs must be under 3.5 MB."));
+          return resolve({ type: "image/gif", data: reader.result });
+        }
+        var img = new Image();
+        img.onerror = function () { reject(new Error("That file is not an image we can use.")); };
+        img.onload = function () {
+          var max = 1600, w = img.naturalWidth, h = img.naturalHeight;
+          if (w > max) { h = Math.round(h * max / w); w = max; }
+          var c = document.createElement("canvas");
+          c.width = w; c.height = h;
+          var ctx = c.getContext("2d");
+          var keepPng = file.type === "image/png" && w * h < 600 * 600;
+          if (!keepPng) { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); }
+          ctx.drawImage(img, 0, 0, w, h);
+          var type = keepPng ? "image/png" : "image/webp";
+          var data = c.toDataURL(type, 0.82);
+          if (data.indexOf("data:" + type) !== 0) { type = "image/jpeg"; data = c.toDataURL(type, 0.85); }
+          resolve({ type: type, data: data });
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function setFeatured(url) {
+    var el = $("feat");
+    el.classList.toggle("has", !!url);
+    el.style.backgroundImage = url ? "url('" + url.replace(/'/g, "%27") + "')" : "";
+    $("feat-acts").hidden = !url;
+  }
+  $("feat").addEventListener("click", function () { pickImage("featured"); });
+  $("feat").addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickImage("featured"); } });
+  $("feat-change").addEventListener("click", function () { pickImage("featured"); });
+  $("feat-remove").addEventListener("click", function () { state.post.featuredImage = ""; setFeatured(""); markDirty(); });
+
+  var altDone = null;
+  function askAlt(current, done) {
+    altDone = done;
+    $("alt-input").value = current;
+    $("alt-modal").hidden = false;
+    setTimeout(function () { $("alt-input").focus(); }, 30);
+  }
+  $("alt-form").addEventListener("submit", function (e) { e.preventDefault(); $("alt-modal").hidden = true; if (altDone) altDone($("alt-input").value.trim()); altDone = null; });
+  $("alt-skip").addEventListener("click", function () { $("alt-modal").hidden = true; if (altDone) altDone(""); altDone = null; });
+
+  function setImgAlt(img, alt) {
+    var blot = Quill.find(img);
+    if (blot && blot !== quill) {
+      var i = quill.getIndex(blot);
+      quill.formatText(i, 1, { alt: alt || false }, "user");
+    }
+    if (alt) img.setAttribute("alt", alt); else img.removeAttribute("alt");
+    markDirty();
+  }
+
+  // ── Video ────────────────────────────────────────────────────────────
+  var videoAt = 0;
+  function openVideo() {
+    var r = quill.getSelection(true);
+    videoAt = r ? r.index : quill.getLength();
+    $("video-input").value = "";
+    $("video-modal").hidden = false;
+    setTimeout(function () { $("video-input").focus(); }, 30);
+  }
+  function embedUrl(u) {
+    var m = /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{6,})/.exec(u);
+    if (m) return "https://www.youtube.com/embed/" + m[1];
+    m = /vimeo\.com\/(?:video\/)?(\d+)/.exec(u);
+    if (m) return "https://player.vimeo.com/video/" + m[1];
+    return null;
+  }
+  $("video-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var src = embedUrl($("video-input").value.trim());
+    if (!src) { toast("Use a YouTube or Vimeo link.", true); return; }
+    $("video-modal").hidden = true;
+    quill.insertEmbed(videoAt, "video", src, "user");
+    quill.setSelection(videoAt + 1, 0, "silent");
+  });
+  $("video-cancel").addEventListener("click", function () { $("video-modal").hidden = true; });
+
+  // ── SEO panel ────────────────────────────────────────────────────────
+  document.querySelectorAll(".seo-tab").forEach(function (b) {
+    b.addEventListener("click", function () { showTab(b.getAttribute("data-tab")); });
+  });
+  document.querySelectorAll(".score-row").forEach(function (r) {
+    r.addEventListener("click", function () { showTab(r.getAttribute("data-go")); $("seo-card").scrollIntoView({ behavior: "smooth", block: "start" }); });
+  });
+  function showTab(t) {
+    document.querySelectorAll(".seo-tab").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-tab") === t); });
+    document.querySelectorAll("[data-pane]").forEach(function (p) { p.hidden = p.getAttribute("data-pane") !== t; });
+  }
+
+  function otherKeyphrases() {
+    var id = state.post && state.post.id;
+    return state.posts.filter(function (p) { return p.id !== id && p.focusKeyphrase; }).map(function (p) { return { kp: p.focusKeyphrase, title: p.title }; });
+  }
+
+  var analyseTimer = null;
+  function analyse() {
+    clearTimeout(analyseTimer);
+    analyseTimer = setTimeout(runAnalysis, 250);
+  }
+
+  function renderChecks(prefix, checks) {
+    ["bad", "ok", "good"].forEach(function (lvl) {
+      var id = prefix + (lvl === "bad" ? "-problems" : lvl === "ok" ? "-improve" : "-good");
+      var list = checks.filter(function (c) { return c.status === lvl; });
+      $(id).innerHTML = list.map(function (c) { return '<li><span class="dot ' + lvl + '"></span><span><b>' + esc(c.label) + ":</b> " + esc(c.text) + "</span></li>"; }).join("");
+      $(id).hidden = $(id + "-t").hidden = !list.length;
+    });
+  }
+
+  var LABEL = { good: "Good", ok: "OK", bad: "Needs improvement" };
+  function runAnalysis() {
+    if (!state.post || !quill) return;
+    var p = collect();
+    var r = SEO.analyse(p, otherKeyphrases());
+    renderChecks("seo", r.seo.checks);
+    renderChecks("read", r.read.checks);
+    [["seo", r.seo], ["read", r.read]].forEach(function (x) {
+      ["tab-dot-", "side-dot-"].forEach(function (pre) { $(pre + x[0]).className = "dot " + x[1].rating; });
+      $("side-" + x[0]).textContent = LABEL[x[1].rating];
+    });
+    $("wc").textContent = r.words + (r.words === 1 ? " word" : " words") + " · about " + Math.max(1, Math.round(r.words / 220)) + " min read";
+
+    // Google preview
+    var title = p.seoTitle || (p.title ? p.title + " | youcloud Blog" : "Article title | youcloud Blog");
+    var desc = p.metaDescription || p.excerpt || SEO.textOf(p.content).slice(0, 160);
+    var date = new Date(p.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+    $("sn-url").textContent = "https://www.youcloudpay.com › blog › " + (p.slug || SEO.slugify(p.title) || "your-article");
+    $("sn-title").textContent = SEO.truncatePx(title, 600, "20px arial");
+    $("sn-desc").innerHTML = "<span>" + esc(date) + " — </span>" + esc(desc.length > 158 ? desc.slice(0, 155).replace(/\s+\S*$/, "") + " ..." : desc || "Add a meta description to control what Google shows here.");
+    meter("m-title", "h-title", SEO.textWidth(title, "20px arial"), 300, 580, 600, Math.round(SEO.textWidth(title, "20px arial")) + " of 600 px wide (" + title.length + " characters).");
+    var md = p.metaDescription.length;
+    meter("m-meta", "h-meta", md, 120, 156, 170, md ? md + " characters. Aim for 120–156." : "Empty: Google will pick text from the article.");
+  }
+
+  function meter(barId, hintId, v, lo, hi, max, hint) {
+    var pct = Math.min(100, v / max * 100);
+    var col = v === 0 ? "#C9CED6" : v < lo ? "var(--ok)" : v <= hi ? "var(--good)" : "var(--bad)";
+    $(barId).style.width = pct + "%";
+    $(barId).style.background = col;
+    $(hintId).textContent = hint;
+  }
+
+  // ── Boot ─────────────────────────────────────────────────────────────
+  api("/api/admin/login").then(function (d) {
+    state.storage = d.storage;
+    if (d.signedIn) start(); else showLogin();
+  }).catch(function () { showLogin(); });
+})();
+</script>
+</body>
+</html>

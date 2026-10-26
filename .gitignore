@@ -4,3 +4,6 @@
 /uploads/
 /slices/
 /screenshots/
+.cms-data/
+node_modules/
+.env*

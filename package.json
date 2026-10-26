@@ -1,0 +1,14 @@
+{
+  "name": "youcloud-website",
+  "private": true,
+  "description": "youcloud marketing site with a small blog CMS (api/, admin/)",
+  "scripts": {
+    "dev": "node tools/dev-server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.2"
+  }
+}
