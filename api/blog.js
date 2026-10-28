@@ -241,9 +241,105 @@ function cta() {
   </div></section>`;
 }
 
+// ── Site chrome ─────────────────────────────────────────────────────────
+// Mirrors the header and footer of the main site (youcloud.dc.html: NAV,
+// PRODUCTS, FOOTER, footerArcIcons, SOCIAL_LINKS) so /blog looks the same as
+// every other page. Keep the two in step when either changes.
+
+const NAV = [
+  ["/", "Home"], ["products", "Products"], ["/addons", "Add-ons"],
+  ["/solutions", "Solutions"], ["/pricing", "Pricing"], ["/partners", "Partners"], ["/about", "About"]
+];
+
+const PRODUCTS = [
+  ["/youshop", "youShop", "Retail POS · inventory · CRM"],
+  ["/youresto", "youResto", "Restaurant POS · KDS · delivery"],
+  ["/youqr", "youQR", "Scan-to-order · loyalty"],
+  ["/youpay", "youPay", "Cards · wallets · QR · SoundBox"]
+];
+
+const SOL = "/solutions";
+const FOOTER = [
+  ["Solutions", [["Digital Café", SOL], ["FMCG Distribution", SOL], ["Taxi and Fleet", SOL], ["Production Enterprise", SOL], ["Micro-merchant", SOL], ["Multi-brand Chain", SOL], ["Cloud Kitchen", SOL]]],
+  ["Company", [["About", "/about"], ["Markets", "/solutions"], ["Pricing", "/pricing"], ["Partners • ICPs", "/partners"], ["Blog", "/blog"], ["Contact", "/contact"]]],
+  ["Products", [["youShop", "/youshop"], ["youPay", "/youpay"], ["youResto", "/youresto"], ["youQR", "/youqr"]]],
+  ["Enterprise", [["youPay Enterprise", "/youpay-ent"], ["youShop Enterprise", "/youshop-ent"], ["youResto Enterprise", "/youresto-ent"], ["Book a demo", "/contact"]]],
+  ["Trust", [["PCI L1 Certified"], ["99.99% Uptime SLA"], ["EMVCo Compliant"], ["GDPR & PSD2 Ready"]]],
+  ["Legal", [["Terms of Use", "/terms"], ["Privacy Policy", "/privacy"], ["Cookies", "/cookies"]]]
+];
+
+const ARC = [
+  ["youPay", "/img/ic-pay.png", "/youpay", "5%", 108, 60, 26],
+  ["youResto", "/img/ic-resto.png", "/youresto", "28%", 44, 64, 28],
+  ["Home", "/img/logomark.png?v=2", "/", "50%", 0, 84, 34],
+  ["youShop", "/img/ic-shop.png", "/youshop", "72%", 44, 64, 28],
+  ["youQR", "/img/ic-qr.png", "/youqr", "95%", 108, 60, 26]
+];
+
+const INSTA = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5" /><circle cx="12" cy="12" r="4.6" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" /></svg>`;
+const SOCIALS = [
+  ["LinkedIn", "https://www.linkedin.com/company/youcloudpaytech", "in"],
+  ["Instagram", "https://www.instagram.com/youcloudpay/", INSTA],
+  ["Facebook", "https://www.facebook.com/YouCloudPay/", "f"]
+];
+
+function header() {
+  const menu = PRODUCTS.map(([href, name, desc]) => `<a href="${href}"><b>${name}</b><span>${desc}</span></a>`).join("");
+  return `<header class="top">
+  <div class="top-in">
+    <div class="top-l"><a href="/" class="logo"><img src="/img/logo.png?v=2" alt="youcloud" /></a></div>
+    <nav class="nav" aria-label="Main">
+      ${NAV.map(([href, label]) => href === "products"
+        ? `<div class="nav-dd"><button type="button" aria-haspopup="true">${label} <span class="caret">▾</span></button><div class="dd"><div class="dd-in">${menu}</div></div></div>`
+        : `<a href="${href}">${label}</a>`).join("")}
+    </nav>
+    <div class="top-r">
+      <a class="btn-ghost" href="/contact">Contact us</a>
+      <a class="btn" href="/contact">Book a demo</a>
+      <button type="button" class="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+  <div class="mnav">
+    ${NAV.map(([href, label]) => href === "products"
+      ? `<span class="mnav-h">${label}</span>${PRODUCTS.map(([h, name]) => `<a class="sub" href="${h}">${name}</a>`).join("")}`
+      : `<a href="${href}">${label}</a>`).join("")}
+    <div class="mnav-btns"><a class="btn-ghost" href="/contact">Contact us</a><a class="btn" href="/contact">Book a demo</a></div>
+  </div>
+</header>`;
+}
+
+function footer() {
+  const arc = ARC.map(([name, icon, href, left, top, size, iconSize]) =>
+    `<a href="${href}" title="${name}" class="arc-i${name === "Home" ? " arc-home" : ""}" style="left:${left};top:${top}px;width:${size}px;height:${size}px"><img loading="lazy" decoding="async" src="${icon}" alt="${name}" style="width:${iconSize}px;height:${iconSize}px" /></a>`).join("");
+  const cols = FOOTER.map(([title, links]) => `<div>
+        <div class="fcol-t">${title}</div>
+        <ul>${links.map(([label, href]) => `<li>${href ? `<a href="${href}">${esc(label)}</a>` : `<span>${esc(label)}</span>`}</li>`).join("")}</ul>
+        <div class="socials">${title === "Legal" ? SOCIALS.map(([t, href, glyph]) => `<a href="${href}" title="${t}" aria-label="${t}" target="_blank" rel="noopener noreferrer">${glyph}</a>`).join("") : ""}</div>
+      </div>`).join("");
+  return `<footer class="foot">
+  <div class="foot-in">
+    <div class="foot-top">
+      <div class="arc">
+        <svg viewBox="0 0 720 170" preserveAspectRatio="none" aria-hidden="true"><path d="M 40 150 Q 360 -10 680 150" fill="none" stroke="#F7D3D6" stroke-width="2" /></svg>
+        ${arc}
+      </div>
+      <img class="foot-logo" loading="lazy" decoding="async" src="/img/logo.png?v=2" alt="youcloud" />
+      <p>The operating layer for SMB and enterprise merchants. One licence, four products, unlimited merchants — live in 9+ markets.</p>
+      <div class="foot-btns"><a class="btn" href="/contact">Book a demo</a><a class="btn-out" href="/youshop">See product</a></div>
+    </div>
+    <div class="foot-rule"></div>
+    <div class="fcols">${cols}</div>
+    <div class="copy">© ${new Date().getFullYear()} youcloud Paytech • DIFC Dubai • All rights reserved.</div>
+  </div>
+</footer>`;
+}
+
+const JS = `(function(){var h=document.querySelector(".top"),b=h&&h.querySelector(".burger");if(!b)return;
+b.addEventListener("click",function(){var o=h.classList.toggle("open");b.textContent=o?"✕":"☰";b.setAttribute("aria-expanded",o)});
+var s=function(){h.classList.toggle("scrolled",window.scrollY>8)};window.addEventListener("scroll",s,{passive:true});s()})();`;
+
 function page({ title, description, canonical, body, ld, image, ogType = "website", noindex, published, modified }) {
   const og = image || SITE_URL + "/img/hero-store-1200.jpg";
-  const year = new Date().getFullYear();
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -282,23 +378,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PSHP5TKH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<header class="top">
-  <div class="wrap top-in">
-    <a href="/" class="logo"><img src="/img/logo.png?v=2" alt="youcloud" /></a>
-    <nav class="nav">
-      <a href="/products">Products</a><a href="/solutions">Solutions</a><a href="/pricing">Pricing</a><a href="/partners">Partners</a><a href="/about">About</a>
-    </nav>
-    <a class="btn btn-sm" href="/contact">Book a demo</a>
-  </div>
-</header>
+${header()}
 <main>${body}</main>
-<footer class="foot">
-  <div class="wrap foot-in">
-    <a href="/" class="logo"><img src="/img/logo.png?v=2" alt="youcloud" /></a>
-    <nav><a href="/">Home</a><a href="/products">Products</a><a href="/pricing">Pricing</a><a href="/blog">Blog</a><a href="/contact">Contact</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a></nav>
-  </div>
-  <p class="copy">© ${year} youcloud Paytech • DIFC Dubai • All rights reserved.</p>
-</footer>
+${footer()}
+<script>${JS}</script>
 </body>
 </html>`;
 }
@@ -312,15 +395,8 @@ a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 h1,h2,h3,h4{color:var(--navy);line-height:1.15;margin:0;letter-spacing:-.01em}
 .wrap{max-width:1220px;margin:0 auto;padding:0 30px}
-.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.62);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(244,241,242,.6)}
-.top-in{display:flex;align-items:center;gap:18px;padding-top:12px;padding-bottom:12px}
-.logo img{height:30px;width:auto}
-.nav{flex:1;display:flex;justify-content:center;gap:4px}
-.nav a{padding:8px 11px;font-size:15px;color:var(--navy)}
-.nav a:hover{color:var(--coral)}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 28px;border-radius:999px;background:var(--coral);color:#fff;font-weight:700;font-size:16px;border:none;cursor:pointer;white-space:nowrap;transition:background .2s}
 .btn:hover{background:var(--coral-d)}
-.btn-sm{padding:10px 22px;font-size:15px}
 .pill{display:inline-flex;align-items:center;gap:12px;padding:9px 18px 9px 15px;border-radius:999px;background:rgba(249,97,103,.16);color:#B8434C;font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.14em;font-weight:700;text-transform:uppercase}
 .pill i{width:6px;height:6px;margin-right:11px;border-radius:50%;background:currentColor;box-shadow:11px 0 0 currentColor}
 .hero{padding-top:40px;padding-bottom:22px}
@@ -389,12 +465,61 @@ h1,h2,h3,h4{color:var(--navy);line-height:1.15;margin:0;letter-spacing:-.01em}
 .share span{font-weight:700;color:var(--navy);margin-right:4px}
 .share a,.share button{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font:inherit;color:var(--navy);cursor:pointer}
 .share a:hover,.share button:hover{border-color:var(--coral);color:var(--coral)}
-.preview-bar{position:sticky;top:55px;z-index:40;background:#FFF4D6;color:#7A5300;text-align:center;font-size:14.5px;padding:8px 16px;border-bottom:1px solid #F3DFA2}
-.foot{margin-top:50px;border-top:1px solid var(--line);padding:26px 0 22px}
-.foot-in{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-.foot nav{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--muted)}
-.foot nav a:hover{color:var(--coral)}
-.copy{margin:18px 0 0;text-align:center;font-size:14px;color:var(--muted)}
-@media (max-width:980px){.nav{display:none}.top-in{justify-content:space-between}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lead{grid-template-columns:1fr;gap:6px}.lead-txt{padding:8px}.hero-grid{grid-template-columns:1fr}}
-@media (max-width:640px){.wrap{padding:0 16px}.grid{grid-template-columns:1fr}.hero{padding-top:28px}.cta{flex-direction:column;align-items:flex-start;padding:26px 22px}.prose{font-size:17.5px}.prose h2{font-size:25px}.prose h3{font-size:21px}.foot-in{flex-direction:column;align-items:flex-start}.logo img{height:26px}}
+.preview-bar{position:sticky;top:75px;z-index:40;background:#FFF4D6;color:#7A5300;text-align:center;font-size:14.5px;padding:8px 16px;border-bottom:1px solid #F3DFA2}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.45);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(244,241,242,.6);line-height:normal;transition:background .25s ease,box-shadow .25s ease}
+.top.scrolled{background:rgba(255,255,255,.62);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 12px 30px rgba(11,29,58,.08)}
+.top-in{max-width:1280px;margin:0 auto;padding:14px 30px;display:flex;align-items:center;gap:18px}
+.top-l{flex:1 1 0;min-width:0;display:flex;align-items:center}
+.logo img{height:30px;width:auto}
+.nav{display:flex;align-items:center;justify-content:center;gap:2px;flex-shrink:0}
+.nav>a,.nav-dd>button{background:none;border:0;font:inherit;cursor:pointer;display:flex;align-items:center;gap:5px;padding:8px 11px;font-size:15px;white-space:nowrap;color:var(--navy);border-bottom:2px solid transparent;transition:color .2s ease}
+.nav>a:hover,.nav-dd>button:hover{color:var(--coral)}
+.caret{font-size:11px;opacity:.7}
+.nav-dd{position:relative}
+.dd{display:none;position:absolute;top:100%;left:50%;margin-left:-136px;padding-top:8px;width:272px;z-index:60}
+.nav-dd:hover .dd,.nav-dd:focus-within .dd{display:block}
+.dd-in{background:#fff;border:1px solid #F1EDEE;border-radius:14px;box-shadow:0 18px 40px rgba(11,29,58,.10);padding:8px}
+.dd a{display:flex;flex-direction:column;gap:1px;padding:9px 12px;border-radius:9px;line-height:1.35}
+.dd a:hover{background:var(--soft)}
+.dd b{font-size:15px;color:var(--navy)}
+.dd span{font-size:13px;color:#8A93A8}
+.top-r{flex:1 1 0;display:flex;align-items:center;justify-content:flex-end;gap:12px}
+.top-r .btn{padding:12px 30px}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:999px;border:1px solid #E1E6F2;color:var(--navy);font-size:16px;font-weight:700;white-space:nowrap;transition:background .2s ease,border-color .2s ease}
+.btn-ghost:hover{background:#F7F8FB;border-color:#C9D2E8}
+.btn-out{display:inline-flex;align-items:center;justify-content:center;padding:13px 30px;border-radius:999px;border:1px solid var(--coral);background:#fff;color:var(--coral);font-size:16px;font-weight:700;white-space:nowrap;transition:background .2s}
+.btn-out:hover{background:var(--soft)}
+.burger{display:none;width:46px;height:46px;border-radius:12px;border:1px solid #EFE9EA;background:#fff;color:var(--navy);font-size:20px;line-height:1;cursor:pointer;align-items:center;justify-content:center}
+.mnav{display:none;border-top:1px solid #F4F1F2;background:#fff;padding:12px 30px 22px;max-height:78vh;overflow-y:auto}
+.mnav>a,.mnav-h{display:block;padding:15px 2px;font-size:18px;font-weight:700;color:var(--navy);border-bottom:1px solid #F6F3F4}
+.mnav>a.sub{padding:12px 2px 12px 16px;font-size:16px;font-weight:400;color:#4A5878;border-bottom-color:#F9F7F8}
+.mnav-btns{margin-top:20px;display:flex;gap:10px}
+.mnav-btns a{flex:1;padding:15px;font-size:17px}
+.foot{margin-top:50px;padding:42px 30px 36px;background:#fff;line-height:normal}
+.foot-in{max-width:1280px;margin:0 auto}
+.foot-top{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+.arc{position:relative;width:100%;max-width:720px;height:170px;margin-bottom:6px}
+.arc svg{position:absolute;inset:0;width:100%;height:100%}
+.arc-i{position:absolute;transform:translateX(-50%);border-radius:50%;background:#fff;box-shadow:0 8px 20px rgba(11,29,58,.08);display:flex;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.2,.7,.3,1.4),box-shadow .3s ease}
+.arc-home{background:radial-gradient(circle,#FCEEEF 0%,#FBDEE0 70%);box-shadow:0 0 40px rgba(249,97,103,.35),0 10px 24px rgba(11,29,58,.12)}
+.arc-i:hover{transform:translateX(-50%) translateY(-8px) scale(1.08);box-shadow:0 16px 34px rgba(249,97,103,.32)}
+.foot-logo{height:44px;width:auto;margin:-34px auto 0}
+.foot-top p{max-width:520px;margin:0 auto;font-size:16px;line-height:1.6;color:#4A5878}
+.foot-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.foot-btns .btn{padding:13px 30px}
+.foot-rule{height:1px;background:var(--line);margin:36px 0 28px}
+.fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px}
+.fcol-t{font-size:17px;font-weight:700;color:var(--navy)}
+.fcols ul{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px}
+.fcols li{font-size:16px;color:var(--muted)}
+.fcols li a:hover{color:var(--coral)}
+.socials{margin-top:20px;display:flex;gap:10px}
+.socials a{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:15px;transition:transform .25s ease,background .25s ease}
+.socials a:hover{background:var(--coral);transform:translateY(-3px)}
+.copy{margin-top:28px;padding-top:32px;border-top:1px solid var(--line);text-align:center;font-size:15px;color:#8A93A8}
+@media (max-width:959px){.nav,.top-r .btn,.top-r .btn-ghost{display:none}.burger{display:flex}.top.open .mnav{display:block}}
+@media (max-width:760px){.foot{padding-left:18px;padding-right:18px}}
+@media (max-width:480px){.foot{padding-left:14px;padding-right:14px}}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lead{grid-template-columns:1fr;gap:6px}.lead-txt{padding:8px}.hero-grid{grid-template-columns:1fr}}
+@media (max-width:640px){.wrap{padding:0 16px}.grid{grid-template-columns:1fr}.hero{padding-top:28px}.cta{flex-direction:column;align-items:flex-start;padding:26px 22px}.prose{font-size:17.5px}.prose h2{font-size:25px}.prose h3{font-size:21px}}
 `;
