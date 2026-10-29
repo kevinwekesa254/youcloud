@@ -1994,7 +1994,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="max-width: 1280px; margin: 0 auto">
       <div class="yc-eyebrow"><span class="yc-eb-dots"></span>ADD-ONS · ACTIVATE ANY MONTH</div>
       <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 31px; align-items: start">
-        <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Five add-ons.<br /><span style="color: #F96167">Priced per merchant.</span></h2>
+        <h2 style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.25">Five add-ons.<br /><span style="color: #F96167">Priced per store.</span></h2>
         <p style="font-size: 17px; line-height: 1.7">Every add-on reads the data your POS, KDS and checkout already produce. Turn one on this month, another next quarter. Activation typically takes 24–48 hours. No re-integration, ever.</p>
       </div>
       <div style="margin-top: 28px; border: 1px solid #EDE9EA; border-radius: 22px; overflow: hidden">
@@ -3504,8 +3504,8 @@ const PRICING_TIERS = {
   youResto: [
     ["Freemium", "$0", "forever", "1 outlet · 1 till · unlimited users · unlimited menu items & orders", "", ["Order taking, split bills & receipts", "Offline billing + sync", "Cash + wallet / QR", "Daily sales summary", "Self-service support"], "Start free", false],
     ["Starter", "$5", "/ store · month", "1 outlet · 1 till · unlimited users", "Everything in Freemium, plus:", ["Basic KDS (1 screen)", "2 aggregators unified", "Card payments + auto-reconciliation", "Basic loyalty + guest capture (50 records)", "Starter Mobile Kit (Bluetooth printer)", "Standard support · 24hr"], "Get starter", false],
-    ["Standard", "$10", "/ store · month", "3–8 outlets · 1 till per store · 500 guest records", "Everything in Starter, plus:", ["Full KDS (1 station) · prep timers · 86-sync", "Floor plan, waitlist & reservations", "3 aggregators unified + menu sync", "Table ordering & pay + guest app loyalty", "Basic stock, auto-ledger, attendance & shifts", "REST API & webhooks · priority support 4hr"], "Get standard", true],
-    ["Power", "$15", "/ store · month", "Unlimited outlets · 2 tills per store · unlimited guest records", "Everything in Standard, plus:", ["2 KDS stations · course firing · expo view", "All aggregators + commission reporting", "Direct delivery app + social ordering included", "youAccounts & youHR bundled", "Recipe costing + supplier management", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false]
+    ["Standard", "$10", "/ store · month", "2–8 outlets · 1 till per store · 500 guest records", "Everything in Starter, plus:", ["Full KDS (1 station) · prep timers · 86-sync", "Floor plan, waitlist & reservations", "3 aggregators unified + menu sync", "Table ordering & pay + guest app loyalty", "Basic stock, auto-ledger, attendance & shifts", "REST API & webhooks · priority support 4hr"], "Get standard", true],
+    ["Power", "$15", "/ store · month", "Unlimited outlets · 2 tills per store · unlimited guest records", "Everything in Standard, plus:", ["2 KDS stations · course firing · expo view", "All aggregators + commission reporting", "Direct delivery app + WebShop & Social Selling included", "youAccounts & youHR bundled", "Recipe costing + supplier management", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false]
   ],
   youQR: [
     ["Starter", "$0", "/ mo + $0.10 per paid order", "1 branch · up to 100 menu items · unlimited orders", "", ["QR, Pay-by-Link, wallets & cards", "1 order mode (table, counter or pickup)", "youcloud-branded ordering page", "Points + Silver → Gold loyalty tiers", "Live order feed · 50 customer records", "Standard support · 24hr"], "Get starter", false],
@@ -3620,7 +3620,7 @@ const SUPPORT_KB = [
   { q: "What does per store mean?", a: "One store licence covers one till (two on Power). Users are unlimited on every tier, and stores, SKUs, invoices and records are governed by the tier limits — never billed per seat." },
   { q: "Do I have to use youPay for payments?", a: "Payments are free to activate on every tier including Freemium, and you're charged only on successful transactions — typically 1–3% blended MDR depending on market and card type." },
   { q: "How is Enterprise different?", a: "Enterprise is quoted as one custom plan for your whole estate — unlimited outlets, all modules, hardware fleet management, SSO and 24/7 support with a 1-hour P1 response, rather than per-store pricing. Ask me to connect you with sales, or visit the Enterprise pages under each product." },
-  { q: "How much does hardware cost?", a: "Hardware is one-time and owned outright: a starter kit from $59, the y1000 handheld from $189, and the y10D SoundBox around $35, all shipped pre-configured. See the Hardware section of the Pricing page for the full list." },
+  { q: "How much does hardware cost?", a: "Hardware is one-time and owned outright: a Starter Mobile Kit at $60, the y1000 handheld at $190, the y4000 tablet POS at $330, the y5000 counter POS at $410, the y7000 kiosk at $825 and the y10D SoundBox at $41, all shipped pre-configured. See the Hardware section of the Pricing page for the full list." },
   { q: "What add-ons do you offer?", a: "Five AI add-ons plug into the same merchant data: youLend (working capital), youMarketing (WhatsApp/SMS/email campaigns), youInsight (forecasting), youLens (computer vision), and youWorkflows (no-code automation). See the Add-ons page for pricing." },
   { q: "Which countries or markets are you live in?", a: "youcloud is live in 9+ markets across MENA, South Asia, Africa and APAC, including the UAE, India, Sri Lanka, Senegal and more." },
   { q: "How do I contact support or sales?", a: "Sales & partnerships: connect@youcloudtech.com. Support: support@youcloudtech.com. Existing merchants can also reach their success manager on WhatsApp. Head to the Contact page for the full details and a message form." },
@@ -3663,10 +3663,10 @@ const PRODUCT_PAGES = {
     hwIntro: "One y-series fleet, works across every product. Every kit ships pre-configured with the app and gateway. Open the box, log in, sell.",
     hwChecks: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youShop + youPay natively"],
     hardware: [
-      ["Starter", "$59", "Mobile + BT printer", "img/shop-hw-starter.jpg", false, ["Runs onYour Android / iOS phone", "Printer 58 mm Bluetooth receipt", "Card reader Bluetooth dongle · optional", "Best for Micro shops · stalls · pop-ups"]],
-      ["y1000", "$189", "Handheld POS", "img/shop-hw-y1000.jpg", false, ["Display 6.5\" HD+ touch", "ScannerBuilt-in 2D barcode", "Printer 58 mm built-in receipt", "Card readerBuilt-in · NFC + EMV", "Best for Small shops · floor billing"]],
-      ["y5000", "$549", "Counter POS", "img/shop-hw-y5000.png", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best forBusy shops · full counter"]],
-      ["y7000", "$817", "Self-service Kiosk", "img/shop-hw-y7000.png", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes Retail · ticketing · pickup", "Best for Guests check out themselves"]]
+      ["Starter", "$60", "Mobile + BT printer", "img/shop-hw-starter.jpg", false, ["Runs onYour Android / iOS phone", "Printer 58 mm Bluetooth receipt", "Card reader Bluetooth dongle · optional", "Best for Micro shops · stalls · pop-ups"]],
+      ["y1000", "$190", "Handheld POS", "img/shop-hw-y1000.jpg", false, ["Display 6.5\" HD+ touch", "ScannerBuilt-in 2D barcode", "Printer 58 mm built-in receipt", "Card readerBuilt-in · NFC + EMV", "Best for Small shops · floor billing"]],
+      ["y5000", "$410", "Counter POS", "img/shop-hw-y5000.png", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best forBusy shops · full counter"]],
+      ["y7000", "$825", "Self-service Kiosk", "img/shop-hw-y7000.png", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes Retail · ticketing · pickup", "Best for Guests check out themselves"]]
     ].map(([name, price, kind, img, popular, specs]) => Object.assign({}, popular ? HW_HOT : HW_LIGHT, { name, price, kind, img, popular, specs })),
     hwTrust: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youShop + youPay natively", "Fleet-managed OTA"],
     tierIntro: "Freemium is $0 forever. Paid tiers are priced per store, per month, and each includes everything below it. Enterprise is a custom plan above Power.",
@@ -3677,7 +3677,7 @@ const PRODUCT_PAGES = {
       ["Power", "$10", "/ store · month", "9+ / unlimited stores · 2 tills per store · 10,000 SKUs · 10,000 invoices / month", "Everything in Standard, plus:", ["Inter-store transfers + shrinkage tracking", "Gift cards & store credit", "WebShop + Social Selling included", "youAccounts & youHR bundled", "Full CRM · unlimited customer records", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false],
       ["Enterprise", "Custom", "on request", "Unlimited stores · SKUs · staff · customers", "Everything in Power, plus:", ["Franchise, chain & multi-brand management", "White-label branded storefront", "3PL logistics integrations", "SSO (SAML / OIDC) + API key rotation", "REST API, webhooks & ERP connectors", "24/7 phone · 1hr P1 · 99.99% uptime SLA"], "See enterprise", false]
     ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular })),
-    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "Inventory Module", "youAccounts", "youAccounts · Lite", "youHR", "youHR · Lite", "WebShop & Social Selling", "Customer Base Pack"],
+    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "Inventory Module", "youAccounts", "youAccounts · Lite", "youHR", "youHR · Lite", "WebShop & Social Selling", "Merchant-Specific Loyalty", "Customer Base Pack"],
     ctaKicker: "START FREE · 24HR ACTIVATION", ctaTitleA: "Ready to run your shop", ctaTitleB: "the easy way?",
     ctaBody: "Freemium plan is $0 forever. Pick a kit that fits. Live in your shop in under an hour.",
     ctaBtn2: "For enterprise", ctaBtn2Type: "enterprise", ctaCardTitle: "youShop Freemium",
@@ -3704,20 +3704,20 @@ const PRODUCT_PAGES = {
     hwIntro: "Table-side, counter, or self-service — every device runs youResto and youPay natively. PCI-certified. EMV-compliant. One activation. Ready in 24–48 hours.",
     hwChecks: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youResto + youPay natively", "Fleet-managed OTA"],
     hardware: [
-      ["y4000", "$299", "Handheld POS", "img/resto-hw-y4000.jpg", false, ["Display 10\" HD+ touch", "Card reader Built-in · NFC + EMV", "Barcode Built-in scanner", "Printer 80 mm external", "Best for Table-side ordering"]],
-      ["y5000", "$549", "Counter POS", "img/resto-hw-y5000.jpg", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer 80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best for Full-service restaurants"]],
-      ["y7000", "$817", "Self-service Kiosk", "img/resto-hw-y7000.jpg", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes QSR · café · retail · ticketing", "Best for Guests order themselves"]]
+      ["y4000", "$330", "Tablet POS", "img/resto-hw-y4000.jpg", false, ["Display 10\" HD+ touch", "Card reader Built-in · NFC + EMV", "Barcode Built-in scanner", "Printer 80 mm external", "Best for Table-side ordering"]],
+      ["y5000", "$410", "Counter POS", "img/resto-hw-y5000.jpg", true, ["Display Dual 15.6\" touchscreens", "View split Staff + customer-facing", "Printer 80 mm receipt built-in", "Peripherals Cash drawer + scanner", "Best for Full-service restaurants"]],
+      ["y7000", "$825", "Self-service Kiosk", "img/resto-hw-y7000.jpg", false, ["Display27\" upright touchscreen", "Payments Card + QR + NFC integrated", "Peripherals Receipt printer + scanner", "Modes QSR · café · retail · ticketing", "Best for Guests order themselves"]]
     ].map(([name, price, kind, img, popular, specs]) => Object.assign({}, popular ? HW_HOT : HW_LIGHT, { name, price, kind, img, popular, specs })),
     hwTrust: ["PCI PTS 5.x SRED", "EMV L1 + L2", "24–48hr activation", "Runs youResto + youPay natively", "Fleet-managed OTA"],
     tierIntro: "Freemium is $0 forever. Paid tiers are priced per store, per month, and each includes everything below it. Enterprise is a custom plan above Power.",
     tiers: [
       ["Freemium", "$0", "forever", "1 outlet · 1 till · unlimited users · unlimited menu items & orders", "", ["Order taking, split bills & receipts", "Offline billing + sync", "Cash + wallet / QR", "Daily sales summary", "Self-service support"], "Start free", false],
       ["Starter", "$5", "/ store · month", "1 outlet · 1 till · unlimited users", "Everything in Freemium, plus:", ["Basic KDS (1 screen)", "2 aggregators unified", "Card payments + auto-reconciliation", "Basic loyalty + guest capture (50 records)", "Starter Mobile Kit (Bluetooth printer)", "Standard support · 24hr"], "Get starter", false],
-      ["Standard", "$10", "/ store · month", "3–8 outlets · 1 till per store · 500 guest records", "Everything in Starter, plus:", ["Full KDS (1 station) · prep timers · 86-sync", "Floor plan, waitlist & reservations", "3 aggregators unified + menu sync", "Table ordering & pay + guest app loyalty", "Basic stock, auto-ledger, attendance & shifts", "REST API & webhooks · priority support 4hr"], "Get standard", true],
-      ["Power", "$15", "/ store · month", "Unlimited outlets · 2 tills per store · unlimited guest records", "Everything in Standard, plus:", ["2 KDS stations · course firing · expo view", "All aggregators + commission reporting", "Direct delivery app + social ordering included", "youAccounts & youHR bundled", "Recipe costing + supplier management", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false],
-      ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Menu engineering", "White-label guest app (your brand)", "SSO (SAML / OIDC) + API key rotation", "Multi-brand / franchise + ERP connectors", "24/7 phone · 1hr P1 · 99.99% uptime SLA"], "See enterprise", false]
+      ["Standard", "$10", "/ store · month", "2–8 outlets · 1 till per store · 500 guest records", "Everything in Starter, plus:", ["Full KDS (1 station) · prep timers · 86-sync", "Floor plan, waitlist & reservations", "3 aggregators unified + menu sync", "Table ordering & pay + guest app loyalty", "Basic stock, auto-ledger, attendance & shifts", "REST API & webhooks · priority support 4hr"], "Get standard", true],
+      ["Power", "$15", "/ store · month", "Unlimited outlets · 2 tills per store · unlimited guest records", "Everything in Standard, plus:", ["2 KDS stations · course firing · expo view", "All aggregators + commission reporting", "Direct delivery app + WebShop & Social Selling included", "youAccounts & youHR bundled", "Recipe costing + supplier management", "RBAC + audit logs · quarterly reviews"], "Talk to sales", false],
+      ["Enterprise", "Quote", "on request", "Custom above Power · franchise & chain governance", "Everything in Power, plus:", ["Central kitchen & commissary", "Menu engineering", "Policy controls · right-to-audit & DR", "SSO (SAML / OIDC) + API key rotation", "Multi-brand / franchise + ERP connectors", "24/7 phone · 1hr P1 · 99.99% uptime SLA"], "See enterprise", false]
     ].map(([name, price, per, limits, inherits, rows, cta, popular]) => Object.assign({}, popular ? T_HOT : T_LIGHT, { name, price, per, limits, inherits, rows, cta, popular })),
-    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "Inventory Module", "Recipe Module", "youAccounts", "youHR", "Branded Guest App", "Extra KDS stations", "Direct delivery app", "3rd-party delivery fleets", "Social ordering", "Guest Base Pack"],
+    addonChips: ["youMarketing", "youInsight", "youWorkflows", "youLens", "youLend", "Inventory Module", "Recipe Module", "youAccounts", "youAccounts · Lite", "youHR", "youHR · Lite", "Branded Guest App", "Direct delivery app", "Extra KDS stations", "3rd-party delivery fleets", "WebShop & Social Selling", "Merchant-Specific Loyalty", "Guest Base Pack"],
     ctaKicker: "START FREE · 24HR ACTIVATION", ctaTitleA: "Ready to run your kitchen", ctaTitleB: "the smart way?",
     ctaBody: "Freemium plan is $0 forever. Pick a kit that fits. Live in your restaurant in under an hour.",
     ctaBtn2: "Book demo", ctaCardTitle: "youResto Freemium",
@@ -4120,7 +4120,7 @@ class Component extends DCLogic {
         { name: "youWorkflows", icon: "img/icon-workflows.png", img: "img/home-a-workflows.jpg", body: "No-code automation. Auto-reorder low stock, auto-approve routine expenses, auto-86 out-of-stock items across every channel.", chips: ["Auto-reorder", "ApprovalS", "Auto-86"] }
       ],
       homeQuotes: HOME_QUOTES,
-      homeBox: ["y1000 handheld or y4000 tablet PO", "2D scanner + 58mm printer + card reader", "youShop/youResto/youQR app", "youPay gateway pre-configured", "Freemium plan · $0 to start"],
+      homeBox: ["y1000 handheld or y4000 tablet POS", "2D scanner + 58mm printer + card reader", "youShop/youResto/youQR app", "youPay gateway pre-configured", "Freemium plan · $0 to start"],
       quotesLoop: (() => { const q = HOME_QUOTES; return q.concat(q); })(),
       isQR: page === "youqr",
       isPay: page === "youpay",
@@ -4142,9 +4142,9 @@ class Component extends DCLogic {
         ["06", "QR + SoundBox", "Standalone wallet acceptance. One EMVCo QR, every wallet. 105dB audio confirmation in < 3 seconds.", "y10 / y10D · 105dB"]
       ].map(([num, title, body, tag]) => ({ num, title, body, tag })),
       payDeploy: [
-        { price: "$189", per: "one-time", name: "Y1000 HANDHELD", mode: "IN-STORE", body: "Owned outright · software licensed per store" },
+        { price: "$190", per: "one-time", name: "Y1000 HANDHELD", mode: "IN-STORE", body: "Owned outright · software licensed per store" },
         { price: "$0", per: "activation", name: "PAYMENT GATEWAY", mode: "ONLINE", body: "Free to activate · charged per transaction only" },
-        { price: "$35", per: "one-time", name: "Y10D SOUNDBOX", mode: "QR + SOUNDBOX", body: "Includes Freemium software forever" }
+        { price: "$41", per: "one-time", name: "Y10D SOUNDBOX", mode: "QR + SOUNDBOX", body: "Includes Freemium software forever" }
       ],
       payTiers: [
         { name: "Freemium", price: "$0", per: "/ month", limits: "1 merchant ID · QR + wallets · no card acceptance", inherits: "Everything in Freemium, plus:", cta: "Start free",
@@ -4179,7 +4179,7 @@ class Component extends DCLogic {
         ["05", "Earn", "Loyalty credit instantly. Points and tier progress update on the spot. They walk away happier."]
       ].map(([num, title, body]) => ({ num, title, body })),
       qrChannels: [
-        ["img/ch-kiosk.png", "Self-service kiosk", "y7000 · order + pay"],
+        ["img/ch-kiosk.png", "Self-service kiosk", "y7000 · with youShop / youResto"],
         ["img/ch-tableqr.png", "Table QR", "Scan, order, pay"],
         ["img/ch-online.png", "Your own domain", "your.brand ordering page"],
         ["img/ch-social.png", "Social Selling", "FB · Instagram · WhatsApp Catalog"],
@@ -4196,10 +4196,10 @@ class Component extends DCLogic {
       qrFees: [
         { value: "$0.10", unit: "", label: "PER PAID ORDER", body: "Flat fee on Starter ($0.25 on Standard), regardless of basket size. None on Power.", optional: false },
         { value: "1–3%", unit: "", label: "PAYMENT PROCESSING", body: "Blended MDR on card & wallet. Indicative — varies by card type & market.", optional: false },
-        { value: "$5", unit: "/mo", label: "MERCHANT LOYALTY", body: "Your own branded loyalty programme, on Power. Programme-wide loyalty is included on every tier.", optional: true }
+        { value: "$25", unit: "/mo", label: "MERCHANT LOYALTY", body: "Your own branded loyalty programme, on Power. Programme-wide loyalty is included on every tier.", optional: true }
       ],
       qrTiers: QR_TIERS,
-      qrChips: ["youMarketing (WABA) · $5/mo", "youInsight · $5/mo", "youWorkflows · $10/mo", "youLens · $15/mo + $5/camera", "youLend · rev-share", "Inventory Module · $2/mo", "Recipe Module · $2/mo", "youAccounts · Lite · $2/mo", "youHR · Lite · $0.50/user", "Social Selling · $5/mo", "Self-ordering kiosk mode · $9/mo", "Extra KDS station · $2/mo", "Merchant-specific loyalty · $5/mo (Power)", "Customer Base Pack", "QR Print Pack · $29 one-time"],
+      qrChips: ["youMarketing (WABA) · $5/mo", "youInsight · $5/mo", "youWorkflows · $10/mo", "youLens · $15/mo + $5/camera", "youLend · rev-share", "Inventory Module · $2/mo", "Recipe Module · $2/mo", "youAccounts · Lite · $2/mo", "youHR · Lite · $0.50/user", "Social Selling · $5/mo", "Extra KDS station · $2/mo", "Merchant-specific loyalty · $25/mo (Power)", "Customer Base Pack", "QR Print Pack · $29 one-time"],
       qrCtaRows: ["1 branch · up to 100 menu items", "Unlimited orders", "QR, Pay-by-Link, wallets & cards", "Points + Silver → Gold tiers", "$0 / month · $0.10 per paid order"],
       isPartners: page === "partners",
       isPayEnt: page === "youpay-ent",
@@ -4250,14 +4250,15 @@ class Component extends DCLogic {
         { name: "youLend", desc: "Pre-approved working capital sized from live transaction history. No monthly fee.", price: "Revenue share", icon: "img/icon-lend.png" }
       ].map((a, i) => Object.assign({}, a, { rule: i === 0 ? "transparent" : "#EDE9EA" })),
       hwPricing: [
-        { name: "Starter kit", price: "$59", img: "img/shop-hw-starter.jpg", body: "Your own Android or iOS phone plus a 58mm Bluetooth receipt printer. Card reader dongle optional.", tag: "Micro shops · stalls · pop-ups" },
-        { name: "y1000 handheld", price: "$189", img: "img/shop-hw-y1000.jpg", body: "6.5\" HD+ touchscreen, built-in 2D scanner, 58mm printer, NFC and EMV card reader. Owned outright; software licensed per store.", tag: "Small shops · floor billing" },
-        { name: "y10D SoundBox", price: "$35", img: "img/hw-soundbox.jpg", body: "Standalone QR acceptance with 105dB audio confirmation in under 3 seconds. Includes Freemium software forever.", tag: "QR-first merchants" }
+        { name: "Starter kit", price: "$60", img: "img/shop-hw-starter.jpg", body: "Your own Android or iOS phone plus a 58mm Bluetooth receipt printer. Card reader dongle optional.", tag: "Micro shops · stalls · pop-ups" },
+        { name: "y1000 handheld", price: "$190", img: "img/shop-hw-y1000.jpg", body: "6.5\" HD+ touchscreen, built-in 2D scanner, 58mm printer, NFC and EMV card reader. Owned outright; software licensed per store.", tag: "Small shops · floor billing" },
+        { name: "y10D SoundBox", price: "$41", img: "img/hw-soundbox.jpg", body: "Standalone QR acceptance with 105dB audio confirmation in under 3 seconds. Includes Freemium software forever.", tag: "QR-first merchants" }
       ],
       priceFaq: [
         { q: "Is there a contract or lock-in?", a: "Freemium has no commitment. Paid tiers are priced per store, per month and billed annually, and you can move up a tier at any time. Hardware is a one-time purchase, owned outright — there is no lease and no bundled software period." },
         { q: "What does 'per store' mean?", a: "One store licence covers one till (two on Power). Users are unlimited on every tier, and stores, SKUs, invoices and records are governed by the tier limits — never billed per seat." },
         { q: "Do I have to use youPay?", a: "Payments are free to activate on every tier including Freemium, and you are charged only on successful transactions. Existing acquirer relationships can be kept where the market allows." },
+        { q: "How is the self-service kiosk priced?", a: "The y7000 kiosk runs on youShop and youResto Standard and Power. On Standard the kiosk software is $0 a month plus $0.25 per paid order; on Power it is $25 per store or kiosk per month with unlimited orders. The y7000 hardware is $825 one-time. The kiosk is not available on Freemium or Starter." },
         { q: "How is Enterprise different?", a: "Enterprise is quoted as one plan for the whole estate — unlimited outlets, all modules, hardware fleet management, SSO and 24/7 support with a 1-hour P1 response rather than per-store pricing." }
       ],
       aboutFacts: [
