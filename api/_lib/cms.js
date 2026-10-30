@@ -10,6 +10,10 @@
 //                              drafts unguessable; the admin finds it with list().
 //   cms/public/posts.json     published posts only, read by the public blog pages
 //                              at a fixed URL so page views cost no Blob operations.
+//
+// Page edits made in /admin → Pages (SEO titles, text and image swaps on the main
+// site) are kept the same way: cms/site-<random>.json for the admin, and
+// cms/public/site.json for /api/site-content, which the site reads on load.
 
 const crypto = require("crypto");
 const fs = require("fs");
@@ -25,6 +29,8 @@ const USE_BLOB = !!(TOKEN || STORE_ID);
 const LOCAL_DIR = path.join(__dirname, "..", "..", ".cms-data");
 const PUBLIC_PATH = "cms/public/posts.json";
 const PRIVATE_PREFIX = "cms/posts-";
+const SITE_PUBLIC_PATH = "cms/public/site.json";
+const SITE_PREFIX = "cms/site-";
 
 function blob() {
   return require("@vercel/blob");
@@ -126,11 +132,66 @@ async function getPublishedPosts() {
   return publishedOnly(posts);
 }
 
+// ── Page edits ──────────────────────────────────────────────────────────
+
+const EMPTY_SITE = () => ({ pages: {} });
+
+// Latest saved page edits, for the admin. Each save has a new URL, so this is never stale.
+async function getSiteContent() {
+  if (!USE_BLOB) return readLocal("site.json", EMPTY_SITE());
+  const { list } = blob();
+  const { blobs } = await list(auth({ prefix: SITE_PREFIX }));
+  if (!blobs.length) return EMPTY_SITE();
+  blobs.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+  const r = await fetch(blobs[0].url, { cache: "no-store" });
+  if (!r.ok) throw new Error("Could not read page edits (" + r.status + ")");
+  return r.json();
+}
+
+async function saveSiteContent(content) {
+  if (!USE_BLOB) {
+    writeLocal("site.json", content);
+    siteCache = null;
+    return;
+  }
+  const { put, list, del } = blob();
+  const body = JSON.stringify(content);
+  const saved = await put(SITE_PREFIX.replace(/-$/, "") + ".json", body, auth({
+    access: "public", addRandomSuffix: true, contentType: "application/json", cacheControlMaxAge: 60
+  }));
+  await put(SITE_PUBLIC_PATH, body, auth({
+    access: "public", addRandomSuffix: false, allowOverwrite: true,
+    contentType: "application/json", cacheControlMaxAge: 60
+  }));
+  const { blobs } = await list(auth({ prefix: SITE_PREFIX }));
+  const old = blobs.filter(b => b.url !== saved.url).map(b => b.url);
+  if (old.length) await del(old, auth({}));
+  siteCache = null;
+}
+
+// Page edits for the public site, kept in memory for 15s per instance. The query
+// string skips the Blob CDN's own cache so a save shows up within seconds.
+let siteCache = null;
+async function getPublicSiteContent() {
+  if (siteCache && Date.now() - siteCache.at < 15000) return siteCache.content;
+  let content = EMPTY_SITE();
+  if (!USE_BLOB) {
+    content = readLocal("site.json", content);
+  } else {
+    const url = publicBlobUrl(SITE_PUBLIC_PATH);
+    const r = url ? await fetch(url + "?t=" + Date.now()) : null;
+    if (r && r.ok) content = await r.json();
+    else if (!url) content = await getSiteContent();
+  }
+  siteCache = { at: Date.now(), content };
+  return content;
+}
+
 // ── Images ──────────────────────────────────────────────────────────────
 
 const IMAGE_TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
 
-async function saveImage(filename, contentType, buffer) {
+async function saveImage(filename, contentType, buffer, folder) {
   const ext = IMAGE_TYPES[contentType];
   if (!ext) throw new Error("Only JPG, PNG, WebP or GIF images can be uploaded.");
   const base = slugify(String(filename || "image").replace(/\.[a-z0-9]+$/i, "")) || "image";
@@ -141,7 +202,7 @@ async function saveImage(filename, contentType, buffer) {
     return "/cms-uploads/" + name;
   }
   const { put } = blob();
-  const r = await put(`blog/${base}.${ext}`, buffer, auth({ access: "public", addRandomSuffix: true, contentType }));
+  const r = await put(`${folder === "pages" ? "pages" : "blog"}/${base}.${ext}`, buffer, auth({ access: "public", addRandomSuffix: true, contentType }));
   return r.url;
 }
 
@@ -298,6 +359,7 @@ function stripTags(html) {
 module.exports = {
   SITE_URL, USE_BLOB,
   getAllPosts, getPublishedPosts, savePosts, saveImage,
+  getSiteContent, saveSiteContent, getPublicSiteContent,
   checkPassword, sessionCookie, clearCookie, isAdmin, requireAdmin, sameOrigin,
   slugify, sanitizeHtml, escapeHtml, stripTags
 };

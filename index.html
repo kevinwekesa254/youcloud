@@ -128,6 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 
 <script src="./support.js"></script>
+<script src="./site-content.js?v=1"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -3823,6 +3824,8 @@ class Component extends DCLogic {
       setMeta('meta[property="og:title"]', "content", meta.title);
       setMeta('meta[property="og:description"]', "content", meta.description);
       setMeta('meta[property="og:url"]', "content", "https://www.youcloudpay.com/" + (page === "home" ? "" : page));
+      // edits saved in /admin → Pages go on top of the built-in values
+      if (window.ycContent) window.ycContent.refresh();
     }
     if (track && typeof window !== "undefined" && typeof window.ycTrackPage === "function") window.ycTrackPage(page);
   };

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Blog Admin | youcloud</title>
+<title>Admin | youcloud</title>
 <link rel="icon" href="/img/logomark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -149,6 +149,57 @@ textarea.input{resize:vertical;min-height:80px}
 .toast.bad{background:var(--bad)}
 .busy{position:fixed;inset:0;z-index:110;background:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy)}
 
+/* sections */
+.sect{display:flex;gap:4px;margin-left:8px}
+.sect a{padding:6px 14px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;color:var(--muted)}
+.sect a:hover{color:var(--navy)}
+.sect a.on{background:var(--navy);color:#fff}
+.main.wide{max-width:1680px}
+
+/* pages */
+.intro{color:var(--muted);margin:-6px 0 18px;max-width:760px}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) 150px 170px 170px;gap:14px;align-items:center;padding:13px 16px;border-top:1px solid var(--line)}
+.prow:first-child{border-top:none}
+.prow.head{background:#FBFAFA;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding-top:10px;padding-bottom:10px}
+.prow .t{font-weight:700;color:var(--navy);cursor:pointer}
+.prow .t:hover{color:var(--coral)}
+.prow .s{font-size:13px;color:var(--muted)}
+.n-edits{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:700;background:#F1EFF0;color:#5F6675}
+.n-edits.on{background:var(--soft);color:#C9343E}
+.pg-name{font-size:22px}
+.pg{display:grid;grid-template-columns:440px minmax(0,1fr);gap:20px;align-items:start}
+.pg-side{position:sticky;top:70px;max-height:calc(100vh - 140px);overflow:auto;padding:18px}
+.pg-side .seo-tabs{position:sticky;top:-18px;background:#fff;z-index:2;margin-top:-18px;padding-top:6px}
+.pg-view{position:sticky;top:70px}
+.pg-view-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.pg-view-bar .hint{flex:1}
+.frame-wrap{position:relative;height:calc(100vh - 186px);min-height:420px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.frame-wrap.mobile{background:var(--bg)}
+.frame-wrap iframe{position:absolute;top:0;left:0;border:0;background:#fff;transform-origin:0 0}
+.frame-wrap.mobile iframe{left:50%;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.frame-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);background:#fff;z-index:1}
+.tgroup{border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px;margin-bottom:10px;transition:border-color .15s,box-shadow .15s}
+.tgroup.edited{border-color:#F7B4B7;background:#FFFBFB}
+.tgroup.pick{box-shadow:0 0 0 3px rgba(249,97,103,.3);border-color:var(--coral)}
+.tgroup .tag{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:flex;gap:8px}
+.titem+.titem{margin-top:8px}
+.titem textarea{min-height:0;resize:none;overflow:hidden;line-height:1.4;padding:8px 11px}
+.titem.h textarea{font-weight:700;color:var(--navy)}
+.titem .was{font-size:12.5px;color:var(--muted);margin-top:4px;display:flex;gap:8px;align-items:baseline}
+.titem .was span{flex:1;min-width:0}
+.titem .was .link{font-size:12.5px;white-space:nowrap}
+.pane-tools{display:flex;gap:8px;margin-bottom:12px;align-items:center}
+.pane-tools .input{flex:1}
+.icard{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:10px}
+.icard.edited{border-color:#F7B4B7;background:#FFFBFB}
+.icard.pick{box-shadow:0 0 0 3px rgba(249,97,103,.3);border-color:var(--coral)}
+.icard .im{width:110px;height:80px;border-radius:10px;background:var(--bg) center/contain no-repeat;border:1px solid var(--line);cursor:pointer}
+.icard .fn{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.icard .acts{justify-content:flex-start;margin:6px 0 8px;gap:12px}
+.icard .input{padding:7px 10px;font-size:14.5px}
+
+@media (max-width:1100px){.pg{grid-template-columns:1fr}.pg-side,.pg-view{position:static;max-height:none}.prow{grid-template-columns:minmax(0,1fr) 120px 150px}.prow .c-date{display:none}}
+@media (max-width:640px){.top-in{flex-wrap:wrap;row-gap:8px}.sect{order:5;width:100%;margin-left:0}.prow{grid-template-columns:minmax(0,1fr) auto}.prow .c-n{display:none}}
 @media (max-width:1100px){.ed{grid-template-columns:1fr}.row{grid-template-columns:60px minmax(0,1fr) 110px 150px}.row .c-cat,.row .c-date,.row .c-seo{display:none}.thumb{width:60px}}
 @media (max-width:640px){.main{padding:16px}.row{grid-template-columns:minmax(0,1fr) auto}.row .thumb,.row .c-status{display:none}.title-in{font-size:26px}.top-in{padding:10px 16px}.top-in .hide-sm{display:none}#editor .ql-editor{padding:16px}}
 </style>
@@ -159,8 +210,8 @@ textarea.input{resize:vertical;min-height:80px}
 <section class="login" id="v-login" hidden>
   <form class="login-card" id="login-form">
     <img src="/img/logo.png?v=2" alt="youcloud">
-    <h1>Blog admin</h1>
-    <p>Sign in to write and publish articles.</p>
+    <h1>Website admin</h1>
+    <p>Sign in to write articles and edit the website's pages.</p>
     <div class="field">
       <label for="pw">Password</label>
       <input class="input" id="pw" type="password" autocomplete="current-password" required autofocus>
@@ -175,7 +226,11 @@ textarea.input{resize:vertical;min-height:80px}
   <header class="top">
     <div class="top-in">
       <a href="/admin"><img src="/img/logo.png?v=2" alt="youcloud"></a>
-      <span class="badge-admin">BLOG ADMIN</span>
+      <span class="badge-admin">ADMIN</span>
+      <nav class="sect" id="sect">
+        <a href="#/" data-sect="articles">Articles</a>
+        <a href="#/pages" data-sect="pages">Pages</a>
+      </nav>
       <span class="sp"></span>
       <a class="btn btn-ghost btn-sm hide-sm" href="/blog" target="_blank" rel="noopener">View blog ↗</a>
       <button class="btn btn-ghost btn-sm" id="logout">Sign out</button>
@@ -336,6 +391,91 @@ textarea.input{resize:vertical;min-height:80px}
         </aside>
       </div>
     </section>
+
+    <!-- Pages list -->
+    <section id="v-pages" hidden>
+      <div class="list-head"><h1>Pages</h1></div>
+      <p class="intro">Edit the Google title and description, headings, text and images of the main website pages. Changes go live about a minute after you save, and every edit can be undone.</p>
+      <div class="table" id="page-table"></div>
+    </section>
+
+    <!-- Page editor -->
+    <section id="v-page" hidden>
+      <div class="ed-bar">
+        <button class="btn btn-ghost btn-sm" id="pg-back">← All pages</button>
+        <h2 class="pg-name" id="pg-name"></h2>
+        <span class="saved" id="pg-saved"></span>
+        <span class="sp"></span>
+        <a class="btn btn-ghost btn-sm" id="pg-live" target="_blank" rel="noopener">View live page ↗</a>
+        <button class="btn btn-ghost btn-sm" id="pg-reset">Undo all edits</button>
+        <button class="btn btn-sm" id="pg-save">Save &amp; publish</button>
+      </div>
+      <div class="pg">
+        <div class="card pg-side">
+          <div class="seo-tabs" id="pg-tabs">
+            <button class="seo-tab on" data-ptab="google">Google</button>
+            <button class="seo-tab" data-ptab="text">Text <span class="n-edits" id="pg-n-text" hidden></span></button>
+            <button class="seo-tab" data-ptab="images">Images <span class="n-edits" id="pg-n-img" hidden></span></button>
+          </div>
+
+          <div data-ppane="google">
+            <div class="snippet">
+              <div class="sn-site">
+                <span class="sn-fav"><img src="/img/logomark.png" alt=""></span>
+                <div><div class="sn-name">youcloud</div><div class="sn-url" id="pg-sn-url"></div></div>
+              </div>
+              <div class="sn-title" id="pg-sn-title"></div>
+              <div class="sn-desc" id="pg-sn-desc"></div>
+            </div>
+            <div class="field" style="margin-top:18px">
+              <label for="pg-title">SEO title</label>
+              <input class="input" id="pg-title" maxlength="120">
+              <div class="meter"><i id="pg-m-title"></i></div>
+              <span class="hint" id="pg-h-title"></span>
+            </div>
+            <div class="field">
+              <label for="pg-desc">Meta description</label>
+              <textarea class="input" id="pg-desc" maxlength="320"></textarea>
+              <div class="meter"><i id="pg-m-desc"></i></div>
+              <span class="hint" id="pg-h-desc"></span>
+            </div>
+            <p class="hint">Leave a field empty to use the page's built-in text, shown in grey. Put the main search phrase near the start of the title, and give each page its own title and description.</p>
+          </div>
+
+          <div data-ppane="text" hidden>
+            <div class="pane-tools">
+              <input class="input" id="pg-search" type="search" placeholder="Find text…">
+              <select class="input" id="pg-filter" style="flex:0 0 auto;width:auto">
+                <option value="main">Headings &amp; paragraphs</option>
+                <option value="all">All text</option>
+                <option value="edited">Edited only</option>
+              </select>
+            </div>
+            <p class="hint" style="margin:-4px 0 12px">Click any text in the preview to jump to it. Prices are managed by the web team and are not listed here.</p>
+            <div id="pg-text"></div>
+          </div>
+
+          <div data-ppane="images" hidden>
+            <p class="hint" style="margin:0 0 12px">Replace a picture or improve its description (alt text), which Google uses to understand the image. Use a picture of a similar shape so the layout stays the same.</p>
+            <div id="pg-images"></div>
+          </div>
+        </div>
+
+        <div class="pg-view">
+          <div class="pg-view-bar">
+            <span class="hint">Preview with your unsaved edits. Click text or an image to edit it.</span>
+            <div class="tabs" id="pg-device">
+              <button class="tab on" data-dev="desktop">Desktop</button>
+              <button class="tab" data-dev="mobile">Mobile</button>
+            </div>
+          </div>
+          <div class="frame-wrap" id="pg-wrap">
+            <div class="frame-load" id="pg-load">Loading the page…</div>
+            <iframe id="pg-frame" title="Page preview"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -373,7 +513,7 @@ textarea.input{resize:vertical;min-height:80px}
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var state = { posts: [], filter: "all", search: "", post: null, dirty: false, slugTouched: false, storage: "" };
+  var state = { posts: [], filter: "all", search: "", post: null, dirty: false, slugTouched: false, storage: "", site: { pages: {} }, pg: null };
   var quill = null;
 
   // ── API ──────────────────────────────────────────────────────────────
@@ -430,12 +570,22 @@ textarea.input{resize:vertical;min-height:80px}
   function start() {
     $("v-login").hidden = true;
     $("v-app").hidden = false;
-    loadPosts().then(function () { route(); });
+    Promise.all([loadPosts(), loadSite()]).then(function () { route(); });
   }
 
-  // ── Routing: #/ list, #/new, #/edit/<id> ──────────────────────────────
+  var VIEWS = ["v-list", "v-edit", "v-pages", "v-page"];
+  function showView(id) {
+    VIEWS.forEach(function (v) { $(v).hidden = v !== id; });
+    var sect = id === "v-pages" || id === "v-page" ? "pages" : "articles";
+    document.querySelectorAll("#sect a").forEach(function (a) { a.classList.toggle("on", a.getAttribute("data-sect") === sect); });
+    document.querySelector(".main").classList.toggle("wide", id === "v-page");
+  }
+
+  // ── Routing: #/ list, #/new, #/edit/<id>, #/pages, #/pages/<page> ──────
   function route() {
     var h = location.hash.replace(/^#\/?/, "");
+    if (h === "pages") return showPages();
+    if (h.indexOf("pages/") === 0 && PAGES[h.slice(6)]) return openPage(h.slice(6));
     if (h === "new") return openEditor(null);
     if (h.indexOf("edit/") === 0) {
       var p = state.posts.filter(function (x) { return x.id === h.slice(5); })[0];
@@ -444,8 +594,16 @@ textarea.input{resize:vertical;min-height:80px}
     showList();
   }
 
+  var lastHash = location.hash;
   window.addEventListener("hashchange", function () {
     if ($("v-app").hidden) return;
+    // Leaving a page with unsaved edits through the menu or Back.
+    if (state.pg && state.dirty && !$("v-page").hidden && !confirm("Leave without saving your changes to this page?")) {
+      history.replaceState(null, "", lastHash);
+      return;
+    }
+    if (!$("v-page").hidden) state.dirty = false;
+    lastHash = location.hash;
     route();
   });
 
@@ -466,8 +624,7 @@ textarea.input{resize:vertical;min-height:80px}
   function rating(score) { return !score ? "" : score >= 75 ? "good" : score >= 45 ? "ok" : "bad"; }
 
   function showList() {
-    $("v-edit").hidden = true;
-    $("v-list").hidden = false;
+    showView("v-list");
     document.title = "Articles | youcloud Blog Admin";
     var counts = { all: state.posts.length, published: 0, draft: 0, scheduled: 0 };
     state.posts.forEach(function (p) { counts[statusOf(p)]++; });
@@ -577,8 +734,7 @@ textarea.input{resize:vertical;min-height:80px}
     state.slugTouched = !!p.id;
     $("delete").hidden = !p.id;
     $("cats").innerHTML = Array.from(new Set(state.posts.map(function (x) { return x.category; }).filter(Boolean))).map(function (c) { return '<option value="' + esc(c) + '">'; }).join("");
-    $("v-list").hidden = true;
-    $("v-edit").hidden = false;
+    showView("v-edit");
     document.title = (p.title || "New article") + " | youcloud Blog Admin";
     setDirty(false);
     checkBackup();
@@ -716,17 +872,20 @@ textarea.input{resize:vertical;min-height:80px}
 
   // ── Images ───────────────────────────────────────────────────────────
   var pickTarget = "content";
-  function pickImage(target) { pickTarget = target; $("file").value = ""; $("file").click(); }
+  var pickKey = "";
+  function pickImage(target, key) { pickTarget = target; pickKey = key || ""; $("file").value = ""; $("file").click(); }
 
   $("file").addEventListener("change", function () {
     var f = this.files[0];
     if (!f) return;
     busy(true);
     resizeImage(f).then(function (img) {
-      return api("/api/admin/upload", { method: "POST", body: { filename: f.name, contentType: img.type, data: img.data } });
+      return api("/api/admin/upload", { method: "POST", body: { filename: f.name, contentType: img.type, data: img.data, folder: pickTarget === "page" ? "pages" : "blog" } });
     }).then(function (d) {
       busy(false);
-      if (pickTarget === "featured") {
+      if (pickTarget === "page") {
+        setImageEdit(pickKey, "src", d.url);
+      } else if (pickTarget === "featured") {
         state.post.featuredImage = d.url;
         setFeatured(d.url);
         if (!$("f-alt").value) $("f-alt").focus();
@@ -900,6 +1059,375 @@ textarea.input{resize:vertical;min-height:80px}
     $(barId).style.background = col;
     $(hintId).textContent = hint;
   }
+
+  // ── Pages ────────────────────────────────────────────────────────────
+  // Page ids match the site's routes (PAGE_SEO in youcloud.dc.html). Legal pages are left out.
+  var PAGES = {
+    home: "Home", youshop: "youShop", youresto: "youResto", youqr: "youQR", youpay: "youPay",
+    "youshop-ent": "youShop Enterprise", "youresto-ent": "youResto Enterprise", "youpay-ent": "youPay Enterprise",
+    addons: "AI Add-ons", solutions: "Solutions", pricing: "Pricing", partners: "Partners", about: "About", contact: "Contact"
+  };
+  var TAGS = { h1: "Main heading (H1)", h2: "Heading (H2)", h3: "Subheading (H3)", h4: "Subheading (H4)", h5: "Subheading", h6: "Subheading", p: "Paragraph", li: "List item", button: "Button", a: "Link", label: "Label", td: "Table", th: "Table heading", blockquote: "Quote", figcaption: "Caption" };
+  var MAIN_TAGS = /^(h[1-6]|p|li|blockquote|figcaption)$/;
+
+  function loadSite() {
+    return api("/api/admin/pages").then(function (d) { state.site = d.content || { pages: {} }; });
+  }
+
+  function pathOf(id) { return id === "home" ? "/" : "/" + id; }
+
+  function countEdits(e) {
+    if (!e) return 0;
+    return (e.seo && (e.seo.title || e.seo.description) ? 1 : 0) + Object.keys(e.text || {}).length + Object.keys(e.images || {}).length;
+  }
+
+  function showPages() {
+    showView("v-pages");
+    state.pg = null;
+    document.title = "Pages | youcloud Admin";
+    $("page-table").innerHTML = '<div class="prow head"><span>Page</span><span class="c-n">Edits</span><span class="c-date">Last saved</span><span></span></div>' +
+      Object.keys(PAGES).map(function (id) {
+        var e = state.site.pages[id], n = countEdits(e);
+        var d = e && e.updatedAt ? new Date(e.updatedAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "—";
+        return '<div class="prow"><div style="min-width:0"><div class="t" data-page="' + id + '">' + esc(PAGES[id]) + '</div><div class="s">youcloudpay.com' + pathOf(id) + "</div></div>" +
+          '<span class="c-n"><span class="n-edits' + (n ? " on" : "") + '">' + (n ? n + (n === 1 ? " edit" : " edits") : "No edits") + "</span></span>" +
+          '<span class="s c-date">' + d + "</span>" +
+          '<span class="acts"><button class="btn btn-ghost btn-sm" data-page="' + id + '">Edit</button><a class="btn btn-ghost btn-sm" href="' + pathOf(id) + '" target="_blank" rel="noopener">View</a></span></div>';
+      }).join("");
+  }
+
+  $("page-table").addEventListener("click", function (e) {
+    var id = e.target.getAttribute("data-page");
+    if (id) location.hash = "#/pages/" + id;
+  });
+
+  function blankEdits() { return { seo: { title: "", description: "" }, text: {}, images: {} }; }
+
+  function openPage(id) {
+    showView("v-page");
+    var saved = state.site.pages[id] || {};
+    var edits = blankEdits();
+    if (saved.seo) edits.seo = { title: saved.seo.title || "", description: saved.seo.description || "" };
+    edits.text = Object.assign({}, saved.text || {});
+    Object.keys(saved.images || {}).forEach(function (k) { edits.images[k] = Object.assign({}, saved.images[k]); });
+    state.pg = { id: id, edits: edits, groups: [], images: [], defaults: { title: "", description: "" }, ready: false };
+    $("pg-name").textContent = PAGES[id];
+    $("pg-live").href = pathOf(id);
+    $("pg-title").value = edits.seo.title;
+    $("pg-desc").value = edits.seo.description;
+    $("pg-search").value = "";
+    $("pg-filter").value = "main";
+    $("pg-text").innerHTML = '<p class="hint">Loading…</p>';
+    $("pg-images").innerHTML = "";
+    document.title = PAGES[id] + " | youcloud Admin";
+    setPageDirty(false);
+    showPaneTab("google");
+    renderGoogle();
+    loadFrame();
+    window.scrollTo(0, 0);
+  }
+
+  function setPageDirty(on) {
+    state.dirty = on;
+    var el = $("pg-saved"), e = state.site.pages[state.pg.id];
+    el.className = "saved" + (on ? " dirty" : "");
+    el.textContent = on ? "Unsaved changes" : e && e.updatedAt ? "Saved " + new Date(e.updatedAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
+    var nt = Object.keys(state.pg.edits.text).length, ni = Object.keys(state.pg.edits.images).length;
+    $("pg-n-text").hidden = !nt; $("pg-n-text").textContent = nt;
+    $("pg-n-img").hidden = !ni; $("pg-n-img").textContent = ni;
+  }
+
+  var previewTimer = null;
+  function pageChanged() {
+    setPageDirty(true);
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(pushPreview, 120);
+  }
+
+  function frameApi() {
+    try { return $("pg-frame").contentWindow.ycContent || null; } catch (e) { return null; }
+  }
+
+  function pushPreview() {
+    var f = frameApi();
+    if (f && state.pg && state.pg.ready) f.preview(state.pg.edits);
+  }
+
+  // ── Preview frame ──
+  var device = "desktop";
+  function loadFrame() {
+    var pg = state.pg;
+    $("pg-load").hidden = false;
+    $("pg-load").textContent = "Loading the page…";
+    var frame = $("pg-frame");
+    frame.onload = function () {
+      // Wait for the page to render its content, then read what can be edited.
+      var tries = 0;
+      (function wait() {
+        if (state.pg !== pg) return;
+        var f = frameApi(), doc = frame.contentDocument;
+        var main = doc && doc.querySelector("main");
+        if (f && main && main.querySelector("h1,h2,h3")) {
+          setTimeout(function () { if (state.pg === pg) frameReady(f, doc); }, 300);
+        } else if (++tries < 80) {
+          setTimeout(wait, 150);
+        } else {
+          $("pg-load").textContent = "The preview could not load. Reload the admin and try again.";
+        }
+      })();
+    };
+    frame.src = pathOf(pg.id) + "?yc-preview=1";
+    fitFrame();
+  }
+
+  function frameReady(f, doc) {
+    var pg = state.pg;
+    var found = f.collect();
+    pg.groups = found.groups;
+    pg.images = found.images;
+    var md = doc.querySelector('meta[name="description"]');
+    pg.defaults = { title: doc.title, description: md ? md.getAttribute("content") : "" };
+    pg.ready = true;
+    $("pg-load").hidden = true;
+    renderGoogle();
+    renderText();
+    renderImages();
+    pushPreview();
+  }
+
+  function fitFrame() {
+    var wrap = $("pg-wrap"), frame = $("pg-frame");
+    var w = wrap.clientWidth, h = wrap.clientHeight;
+    if (!w) return;
+    wrap.classList.toggle("mobile", device === "mobile");
+    if (device === "mobile") {
+      var mw = 390, ms = Math.min(1, w / mw);
+      frame.style.width = mw + "px";
+      frame.style.height = h / ms + "px";
+      frame.style.transform = "translateX(-50%) scale(" + ms + ")";
+    } else {
+      var dw = 1366, ds = Math.min(1, w / dw);
+      frame.style.width = dw + "px";
+      frame.style.height = h / ds + "px";
+      frame.style.transform = "scale(" + ds + ")";
+    }
+  }
+  window.addEventListener("resize", function () { if (state.pg) fitFrame(); });
+  $("pg-device").addEventListener("click", function (e) {
+    var d = e.target.getAttribute("data-dev");
+    if (!d || d === device) return;
+    device = d;
+    document.querySelectorAll("#pg-device .tab").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-dev") === d); });
+    fitFrame();
+  });
+
+  // Called by site-content.js inside the preview when something is clicked.
+  window.ycPick = function (kind, key) {
+    if (!state.pg || !state.pg.ready) return;
+    if (kind === "img") {
+      showPaneTab("images");
+      return focusItem($("pg-images"), ".icard", key, "input");
+    }
+    showPaneTab("text");
+    var g = groupOf(key);
+    if (!g) return toast("That text can't be edited here (prices are managed by the web team).", true);
+    if (!showsGroup(g, $("pg-filter").value, $("pg-search").value)) {
+      $("pg-search").value = "";
+      $("pg-filter").value = MAIN_TAGS.test(g.tag) ? "main" : "all";
+      renderText();
+    }
+    focusItem($("pg-text"), ".titem", key, "textarea");
+  };
+
+  function focusItem(root, sel, key, field) {
+    var el = null;
+    root.querySelectorAll(sel).forEach(function (x) { if (x.getAttribute("data-key") === key) el = x; });
+    if (!el) return;
+    var box = el.closest(".tgroup") || el;
+    root.querySelectorAll(".pick").forEach(function (x) { x.classList.remove("pick"); });
+    box.classList.add("pick");
+    setTimeout(function () { box.classList.remove("pick"); }, 1600);
+    box.scrollIntoView({ block: "center", behavior: "smooth" });
+    var input = el.querySelector(field);
+    if (input) input.focus({ preventScroll: true });
+  }
+
+  // ── Panel tabs ──
+  $("pg-tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-ptab]");
+    if (b) showPaneTab(b.getAttribute("data-ptab"));
+  });
+  function showPaneTab(t) {
+    document.querySelectorAll("[data-ptab]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-ptab") === t); });
+    document.querySelectorAll("[data-ppane]").forEach(function (p) { p.hidden = p.getAttribute("data-ppane") !== t; });
+    if (t === "text") $("pg-text").querySelectorAll("textarea").forEach(autoSize);
+  }
+
+  // ── Google listing ──
+  function renderGoogle() {
+    var pg = state.pg, s = pg.edits.seo;
+    $("pg-title").placeholder = pg.defaults.title || "Built-in title";
+    $("pg-desc").placeholder = pg.defaults.description || "Built-in description";
+    var title = s.title || pg.defaults.title || PAGES[pg.id];
+    var desc = s.description || pg.defaults.description;
+    $("pg-sn-url").textContent = "https://www.youcloudpay.com" + (pg.id === "home" ? "" : " › " + pg.id);
+    $("pg-sn-title").textContent = SEO.truncatePx(title, 600, "20px arial");
+    $("pg-sn-desc").textContent = desc.length > 158 ? desc.slice(0, 155).replace(/\s+\S*$/, "") + " ..." : desc;
+    var tw = Math.round(SEO.textWidth(title, "20px arial"));
+    meter("pg-m-title", "pg-h-title", tw, 300, 580, 600, (s.title ? "" : "Built-in title: ") + tw + " of 600 px wide (" + title.length + " characters).");
+    meter("pg-m-desc", "pg-h-desc", desc.length, 120, 156, 170, (s.description ? "" : "Built-in description: ") + desc.length + " characters. Aim for 120–156.");
+  }
+  $("pg-title").addEventListener("input", function () { state.pg.edits.seo.title = this.value.trim(); renderGoogle(); setPageDirty(true); });
+  $("pg-desc").addEventListener("input", function () { state.pg.edits.seo.description = this.value.trim(); renderGoogle(); setPageDirty(true); });
+
+  // ── Text ──
+  function groupOf(key) {
+    var g = null;
+    state.pg.groups.forEach(function (x) { if (!g && x.items.indexOf(key) >= 0) g = x; });
+    return g;
+  }
+
+  function showsGroup(g, filter, q) {
+    var t = state.pg.edits.text;
+    if (filter === "main" && !MAIN_TAGS.test(g.tag)) return false;
+    if (filter === "edited" && !g.items.some(function (k) { return t[k]; })) return false;
+    q = q.trim().toLowerCase();
+    return !q || g.items.some(function (k) { return k.toLowerCase().indexOf(q) >= 0 || (t[k] || "").toLowerCase().indexOf(q) >= 0; });
+  }
+
+  function renderText() {
+    var pg = state.pg, t = pg.edits.text, filter = $("pg-filter").value, q = $("pg-search").value;
+    var html = pg.groups.filter(function (g) { return showsGroup(g, filter, q); }).map(function (g) {
+      var edited = g.items.some(function (k) { return t[k]; });
+      return '<div class="tgroup' + (edited ? " edited" : "") + '"><div class="tag">' + esc(TAGS[g.tag] || "Text") + "</div>" +
+        g.items.map(function (k) {
+          var v = t[k] || k;
+          return '<div class="titem' + (/^h[1-4]$/.test(g.tag) ? " h" : "") + '" data-key="' + esc(k) + '">' +
+            '<textarea class="input" rows="1" maxlength="2000">' + esc(v) + "</textarea>" +
+            '<div class="was"' + (t[k] ? "" : " hidden") + '><span>Original: ' + esc(k) + '</span><button class="link" data-restore>Restore</button></div></div>';
+        }).join("") + "</div>";
+    }).join("");
+    $("pg-text").innerHTML = html || '<p class="hint">' + (pg.groups.length ? "Nothing matches." : "No editable text found on this page.") + "</p>";
+    $("pg-text").querySelectorAll("textarea").forEach(autoSize);
+  }
+
+  // Grows each box to fit its text. Hidden boxes have no height yet; they are sized when the tab opens.
+  function autoSize(ta) {
+    if (!ta.offsetParent) return;
+    ta.style.height = "auto";
+    ta.style.height = ta.scrollHeight + 2 + "px";
+  }
+
+  function setTextEdit(item, value) {
+    var key = item.getAttribute("data-key"), t = state.pg.edits.text;
+    var v = value.replace(/\s+/g, " ").trim();
+    if (v && v !== key) t[key] = v; else delete t[key];
+    item.querySelector(".was").hidden = !t[key];
+    var g = item.closest(".tgroup");
+    g.classList.toggle("edited", [].some.call(g.querySelectorAll(".titem"), function (x) { return t[x.getAttribute("data-key")]; }));
+    pageChanged();
+  }
+
+  $("pg-text").addEventListener("input", function (e) {
+    if (e.target.tagName !== "TEXTAREA") return;
+    autoSize(e.target);
+    setTextEdit(e.target.closest(".titem"), e.target.value);
+  });
+  // An emptied box goes back to the original text rather than leaving a gap on the page.
+  $("pg-text").addEventListener("focusout", function (e) {
+    if (e.target.tagName === "TEXTAREA" && !e.target.value.trim()) {
+      e.target.value = e.target.closest(".titem").getAttribute("data-key");
+      autoSize(e.target);
+    }
+  });
+  $("pg-text").addEventListener("focusin", function (e) {
+    var item = e.target.closest(".titem"), f = frameApi();
+    if (item && f) f.show("text", item.getAttribute("data-key"));
+  });
+  $("pg-text").addEventListener("click", function (e) {
+    if (!e.target.hasAttribute("data-restore")) return;
+    var item = e.target.closest(".titem"), ta = item.querySelector("textarea");
+    ta.value = item.getAttribute("data-key");
+    autoSize(ta);
+    setTextEdit(item, ta.value);
+  });
+  $("pg-search").addEventListener("input", renderText);
+  $("pg-filter").addEventListener("change", renderText);
+
+  // ── Images ──
+  function siteUrl(src) { return /^(https?:|\/)/.test(src) ? src : "/" + src; }
+
+  function renderImages() {
+    var pg = state.pg, ed = pg.edits.images;
+    $("pg-images").innerHTML = pg.images.map(function (im) {
+      var o = ed[im.src] || {};
+      var cur = o.src || im.src;
+      return '<div class="icard' + (o.src || o.alt ? " edited" : "") + '" data-key="' + esc(im.src) + '">' +
+        '<div class="im" data-replace style="background-image:url(\'' + esc(siteUrl(cur)).replace(/'/g, "%27") + '\')" title="Replace image"></div>' +
+        '<div style="min-width:0"><div class="fn">' + esc(o.src ? "New image (was " + im.src.split("/").pop() + ")" : im.src.split("/").pop()) + "</div>" +
+        '<div class="acts"><button class="link" data-replace>Replace</button>' + (o.src ? '<button class="link danger" data-restore-img>Restore original</button>' : "") + "</div>" +
+        '<input class="input" maxlength="200" placeholder="' + esc(im.alt || "Describe the image") + '" value="' + esc(o.alt || "") + '" aria-label="Image description (alt text)">' +
+        "</div></div>";
+    }).join("") || '<p class="hint">No images on this page.</p>';
+  }
+
+  function setImageEdit(key, field, value) {
+    var ed = state.pg.edits.images;
+    var o = Object.assign({ src: "", alt: "" }, ed[key]);
+    o[field] = value;
+    if (o.src || o.alt) ed[key] = o; else delete ed[key];
+    if (field === "src") renderImages();
+    else {
+      var card = null;
+      $("pg-images").querySelectorAll(".icard").forEach(function (c) { if (c.getAttribute("data-key") === key) card = c; });
+      if (card) card.classList.toggle("edited", !!ed[key]);
+    }
+    pageChanged();
+  }
+
+  $("pg-images").addEventListener("click", function (e) {
+    var card = e.target.closest(".icard");
+    if (!card) return;
+    var key = card.getAttribute("data-key");
+    if (e.target.hasAttribute("data-replace")) pickImage("page", key);
+    if (e.target.hasAttribute("data-restore-img")) setImageEdit(key, "src", "");
+  });
+  $("pg-images").addEventListener("input", function (e) {
+    if (e.target.tagName === "INPUT") setImageEdit(e.target.closest(".icard").getAttribute("data-key"), "alt", e.target.value.trim());
+  });
+  $("pg-images").addEventListener("focusin", function (e) {
+    var card = e.target.closest(".icard"), f = frameApi();
+    if (card && f) f.show("img", card.getAttribute("data-key"));
+  });
+
+  // ── Save ──
+  function savePage(edits, msg) {
+    busy(true);
+    return api("/api/admin/pages", { method: "POST", body: { page: state.pg.id, data: edits } }).then(function (d) {
+      state.site = d.content;
+      setPageDirty(false);
+      toast(msg);
+    }).catch(function (e) { toast(e.message, true); }).finally(function () { busy(false); });
+  }
+
+  $("pg-save").addEventListener("click", function () {
+    if (!state.pg.ready) return;
+    savePage(state.pg.edits, "Saved. Live on the website in about a minute.");
+  });
+
+  $("pg-reset").addEventListener("click", function () {
+    if (!state.pg.ready || !countEdits(state.pg.edits) && !countEdits(state.site.pages[state.pg.id])) return toast("This page has no edits.");
+    if (!confirm("Undo every edit on " + PAGES[state.pg.id] + " and go back to the original page? This is published straight away.")) return;
+    state.pg.edits = blankEdits();
+    $("pg-title").value = $("pg-desc").value = "";
+    renderGoogle();
+    renderText();
+    renderImages();
+    pushPreview();
+    savePage(state.pg.edits, "All edits undone. The original page is back.");
+  });
+
+  $("pg-back").addEventListener("click", function () { location.hash = "#/pages"; });
 
   // ── Boot ─────────────────────────────────────────────────────────────
   api("/api/admin/login").then(function (d) {
